@@ -1,0 +1,14 @@
+{
+    "cSpell.words": [
+        "Abubakar",
+        "Ahsan",
+        "Hafeez",
+        "Moiz"
+    ],
+    "git.ignoreLimitWarning": true,
+    "editor.mouseWheelZoom": true,
+    "[python]": {
+        "editor.defaultFormatter": "ms-python.python"
+    },
+    "python.formatting.provider": "none"
+}
