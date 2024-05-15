@@ -7,13 +7,13 @@ with open("Projects\Mail Merge Project\main.txt","r") as names:
 
 # print(name)
 
-with open("Projects\Mail Merge Project\letter.txt","r") as letter:
+with open("Projects/Mail Merge Project\letter.txt","r") as letter:
     # read the entire file
     letter_content=letter.read()
     # we get through a list 
     for identity in name:
         # find [name] in the letter file  and replace that to name of each person
-        # \n is remove here using strip()
+        # \n  remove here using strip()
         strip_name=identity.strip()
         # replace(), replace the content present in (Place holder ) and change that (Place holder) content with strip content
         new_letter=letter_content.replace(PlaceHolder,strip_name)

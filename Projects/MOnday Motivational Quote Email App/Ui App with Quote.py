@@ -14,16 +14,16 @@ from tkinter import messagebox
 
 
 #!  --- UI ---
-# Simple Email Sender App by Abubakar Hafeez
+# Email Sender App with Quote by Abubakar Hafeez
 window=Tk()
-window.title("Simple Email Sender App")
+window.title("Simple Email Sender App with Quote")
 window.config(padx=80,pady=100)
 # # canvas
 # canvas=Canvas(height=200, width=200)
 # canvas.grid(row=0,column=0)
 
 # ! Labels 
-title_label=Label(text="Simple Email Sender App",font=("Ariel",30,"bold"),fg="red")
+title_label=Label(text="Simple Email Sender App \n with Quote",font=("Ariel",30,"bold"),fg="red")
 title_label.grid(row=0,column=0)
 
 receiver_label=Label(text="To: ",font=("Arial",20,"italic"))
@@ -99,8 +99,9 @@ def send_email():
 
 
 submit_button=Button(text="Send Email",command=send_email)
-submit_button.grid(row=4,column=1)
-
+submit_button.grid(row=5,column=1)
+quote_button=Button(text="Generate Quote")
+quote_button.grid(row=4,column=1)
 
 
 
