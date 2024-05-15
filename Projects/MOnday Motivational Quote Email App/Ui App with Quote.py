@@ -1,6 +1,6 @@
 from tkinter import *
 from tkinter import messagebox
-
+import random
 
 #! Working
 # Take Receiver Email
@@ -42,7 +42,7 @@ receiver_entry.insert(0, "@gmail.com")
 subject_entry=Entry(width=40)
 subject_entry.grid(row=2,column=1)
 
-message_entry=Text( width=34, height=7) 
+message_entry=Text( width=50, height=10) 
 message_entry.grid(row=3,column=1)
 
 # ! BUtton
@@ -82,6 +82,14 @@ def email(message_body, receiver_email, subject):
 
 
 #! Button Function:
+def quote_generate():
+    with open("cleaned_quotes.txt") as quote_file:
+        all_quotes=quote_file.readlines()
+        quote=random.choice(all_quotes)
+    print(quote)
+    message_entry.insert(1.0,quote)
+
+
 def send_email():
     # get data entered by the user
     receiver_email=receiver_entry.get()
@@ -100,7 +108,7 @@ def send_email():
 
 submit_button=Button(text="Send Email",command=send_email)
 submit_button.grid(row=5,column=1)
-quote_button=Button(text="Generate Quote")
+quote_button=Button(text="Generate Quote",command=quote_generate)
 quote_button.grid(row=4,column=1)
 
 
