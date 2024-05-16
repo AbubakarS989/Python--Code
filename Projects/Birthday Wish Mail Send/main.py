@@ -5,7 +5,7 @@ import random
 moth=dt.datetime.now().month
 # current day
 day=dt.datetime.now().day
-# combine them into tuple
+# combine them to make  tuple
 today=(moth,day)
 # print(today)
 
