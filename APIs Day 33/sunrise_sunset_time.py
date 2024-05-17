@@ -24,7 +24,7 @@ data=response.json()
 sunrise=data["results"]["sunrise"]
 sunset=data["results"]["sunset"]
 print(sunrise)
-print(sunset)
+print(sunset)   
 
 # take hour value from the entire date time
 list_data_R=sunrise.split(":")
