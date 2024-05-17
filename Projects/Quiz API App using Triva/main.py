@@ -3,6 +3,10 @@ from question_model import Question
 from quiz_brain import QuizBrain
 import requests
 from ui import QuizInterface
+
+
+
+
 # ! Unescape character Website
 # https://www.freeformatter.com/html-escape.html#before-output
 
@@ -13,13 +17,8 @@ from ui import QuizInterface
 # https://opentdb.com/api_config.php
 
 
-
-
-
-
-
 # ! Get data from the Trivia Data base API
-response=requests.get(url="https://opentdb.com/api.php?amount=10&category=9&difficulty=medium&type=boolean")
+response=requests.get(url="https://opentdb.com/api.php?amount=20&category=9&difficulty=medium&type=boolean")
 response.raise_for_status()
 question_data=response.json()["results"]
 # print(question_data)
@@ -31,8 +30,6 @@ for question in question_data:
     question_answer = question["correct_answer"]
     new_question = Question(question_text, question_answer)
     question_bank.append(new_question)      
-
-
 
 # App UI
 
