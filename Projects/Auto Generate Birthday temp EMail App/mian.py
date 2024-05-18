@@ -3,7 +3,12 @@ from tkinter import *
 from tkinter import messagebox
 from Email_emplate import Send_Email
 
-
+# ! features
+# Letter temp generate randomly press on button
+# the content delete before the new letter display
+# email security
+# Email Template 
+# Make it colorful
 
 
 
@@ -73,17 +78,6 @@ canvas.create_window(150, 450, window=generate_button)
 send_email_button = Button(window, text="Send Email", bg="red", fg="white",command=email_button)
 # Add the button widget to the canvas at position (200, 150)
 canvas.create_window(350, 450, window=send_email_button)
-
-
-
-
-
-
-
-
-
-
-
 
 window.mainloop()
 
