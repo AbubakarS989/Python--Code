@@ -2,8 +2,10 @@
 # Account Class with 2 attributes - balance & account no.
 # Create methods for debit, credit and printing the balance
 
+# Features
 # debit - minus amount
 # credit -add amount
+# Total balance
 
 
 class Bank_Account:
@@ -15,7 +17,7 @@ class Bank_Account:
         credit_v = int(input("Enter your credit amount:"))
         self.Acount_data[self.Acc_No] = credit_v
         print(f"Rs:{credit_v} is credited")
-
+        
     def debit(self):
         self.Acc_No = int(input("Enter your Account No."))
         if self.Acc_No in self.Acount_data:

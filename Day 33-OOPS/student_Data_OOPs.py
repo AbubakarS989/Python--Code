@@ -44,6 +44,7 @@ class Student_data:
 
 def student_data():
     class_12 = Student_data()
+
     while True:
         key = int(input(
             "Select one of the below:\n1:Add Student\n2:Find Student\n3:Delete Student\n4:See Records\n"))
