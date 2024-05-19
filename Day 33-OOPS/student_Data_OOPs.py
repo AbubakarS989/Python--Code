@@ -10,8 +10,8 @@ class Student_data:
             self.age = int(input("Enter your age:"))
             # D_dict.update({self.name:self.age})
             self.D_dict[self.name] = self.age
-            print("Student Add Successfully!")
-
+        print("Students Add Successfully!")
+ 
     def find_student(self):
         name = input("Enter required Student Name:")
         if name in self.D_dict:
@@ -60,3 +60,4 @@ def student_data():
             return False
 
 
+# student_data()

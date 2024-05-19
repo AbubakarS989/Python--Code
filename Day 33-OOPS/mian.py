@@ -1,22 +1,36 @@
-# class student():
-#     def __init__(self):
-#         self.name
-#         self.age
-#         self.level
-#     def detail(self,name,age,level):
-#         print(f"Your name is: {self.name}\nYour Class is:{self.level}\nYour age is:{self.level}")
+class Student():
+    def __init__(self):  
+        # !Details
+        # Attributes (Data,Var)
+        # Data that we want to access globally are assigned in (init function)
+        # and
+        # Data that is diff with other object like,name ,age can be diff so
+        # these are assigned with (self)variable
+        print("New Object is creating....")
+    def detail(self):  # Method (Function)
+        self.name=input("Enter Name")
+        self.age=int(input("Enter your age:"))
+        self.level=int(input("Enter your class:"))
+        print(f"Your name is: {self.name}\nYour Class is:{self.level}\nYour age is:{self.age}")
 
+    def names(self):
+        print(f"Your name is: {self.name}")
+student_1=Student()
+student_1.detail()
+student_1.names()
 
-# student_1=student.detail()
-# student_1.name("Ali")
-# student_1.age(21)
-# student_1.level(13)
 
 
 # student_2=student()
 # student_2.name("Ahmad")
 # student_2.age(12)
 # student_2.level(14)
+# !Attributes -> Any data , variable 
+# Class Attr -> written outside the func
+# obj Attr  --> written in any method(function)
+
+
+# ! Class is a collection of 2 things 1:Attributes(Data,Var) 2: Methods(Functions)
 
 
 # class Student:
