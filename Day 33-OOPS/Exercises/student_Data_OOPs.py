@@ -2,7 +2,7 @@
 # program to add names and age in dict:
 class Student_data:
     def __init__(self):
-        self.D_dict = {}
+        self.D_dict = {}  # globally accessible
 
     def add_student(self):
         for _ in range(1):
@@ -43,8 +43,8 @@ class Student_data:
 
 
 def student_data():
-    class_12 = Student_data()
 
+    class_12 = Student_data()
     while True:
         key = int(input(
             "Select one of the below:\n1:Add Student\n2:Find Student\n3:Delete Student\n4:See Records\n"))

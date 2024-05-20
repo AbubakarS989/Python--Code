@@ -4,7 +4,8 @@
 # ! Encapsulation
 # ! Inheritance-> types: single,multi-level,multiple
 # ! super method- inherit the parent methods
-# ! polymorphous
+# ! polymorphism - one thing is used can be use as different ways
+# ! poly- many , morph -different
 
 # ! Del Keyword
 # ! Private (Like) Attributes and methods
@@ -42,7 +43,7 @@ class car:
     def stop(self):
         print("Stop the car..")
 
-
+    
 
 class toyotacar(car):
     def color(self,color):
@@ -69,3 +70,25 @@ car2.door() # from class Car
 # ! single
 # !multi-level
 # !multiple
+
+
+
+
+# ! polymorphism - one thing is used can be use as different ways
+# ! operator overloading
+# Operator and Dunder functions
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
