@@ -2,6 +2,7 @@ import random
 import json
 from Email_emplate import  Send_Email
 from User_dashboard import user_select
+from email_msg import Email_Msg
 
 # ! Features
 # take name, gmail, password, 4-pin
@@ -34,10 +35,11 @@ class User:
             "pin": self.pin
         }
 
-class UserManager:
+class UserManager():
     def __init__(self, filename):
         self.filename = filename
         self.user_data = self.read_data()
+        
 
     def read_data(self):
         try:
@@ -52,13 +54,13 @@ class UserManager:
             json.dump(self.user_data, file)
 
     def create_user(self):
-        name = input("Enter name: ")
+        self.name = input("Enter name: ")
         self.gmail = input("Enter Gmail: ")
 
         # Validate password strength
         while True:
             self.password = input("Enter password: ")
-            if len(self.password) < 6 or not any(char.isdigit() for char in self.password) or not any(char.isalpha() for char in password):
+            if len(self.password) < 6 or not any(char.isdigit() for char in self.password) or not any(char.isalpha() for char in self.password):
                 print("Password is weak. It must have at least 6 characters and contain both letters and numbers.")
             else:
                 break
@@ -71,7 +73,7 @@ class UserManager:
             else:
                 break
         self.valid_email()
-        user = User(name, self.gmail, self.password, int(self.pin))
+        user = User(self.name, self.gmail, self.password, int(self.pin))
         self.add_user(user)
         
 
@@ -85,17 +87,18 @@ class UserManager:
         print("Generated ID:", id)
         print("This is your ID. Save it, as it will be used to access, edit, and for every transaction you make!")
         print("Updated user data:")
-        user_select(id,self.gmail,self.pin,password)
+        user_select(id,self.gmail,self.pin,self.password)
         
     def valid_email(self):
         # check email address        
         def check_email(gmail):
             pin=random.randint(1000, 9999)
             subject="Email Authentication Code"
-            message=f"Your Secret pin: {pin}. Don't share it with anyone"
+            message=Email_Msg(pin,self.name,self.gmail)
             # Code Send to user EMail
             is_ok=Send_Email(self.gmail,message,subject)  
             if is_ok:
+                print("The 4-Digit Pin is send to your Email:")
                 while True:
                     get_pin = int(input("Enter your 4-Digit Pin: "))
                     if get_pin == pin:

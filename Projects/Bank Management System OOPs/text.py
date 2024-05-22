@@ -1,23 +1,3 @@
-# if id in not found to create new account
-# after log in with id and (pin or password)
-# USer dashboard
-# add money
-# withdraw money
-# show balance
-# !send money
-# loan
-# Security settings ->
-# delete Account-->
-# Account name
-# id
-# pin
-# gmail code for authentication
-# change pass
-# change pin
-# change email
-# change numbers wts
-
-#! all these changes need two step verification
 import datetime as dt
 import json
 
@@ -248,4 +228,4 @@ def user_select():
             break
 
 # Run the user selection
-# user_select()
+user_select()

@@ -16,7 +16,7 @@ def Send_Email(receive_email,content,Subject):
 
     # Add body to email
     body = content
-    message.attach(MIMEText(body, "plain"))
+    message.attach(MIMEText(body, "html"))
     try:
         # Connect to Gmail's SMTP server
         server = smtplib.SMTP("smtp.gmail.com", 587)
