@@ -20,6 +20,9 @@
 #! all these changes need two step verification
 import datetime as dt
 import json
+import random
+from Email_emplate import  Send_Email
+from email_msg import Email_Msg
 
 class UserDashboard:
     def __init__(self):
@@ -156,6 +159,70 @@ class UserDashboard:
         sett = SecuritySettings(self.user_id, self.user_data[self.user_id]["gmail"], self.user_pin, self.user_data[self.user_id]["password"])
         sett.list_of_settings()
 
+    def forgot_pin(self):
+        user_id = input("Enter your Account ID: ")
+        self.email = input("Enter your registered Email: ")
+
+        if user_id in self.user_data and self.user_data[user_id]["gmail"] == self.email:
+            verification_code = str(random.randint(1000, 9999))
+            
+            # Simulate sending the verification code via email
+            receiver_name = self.user_data[user_id]["name"]
+            message=Email_Msg(verification_code,receiver_name,self.email)
+            subject="Email Authentication Code"
+            # Code Send to user EMail
+            if Send_Email(self.email,message,subject):
+                
+                print(f"A verification code has been sent to your email:")
+                entered_code = input("Enter the verification code sent to your email: ")
+                
+                if entered_code == verification_code:
+                    new_pin = input("Enter your new 4-digit PIN: ")
+                    self.user_data[user_id]["pin"] = int(new_pin)
+                    self.write_data("Json/data.json", self.user_data)
+                    print("Your PIN has been successfully updated.")
+                else:
+                    print("Incorrect verification code.")
+            else:
+                print("Invalid Email.")
+        else:
+            print("Account ID and email do not match our records.")
+            
+    def forgot_id(self):
+        print("1: Verify by Email")
+        print("2: Verify by PIN")   
+        choice = int(input("Enter your choice: "))
+        if choice == 1:
+            email = input("Enter your registered Email: ")
+            found = False
+            for user_id, user_info in self.user_data.items():
+                if user_info["gmail"] == email:
+                    self.generated_code = str(random.randint(1000, 9999))
+                    receiver_name=self.user_data[user_id]["name"]
+                    message=Email_Msg(self.generated_code,receiver_name,email) 
+                    subject="Email Authentication Code"  
+                    Send_Email(email,message,subject)
+                    verification_code = input("Enter the verification code sent to your email: ")
+                    if verification_code == self.generated_code:
+                        print(f"Your Account ID is: {user_id}")
+                        found = True
+                        break
+            if not found:
+                print("Email not found in our records.")
+
+        elif choice == 2:
+            pin = int(input("Enter your 4-digit PIN: "))
+            found = False
+            for user_id, user_info in self.user_data.items():
+                if user_info["pin"] == pin:
+                    print(f"Your Account ID is: {user_id}")
+                    found = True
+                    break
+            if not found:
+                print("PIN not found in our records.")
+        else:
+            print("Invalid choice.")
+    
 class SecuritySettings(UserDashboard):
     def __init__(self, user_id, gmail, pin, password):
         self.id = user_id

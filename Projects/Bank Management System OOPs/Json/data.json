@@ -1,62 +1,50 @@
 {
-  "49": {
-    "name": "her",
-    "gmail": "@gmail.com",
-    "pass": "78@hsdf)",
-    "PIN": 8767
-  },
-  "41": {
-    "name": "ahmad",
-    "gmail": "@gmail.com",
-    "password": "ifwi8242*&w",
-    "pin": 7834
-  },
-  "59": {
-    "name": "ahdha",
-    "gmail": "a",
-    "password": "hsdiuh893475",
-    "pin": 3432
-  },
-  "63": {
-    "name": "aha",
-    "gmail": "wfiwu23",
-    "password": "ndfin3497&(7923",
-    "pin": 8788
-  },
-  "2": {
-    "name": "abubakar",
-    "gmail": "aubakar",
-    "password": "34dj347(*@wdjfbj",
-    "pin": 8787
-  },
-  "86": {
-    "name": "abubakar",
-    "gmail": "sgni",
-    "password": "nidbfiw&(*978",
-    "pin": 9898
-  },
-  "11": {
-    "name": "dbfiws",
-    "gmail": "abubakarhafeez66@gmail.com",
-    "password": "hrt3894y*&",
-    "pin": 9898
-  },
-  "100": {
-    "name": "abubakar",
-    "gmail": "abubakarhafeez66@gmail.com",
-    "password": "iwbfiwg9&^(H239",
-    "pin": 9899
-  },
-  "46": {
-    "name": "Abubakar",
-    "gmail": "abubakarhafeez66@gmail.com",
-    "password": "abub989_*7",
-    "pin": 9898
-  },
-  "44": {
-    "name": "Black Rose",
-    "gmail": "na706343@gmail.com",
-    "password": "fgr9y&*)(0",
-    "pin": 9899
-  }
+    "49": {
+        "name": "her",
+        "gmail": "@gmail.com",
+        "pass": "78@hsdf)",
+        "PIN": 8767
+    },
+    "41": {
+        "name": "ahmad",
+        "gmail": "@gmail.com",
+        "password": "ifwi8242*&w",
+        "pin": 7834
+    },
+    "59": {
+        "name": "ahdha",
+        "gmail": "a",
+        "password": "hsdiuh893475",
+        "pin": 3432
+    },
+    "63": {
+        "name": "aha",
+        "gmail": "wfiwu23",
+        "password": "ndfin3497&(7923",
+        "pin": 8788
+    },
+    "2": {
+        "name": "abubakar",
+        "gmail": "aubakar",
+        "password": "34dj347(*@wdjfbj",
+        "pin": 8787
+    },
+    "86": {
+        "name": "abubakar",
+        "gmail": "sgni",
+        "password": "nidbfiw&(*978",
+        "pin": 9898
+    },
+    "46": {
+        "name": "Abubakar",
+        "gmail": "abubakarhafeez66@gmail.com",
+        "password": "abub989_*7",
+        "pin": 9897
+    },
+    "44": {
+        "name": "Black Rose",
+        "gmail": "na706343@gmail.com",
+        "password": "fgr9y&*)(0",
+        "pin": 9899
+    }
 }
