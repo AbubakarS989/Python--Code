@@ -5,7 +5,7 @@
 # ! Inheritance-> types: single,multi-level,multiple
 # ! super method- inherit the parent methods
 # ! polymorphism - one thing is used can be use as different ways
-# ! poly- many , morph -different
+# ! poly-> many , morph -> different
 
 # ! Del Keyword
 # ! Private (Like) Attributes and methods

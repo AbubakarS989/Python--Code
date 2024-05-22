@@ -8,12 +8,12 @@ day=current_date.weekday()
 second=current_date.second
 microsecond=current_date.microsecond
 print(current_date)
-print(year)
-print(month)
-print(date)
-print(day) #0-monday 1-tuesday....
-print(second)
-print(microsecond)
+# print(year)
+# print(month)
+# print(date)
+# print(day) #0-monday 1-tuesday....
+# print(second)
+# print(microsecond)
 
 
 
