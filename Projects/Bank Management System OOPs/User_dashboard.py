@@ -4,7 +4,7 @@
 # add money
 # withdraw money
 # show balance
-# !send money
+# send money
 # loan
 # Security settings ->
 # delete Account-->
@@ -17,18 +17,37 @@
 # change email
 # change numbers wts
 
+# !Functions List that are created in this file
+# read_data
+# write_data
+# authenticate_user
+# money_dict
+# add_money
+# withdraw
+# show_balance
+# get_loan
+# send_money
+# record_transaction
+# security_settings
+# forgot_pin
+# forgot_id
+
+
 #! all these changes need two step verification
 import datetime as dt
 import json
 import random
-from Email_emplate import  Send_Email
+# from Security_Settings_file import SecuritySettings
+from Email_emplate import Send_Email
 from email_msg import Email_Msg
+
 
 class UserDashboard:
     def __init__(self):
         self.user_data = self.read_data("Json/data.json")
         self.data = self.read_data("Json/money.json")
         self.transactions = self.read_data("Json/transactions.json")
+        self.deleted_users = self.read_data("Json/deleted_users.json")
         self.current_date = dt.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
         self.bank_loan_limit = 10000
         self.user_id = None
@@ -48,13 +67,16 @@ class UserDashboard:
         with open(file_path, "w") as file:
             json.dump(data, file, indent=4
                       )
+
     def authenticate_user(self):
         self.user_id = input("Enter your Account ID: ")
         if str(self.user_id) in self.user_data:
             self.user_pin = int(input("Enter your 4-Digit Pin: "))
             if self.user_data[str(self.user_id)]["pin"] == self.user_pin:
-                self.money = self.data.get(str(self.user_id), {}).get("balance", 0)
-                self.user_loan = self.data.get(str(self.user_id), {}).get("loan", 0)
+                self.money = self.data.get(
+                    str(self.user_id), {}).get("balance", 0)
+                self.user_loan = self.data.get(
+                    str(self.user_id), {}).get("loan", 0)
                 return True
             else:
                 print("Invalid PIN, Try Again.")
@@ -70,6 +92,7 @@ class UserDashboard:
             "Date": self.current_date,
             "loan": self.user_loan
         }
+
     def add_money(self):
         if self.authenticate_user():
             amount = int(input("Enter your Amount RS: "))
@@ -86,15 +109,16 @@ class UserDashboard:
                 self.money -= amount
                 self.data[str(self.user_id)]["balance"] = self.money
                 self.write_data("Json/money.json", self.data)
-                self.record_transaction(str(self.user_id), "Withdrawal", amount)
-                print("Amount Withdrawn Successfully")                
+                self.record_transaction(
+                    str(self.user_id), "Withdrawal", amount)
+                print("Amount Withdrawn Successfully")
             else:
                 print("Insufficient Balance")
 
     def show_balance(self):
         if self.authenticate_user():
             user_money = self.data[str(self.user_id)]["balance"]
-            
+
             print(f"Your Current Balance is: {user_money}")
             print(f"Loan you have: {self.data[str(self.user_id)]["loan"]} ")
 
@@ -104,12 +128,14 @@ class UserDashboard:
             if self.loan_amount <= self.bank_loan_limit:
                 self.user_loan += self.loan_amount
                 self.data[str(self.user_id)]["loan"] += self.loan_amount
+                self.data[str(self.user_id)]["balance"] += self.loan_amount
                 self.write_data("Json/money.json", self.data)
                 self.record_transaction(self.user_id, "Loan", self.loan_amount)
+                net_balance = self.money+self.user_loan
                 print("Loan Deposited to your Account")
                 print(f"Current Balance: {self.money}")
                 print(f"Loan Amount: {self.loan_amount}")
-                print(f"Net Balance: {self.money}")
+                print(f"Net Balance: {net_balance}")
             else:
                 print("Loan Amount exceeds Bank Loan Limit")
 
@@ -118,10 +144,12 @@ class UserDashboard:
             recipient_id = input("Enter the Recipient's Account ID: ")
             if recipient_id in self.user_data:
                 recipient_name = self.user_data[recipient_id]["name"]
-                amount = int(input(f"Enter Amount to Send to {recipient_name}: "))
+                amount = int(
+                    input(f"Enter Amount to Send to {recipient_name}: "))
                 if amount <= self.money:
                     self.money -= amount
-                    recipient_balance = self.data.get(recipient_id, {}).get("balance", 0) + amount
+                    recipient_balance = self.data.get(
+                        recipient_id, {}).get("balance", 0) + amount
                     self.data[recipient_id] = {
                         "balance": recipient_balance,
                         "pin": self.user_data[recipient_id]["pin"],
@@ -130,7 +158,8 @@ class UserDashboard:
                     }
                     self.data[self.user_id]["balance"] = self.money
                     self.write_data("Json/money.json", self.data)
-                    self.record_transaction(self.user_id, "Send Money", amount, recipient_id)
+                    self.record_transaction(
+                        self.user_id, "Send Money", amount, recipient_id)
                     sender_name = self.user_data[self.user_id]["name"]
                     print(f"Recipient Name: {recipient_name}")
                     print(f"Recipient Account ID: {recipient_id}")
@@ -141,6 +170,7 @@ class UserDashboard:
                     print("Insufficient Balance")
             else:
                 print("Invalid Recipient ID, User Not Found")
+
     def record_transaction(self, user_id, transaction_type, amount, recipient_id=None):
         transaction = {
             "Date": self.current_date,
@@ -154,10 +184,12 @@ class UserDashboard:
         else:
             self.transactions[user_id] = [transaction]
         self.write_data("Json/transactions.json", self.transactions)
-        
-    def security_settings(self):
-        sett = SecuritySettings(self.user_id, self.user_data[self.user_id]["gmail"], self.user_pin, self.user_data[self.user_id]["password"])
-        sett.list_of_settings()
+
+    def security_settings_module(self):
+        if self.authenticate_user():
+            security_settings = SecuritySettings(
+                self.user_id, self.user_data[self.user_id]["gmail"], self.user_pin, self.user_data[self.user_id]["password"],self.transactions,self.deleted_users)
+            security_settings.list_of_settings()
 
     def forgot_pin(self):
         user_id = input("Enter your Account ID: ")
@@ -165,17 +197,17 @@ class UserDashboard:
 
         if user_id in self.user_data and self.user_data[user_id]["gmail"] == self.email:
             verification_code = str(random.randint(1000, 9999))
-            
             # Simulate sending the verification code via email
             receiver_name = self.user_data[user_id]["name"]
-            message=Email_Msg(verification_code,receiver_name,self.email)
-            subject="Email Authentication Code"
+            message = Email_Msg(verification_code, receiver_name, self.email)
+            subject = "Email Authentication Code"
             # Code Send to user EMail
-            if Send_Email(self.email,message,subject):
-                
+            if Send_Email(self.email, message, subject):
+
                 print(f"A verification code has been sent to your email:")
-                entered_code = input("Enter the verification code sent to your email: ")
-                
+                entered_code = input(
+                    "Enter the verification code sent to your email: ")
+
                 if entered_code == verification_code:
                     new_pin = input("Enter your new 4-digit PIN: ")
                     self.user_data[user_id]["pin"] = int(new_pin)
@@ -187,10 +219,10 @@ class UserDashboard:
                 print("Invalid Email.")
         else:
             print("Account ID and email do not match our records.")
-            
+
     def forgot_id(self):
         print("1: Verify by Email")
-        print("2: Verify by PIN")   
+        print("2: Verify by PIN")
         choice = int(input("Enter your choice: "))
         if choice == 1:
             email = input("Enter your registered Email: ")
@@ -198,11 +230,13 @@ class UserDashboard:
             for user_id, user_info in self.user_data.items():
                 if user_info["gmail"] == email:
                     self.generated_code = str(random.randint(1000, 9999))
-                    receiver_name=self.user_data[user_id]["name"]
-                    message=Email_Msg(self.generated_code,receiver_name,email) 
-                    subject="Email Authentication Code"  
-                    Send_Email(email,message,subject)
-                    verification_code = input("Enter the verification code sent to your email: ")
+                    receiver_name = self.user_data[user_id]["name"]
+                    message = Email_Msg(self.generated_code,
+                                        receiver_name, email)
+                    subject = "Email Authentication Code"
+                    Send_Email(email, message, subject)
+                    verification_code = input(
+                        "Enter the verification code sent to your email: ")
                     if verification_code == self.generated_code:
                         print(f"Your Account ID is: {user_id}")
                         found = True
@@ -222,13 +256,20 @@ class UserDashboard:
                 print("PIN not found in our records.")
         else:
             print("Invalid choice.")
-    
+
+# class SecuritySettings(UserDashboard):
+
 class SecuritySettings(UserDashboard):
-    def __init__(self, user_id, gmail, pin, password):
+    def __init__(self, user_id, gmail, pin, password, transactions, deleted_users):
+        super().__init__()
+        self.transactions = transactions
+        self.deleted_users = deleted_users
         self.id = user_id
         self.gmail = gmail
         self.pin = pin
         self.password = password
+        self.user_data = self.read_data("Json/data.json")
+        self.data = self.read_data("Json/money.json")
 
     def list_of_settings(self):
         print("---------SECURITY SETTINGS-----------\n")
@@ -237,10 +278,10 @@ class SecuritySettings(UserDashboard):
         print("3: Change PIN")
         print("4: Change Email")
         print("5: Change Number")
-        print("6: Whatsapp Authentication ON")
+        print("6: WhatsApp Authentication ON")
         print("7: Back To USER DASHBOARD")
         print("8: Exit")
-        
+
         while True:
             key = int(input("Enter your choice: "))
             if key == 1:
@@ -252,38 +293,61 @@ class SecuritySettings(UserDashboard):
             elif key == 4:
                 self.change_email()
             elif key == 5:
-                self.change_number()
+                # self.change_number()
+                pass
             elif key == 6:
                 self.whatsapp_authentication()
             elif key == 7:
                 break
             elif key == 8:
                 print("Logging Out...")
-                break
+                exit()
 
     def delete_account(self):
-        # Implement account deletion
-        pass
+        confirmation = input(
+            "Are you sure you want to delete your account? (yes/no): ")
+        if confirmation.lower() == "yes":
+            user_id_str = str(self.id)
+            if user_id_str in self.user_data:
+                verification_code = random.randint(1000, 9999)
+                receiver_name = self.user_data[user_id_str]["name"]
+                message = Email_Msg(verification_code,
+                                    receiver_name, self.gmail)
+                subject = "Account Deletion Code"
+                # Code Send to user EMail
+                if Send_Email(self.gmail, message, subject):
+                    print(f"A verification code has been sent to your email:")
+                    entered_code = int(
+                        input("Enter the verification code sent to your email: "))
 
-    def change_password(self):
-        # Implement password change
-        pass
+                    if entered_code == verification_code:
+                        deleted_user_data = {
+                            "Date": self.current_date,
+                            "user_data": self.user_data[user_id_str],
+                            "money_data": self.data.get(user_id_str, {}),
+                            "transactions": self.transactions.get(user_id_str, [])
+                        }
+                        self.deleted_users[user_id_str] = deleted_user_data
+                        
+                        del self.user_data[user_id_str]
+                        del self.data[user_id_str]
+                        del self.transactions[user_id_str]
+                        
+                        self.write_data("Json/data.json", self.user_data)
+                        self.write_data("Json/money.json", self.data)
+                        self.write_data("Json/transactions.json", self.transactions)
+                        self.write_data("Json/deleted_users.json", self.deleted_users)
+                        print("Account deleted successfully.")
+                else:
+                    print("Invalid Code.")
+        else:
+            print("Account deletion cancelled.")
+            
+        def whatsapp_authentication(self):
+            print("WhatsApp authentication is now enabled.")
+            # Implement WhatsApp authentication logic
 
-    def change_pin(self):
-        # Implement PIN change
-        pass
 
-    def change_email(self):
-        # Implement email change
-        pass
-
-    def change_number(self):
-        # Implement number change
-        pass
-
-    def whatsapp_authentication(self):
-        # Implement WhatsApp authentication
-        pass
 
 def user_select():
     dashboard = UserDashboard()
@@ -309,10 +373,16 @@ def user_select():
         elif key == 5:
             dashboard.get_loan()
         elif key == 6:
-            dashboard.security_settings()
+            dashboard.security_settings_module()
         elif key == 7:
             print("Logging Out...")
             break
 
 # Run the user selection
 # user_select()
+#   "44": {
+#         "name": "Black Rose",
+#         "gmail": "na706343@gmail.com",
+#         "password": "fgr9y&*)(0",
+#         "pin": 9899
+#     }

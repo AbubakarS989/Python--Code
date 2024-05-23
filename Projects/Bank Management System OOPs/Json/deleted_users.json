@@ -1,0 +1,78 @@
+{
+    "1": {
+        "name": "helo"
+    },
+    "44": {
+        "Date": "2024-05-23 10:07:39",
+        "user_data": {
+            "name": "Black Rose",
+            "gmail": "captainabubakar62@gmail.com",
+            "password": "bakar@gmail",
+            "pin": 9890
+        },
+        "money_data": {
+            "balance": 1000,
+            "pin": 9899,
+            "Date": "2024-05-22 17:22:02",
+            "loan": 300
+        },
+        "transactions": [
+            {
+                "Date": "2024-05-22 17:25:45",
+                "Transaction Type": "Send Money",
+                "Amount": 500,
+                "Recipient ID": "46",
+                "Recipient Gmail": "abubakarhafeez66@gmail.com"
+            },
+            {
+                "Date": "2024-05-23 08:47:57",
+                "Transaction Type": "Send Money",
+                "Amount": 500,
+                "Recipient ID": "46",
+                "Recipient Gmail": "abubakarhafeez66@gmail.com"
+            },
+            {
+                "Date": "2024-05-23 08:47:57",
+                "Transaction Type": "Loan",
+                "Amount": 1500,
+                "Recipient ID": null,
+                "Recipient Gmail": "N/A"
+            },
+            {
+                "Date": "2024-05-23 08:47:57",
+                "Transaction Type": "Loan",
+                "Amount": 500,
+                "Recipient ID": null,
+                "Recipient Gmail": "N/A"
+            },
+            {
+                "Date": "2024-05-23 08:47:57",
+                "Transaction Type": "Loan",
+                "Amount": 100,
+                "Recipient ID": null,
+                "Recipient Gmail": "N/A"
+            },
+            {
+                "Date": "2024-05-23 09:08:00",
+                "Transaction Type": "Loan",
+                "Amount": 100,
+                "Recipient ID": null,
+                "Recipient Gmail": "N/A"
+            },
+            {
+                "Date": "2024-05-23 09:11:35",
+                "Transaction Type": "Loan",
+                "Amount": 200,
+                "Recipient ID": null,
+                "Recipient Gmail": "N/A"
+            },
+            {
+                "Date": "2024-05-23 09:11:35",
+                "Transaction Type": "Send Money",
+                "Amount": 200,
+                "Recipient ID": "46",
+                "Recipient Gmail": "abubakarhafeez66@gmail.com"
+            }
+        ]
+    }
+}

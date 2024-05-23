@@ -6,15 +6,14 @@ from User_dashboard import UserDashboard
 #  call  create user  method directly 
 # user_select()
 
+# Changes
+# add email authentication ->   print("1: Delete Account")
+                                # print("2: Change Password")
+                                # print("3: Change PIN")
+                                # print("4: Change Email")
 
-# Enter name: Black Rose
-# Enter Gmail: na706343@gmail.com
-# Enter password: fgr9y&*)(0
-# Enter PIN: 9899
-# Enter your 4-Digit Pin: 6257
-# You are ready to go!..
-# Generated ID: 44
-# create dashboard
+
+# create dashboard from user dashboard class
 login=UserDashboard()
 
 def Bank_Management_System():
@@ -54,36 +53,36 @@ def Bank_Management_System():
 Bank_Management_System()
 
 
-def forgot_id(self):
-        print("1: Verify by Email")
-        print("2: Verify by PIN")
-        choice = int(input("Enter your choice: "))
-        if choice == 1:
-            email = input("Enter your registered Email: ")
-            found = False
-            for user_id, user_info in self.user_data.items():
-                if user_info["gmail"] == email:
-                    self.send_verification_code(email)
-                    verification_code = input("Enter the verification code sent to your email: ")
-                    if verification_code == self.generated_code:
-                        print(f"Your Account ID is: {user_id}")
-                        found = True
-                        break
-            if not found:
-                print("Email not found in our records.")
+# def forgot_id(self):
+#         print("1: Verify by Email")
+#         print("2: Verify by PIN")
+#         choice = int(input("Enter your choice: "))
+#         if choice == 1:
+#             email = input("Enter your registered Email: ")
+#             found = False
+#             for user_id, user_info in self.user_data.items():
+#                 if user_info["gmail"] == email:
+#                     self.send_verification_code(email)
+#                     verification_code = input("Enter the verification code sent to your email: ")
+#                     if verification_code == self.generated_code:
+#                         print(f"Your Account ID is: {user_id}")
+#                         found = True
+#                         break
+#             if not found:
+#                 print("Email not found in our records.")
 
-        elif choice == 2:
-            pin = int(input("Enter your 4-digit PIN: "))
-            found = False
-            for user_id, user_info in self.user_data.items():
-                if user_info["pin"] == pin:
-                    print(f"Your Account ID is: {user_id}")
-                    found = True
-                    break
-            if not found:
-                print("PIN not found in our records.")
-        else:
-            print("Invalid choice.")
+#         elif choice == 2:
+#             pin = int(input("Enter your 4-digit PIN: "))
+#             found = False
+#             for user_id, user_info in self.user_data.items():
+#                 if user_info["pin"] == pin:
+#                     print(f"Your Account ID is: {user_id}")
+#                     found = True
+#                     break
+#             if not found:
+#                 print("PIN not found in our records.")
+#         else:
+#             print("Invalid choice.")
 
     
     

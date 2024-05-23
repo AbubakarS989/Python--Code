@@ -40,14 +40,5 @@
             "Recipient ID": null,
             "Recipient Gmail": "N/A"
         }
-    ],
-    "44": [
-        {
-            "Date": "2024-05-22 17:25:45",
-            "Transaction Type": "Send Money",
-            "Amount": 500,
-            "Recipient ID": "46",
-            "Recipient Gmail": "abubakarhafeez66@gmail.com"
-        }
     ]
 }
