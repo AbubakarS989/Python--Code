@@ -1,23 +1,6 @@
-# if id in not found to create new account
-# after log in with id and (pin or password)
-# USer dashboard
-# add money
-# withdraw money
-# show balance
-# send money
-# loan
-# Security settings ->
-# delete Account-->
-# Account name
-# id
-# pin
-# gmail code for authentication
-# change pass
-# change pin
-# change email
-# change numbers wts
 
 # !Functions List that are created in this file
+# Class User dashboard
 # read_data
 # write_data
 # authenticate_user
@@ -28,9 +11,17 @@
 # get_loan
 # send_money
 # record_transaction
-# security_settings
 # forgot_pin
 # forgot_id
+# security_settings
+# Class User Security Settings
+# Account Delete
+# Change password
+# Change pin
+# Change EMail
+# Wts verification on
+
+
 
 
 #! all these changes need two step verification
@@ -96,10 +87,13 @@ class UserDashboard:
     def add_money(self):
         if self.authenticate_user():
             amount = int(input("Enter your Amount RS: "))
+             # Check if user's data exists in self.data, if not, initialize it
+            if self.user_id not in self.data:
+                self.data[self.user_id] = {"balance": 0, "pin": self.user_pin, "Date": self.current_date, "loan": 0}
             self.money += amount
-            self.data[str(self.user_id)]["balance"] = self.money
+            self.data[self.user_id]["balance"] = self.money
             self.write_data("Json/money.json", self.data)
-            self.record_transaction(str(self.user_id), "Deposit", amount)
+            self.record_transaction(self.user_id, "Deposit", amount)
             print("Amount Deposited Successfully")
 
     def withdraw(self):
@@ -107,28 +101,28 @@ class UserDashboard:
             amount = int(input("Enter your Amount RS: "))
             if amount <= self.money:
                 self.money -= amount
-                self.data[str(self.user_id)]["balance"] = self.money
+                self.data[self.user_id]["balance"] = self.money
                 self.write_data("Json/money.json", self.data)
                 self.record_transaction(
-                    str(self.user_id), "Withdrawal", amount)
+                    self.user_id, "Withdrawal", amount)
                 print("Amount Withdrawn Successfully")
             else:
                 print("Insufficient Balance")
 
     def show_balance(self):
         if self.authenticate_user():
-            user_money = self.data[str(self.user_id)]["balance"]
+            user_money = self.data[self.user_id]["balance"]
 
             print(f"Your Current Balance is: {user_money}")
-            print(f"Loan you have: {self.data[str(self.user_id)]["loan"]} ")
+            print(f"Loan you have: {self.data[self.user_id]["loan"]} ")
 
     def get_loan(self):
         if self.authenticate_user():
             self.loan_amount = int(input("Enter your Loan Amount (1-10000): "))
             if self.loan_amount <= self.bank_loan_limit:
                 self.user_loan += self.loan_amount
-                self.data[str(self.user_id)]["loan"] += self.loan_amount
-                self.data[str(self.user_id)]["balance"] += self.loan_amount
+                self.data[self.user_id]["loan"] += self.loan_amount
+                self.data[self.user_id]["balance"] += self.loan_amount
                 self.write_data("Json/money.json", self.data)
                 self.record_transaction(self.user_id, "Loan", self.loan_amount)
                 net_balance = self.money+self.user_loan
@@ -188,7 +182,7 @@ class UserDashboard:
     def security_settings_module(self):
         if self.authenticate_user():
             security_settings = SecuritySettings(
-                self.user_id, self.user_data[self.user_id]["gmail"], self.user_pin, self.user_data[self.user_id]["password"],self.transactions,self.deleted_users)
+                self.user_id, self.user_data[self.user_id]["gmail"], self.user_pin, self.user_data[self.user_id]["password"], self.transactions, self.deleted_users)
             security_settings.list_of_settings()
 
     def forgot_pin(self):
@@ -199,7 +193,8 @@ class UserDashboard:
             verification_code = str(random.randint(1000, 9999))
             # Simulate sending the verification code via email
             receiver_name = self.user_data[user_id]["name"]
-            message = Email_Msg(verification_code, receiver_name, self.email)
+            msg_subject="want to retrieve your Account PIN"
+            message = Email_Msg(verification_code, receiver_name, self.email,msg_subject)
             subject = "Email Authentication Code"
             # Code Send to user EMail
             if Send_Email(self.email, message, subject):
@@ -231,8 +226,8 @@ class UserDashboard:
                 if user_info["gmail"] == email:
                     self.generated_code = str(random.randint(1000, 9999))
                     receiver_name = self.user_data[user_id]["name"]
-                    message = Email_Msg(self.generated_code,
-                                        receiver_name, email)
+                    msg_subject="want to retrieve your Account ID "
+                    message = Email_Msg(self.generated_code,receiver_name, email,msg_subject)
                     subject = "Email Authentication Code"
                     Send_Email(email, message, subject)
                     verification_code = input(
@@ -258,6 +253,7 @@ class UserDashboard:
             print("Invalid choice.")
 
 # class SecuritySettings(UserDashboard):
+
 
 class SecuritySettings(UserDashboard):
     def __init__(self, user_id, gmail, pin, password, transactions, deleted_users):
@@ -311,8 +307,8 @@ class SecuritySettings(UserDashboard):
             if user_id_str in self.user_data:
                 verification_code = random.randint(1000, 9999)
                 receiver_name = self.user_data[user_id_str]["name"]
-                message = Email_Msg(verification_code,
-                                    receiver_name, self.gmail)
+                msg_subject="want to delete your account for permanently"
+                message = Email_Msg(verification_code,receiver_name, self.gmail,msg_subject)
                 subject = "Account Deletion Code"
                 # Code Send to user EMail
                 if Send_Email(self.gmail, message, subject):
@@ -328,25 +324,115 @@ class SecuritySettings(UserDashboard):
                             "transactions": self.transactions.get(user_id_str, [])
                         }
                         self.deleted_users[user_id_str] = deleted_user_data
-                        
+
                         del self.user_data[user_id_str]
                         del self.data[user_id_str]
                         del self.transactions[user_id_str]
-                        
+
                         self.write_data("Json/data.json", self.user_data)
                         self.write_data("Json/money.json", self.data)
-                        self.write_data("Json/transactions.json", self.transactions)
-                        self.write_data("Json/deleted_users.json", self.deleted_users)
+                        self.write_data(
+                            "Json/transactions.json", self.transactions)
+                        self.write_data(
+                            "Json/deleted_users.json", self.deleted_users)
                         print("Account deleted successfully.")
+                    else:
+                        print("Invalid Code.")
                 else:
-                    print("Invalid Code.")
+                    print("Invalid Gmail")
         else:
             print("Account deletion cancelled.")
-            
-        def whatsapp_authentication(self):
-            print("WhatsApp authentication is now enabled.")
-            # Implement WhatsApp authentication logic
 
+    def whatsapp_authentication(self):
+        print("WhatsApp authentication is now enabled.")
+        # Implement WhatsApp authentication logic
+
+    def change_password(self):
+        current_password = input("Enter your current password: ")
+        verification_code = random.randint(1000, 9999)
+        receiver_name = self.user_data[self.id]["name"]
+        msg_subject="want to change your Account Password  "
+        message = Email_Msg(verification_code, receiver_name, self.gmail,msg_subject)
+        subject = "Change Password Authentication Code"
+        # Code Send to user EMail
+        if Send_Email(self.gmail, message, subject):
+            print(f"A verification code has been sent to your email:")
+            entered_code = int(
+                input("Enter the verification code sent to your email: "))
+            if entered_code == verification_code:
+                if current_password == self.password:
+                    new_password = input("Enter your new password: ")
+                    confirm_password = input("Confirm your new password: ")
+                    if new_password == confirm_password:
+                        self.user_data[self.id]["password"] = new_password
+                        self.write_data("Json/data.json", self.user_data)
+                        print("Password changed successfully.")
+                    else:
+                        print("Passwords do not match.")
+                else:
+                    print("Incorrect current password.")
+            else:
+                print("Invalid Verification Code")
+        else:
+            print("Invalid Gmail.")
+
+    def change_pin(self):
+        current_pin = int(input("Enter your current 4-digit PIN: "))
+        if current_pin == self.pin:
+            verification_code = random.randint(1000, 9999)
+            receiver_name = self.user_data[self.id]["name"]
+            msg_subject="want to change your account PIN"
+            message = Email_Msg(verification_code, receiver_name, self.gmail,msg_subject)
+            subject = "Change Pin Authentication Code"
+            # Code Send to user EMail
+            if Send_Email(self.gmail, message, subject):
+                print(f"A verification code has been sent to your email:")
+                entered_code = int(
+                    input("Enter the verification code sent to your email: "))
+                if entered_code == verification_code:
+                    new_pin = int(input("Enter your new 4-digit PIN: "))
+                    confirm_pin = int(input("Confirm your new 4-digit PIN: "))
+                    if new_pin == confirm_pin:
+                        self.user_data[self.id]["pin"] = new_pin
+                        self.write_data("Json/data.json", self.user_data)
+                        print("PIN changed successfully.")
+                    else:
+                        print("PINs do not match.")
+                else:
+                      print("Invalid Verification Code")
+            else:
+                print("Invalid Gmail.")
+        else:
+            print("Incorrect current PIN.")
+
+    def change_email(self):
+        current_email = input("Enter your current email: ")
+        if current_email == self.gmail:
+            verification_code = random.randint(1000, 9999)
+            receiver_name = self.user_data[self.id]["name"]
+            msg_subject="want to change your Account Gmail"
+            message = Email_Msg(verification_code, receiver_name, self.gmail,msg_subject)
+            subject = "Change Email Authentication Code"
+            # Code Send to user EMail
+            if Send_Email(self.gmail, message, subject):
+                print(f"A verification code has been sent to your email:")
+                entered_code = int(
+                    input("Enter the verification code sent to your email: "))
+                if entered_code == verification_code:
+                    new_email = input("Enter your new email: ")
+                    confirm_email = input("Confirm your new email: ")
+                    if new_email == confirm_email:
+                        self.user_data[self.id]["gmail"] = new_email
+                        self.write_data("Json/data.json", self.user_data)
+                        print("Email changed successfully.")
+                    else:
+                        print("Emails do not match.")
+                else:
+                    print("Invalid Verification Code")
+            else:
+                print("Invalid Gmail.")
+        else:
+            print("Incorrect current email.")
 
 
 def user_select():
@@ -354,7 +440,7 @@ def user_select():
     while True:
         print("---------USER DASHBOARD-----------\n")
         print("1: Add Money")
-        print("2: Withdraw Money")
+        print("2: Withdraw Money") 
         print("3: Show Balance")
         print("4: Send Money")
         print("5: Get Loan")
@@ -380,9 +466,3 @@ def user_select():
 
 # Run the user selection
 # user_select()
-#   "44": {
-#         "name": "Black Rose",
-#         "gmail": "na706343@gmail.com",
-#         "password": "fgr9y&*)(0",
-#         "pin": 9899
-#     }

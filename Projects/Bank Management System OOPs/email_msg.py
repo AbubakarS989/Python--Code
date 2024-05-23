@@ -1,10 +1,10 @@
 import html
-def Email_Msg(pin, name, gmail):
+def Email_Msg(pin, name, gmail,subject):
     msg = f"""
     <html>
     <body>
         <p>Hi {name},</p>
-        <p>We received a request that you are creating your new account at  'Bank Management System - Abubakar Hafeez' account ({gmail}).</p>
+        <p>We received a request that you are {subject} at  'Bank Management System - Abubakar Hafeez' account ({gmail}).</p>
         <p>Please use the following code to complete your authentication:</p>
         <p style="font-size: 24px; font-weight: bold; color: black;">Your Authentication Code: {pin}</p>
         <p>If you did not request this code, it’s possible that someone else is trying to access your account.

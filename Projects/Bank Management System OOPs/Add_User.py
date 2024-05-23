@@ -87,14 +87,15 @@ class UserManager():
         print("Generated ID:", id)
         print("This is your ID. Save it, as it will be used to access, edit, and for every transaction you make!")
         print("Updated user data:")
-        user_select(id,self.gmail,self.pin,self.password)
+        user_select()
         
     def valid_email(self):
         # check email address        
         def check_email(gmail):
             pin=random.randint(1000, 9999)
             subject="Email Authentication Code"
-            message=Email_Msg(pin,self.name,self.gmail)
+            msg_subject="creating a  new account"
+            message=Email_Msg(pin,self.name,self.gmail,msg_subject)
             # Code Send to user EMail
             is_ok=Send_Email(self.gmail,message,subject)  
             if is_ok:

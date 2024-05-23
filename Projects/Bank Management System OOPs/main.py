@@ -2,87 +2,43 @@ from Add_User import user_manager
 from User_dashboard import user_select
 from User_dashboard import UserDashboard
 
-# ! User Management system  is
-#  call  create user  method directly 
-# user_select()
-
-# Changes
-# add email authentication ->   print("1: Delete Account")
-                                # print("2: Change Password")
-                                # print("3: Change PIN")
-                                # print("4: Change Email")
-
-
-# create dashboard from user dashboard class
-login=UserDashboard()
+# Import required modules for colors and formatting
+from colorama import Fore, Style
+# 29,247  characters
+# Create an instance of UserDashboard for login
+login = UserDashboard()
 
 def Bank_Management_System():
-    print("-----------   Welcome to AH-Bank   ------------------\n")
-    print("-----------     Abubakar Hafeez    ------------------\n")
-    print("1: Login- to your Bank Account.")
-    print("2: Sign Up - Create New Bank Account.")
-    print("3: Exit from Bank. ")
-    key=int(input("Enter your Choice: "))
-    if key==1:
-        print("-----------      LOGIN - BANK      ------------------\n")
-        print("-----------     Abubakar Hafeez    ------------------\n")
-        print("1: Login  : ")
-        keys=int(input("2: Forget Pin or ID, Re-create your Pin or ID: "))
-        if keys==1:
-            is_ok=login.authenticate_user()
+    print(Fore.GREEN + "-----------   Welcome to AH-Bank   ------------------\n" + Style.RESET_ALL)
+    print(Fore.BLUE + "-----------     Abubakar Hafeez    ------------------\n" + Style.RESET_ALL)
+    print("1: " + Fore.YELLOW + "Login" + Style.RESET_ALL + " - to your Bank Account.")
+    print("2: " + Fore.YELLOW + "Sign Up" + Style.RESET_ALL + " - Create New Bank Account.")
+    print("3: " + Fore.YELLOW + "Exit" + Style.RESET_ALL + " from Bank.")
+    key = int(input("Enter your Choice: "))
+    if key == 1:
+        print(Fore.GREEN + "-----------      LOGIN - BANK      ------------------\n" + Style.RESET_ALL)
+        print(Fore.BLUE + "-----------     Abubakar Hafeez    ------------------\n" + Style.RESET_ALL)
+        print("1: " + Fore.YELLOW + "Login" + Style.RESET_ALL)
+        keys = int(input("2: " + Fore.YELLOW + "Forget Pin or ID" + Style.RESET_ALL + ", Re-create your Pin or ID: "))
+        if keys == 1:
+            is_ok = login.authenticate_user()
             if is_ok:
                 user_select()
-        elif keys==2:
-            print("-----------      FORGET PIN or ID - BANK      ------------------\n")
-            print("-----------     Abubakar Hafeez    ------------------\n")
-            print("1: Forget Pin  : ")
-            keys=int(input("2: Forget ID  :"))
-            if keys==1:
+        elif keys == 2:
+            print(Fore.GREEN + "-----------      FORGET PIN or ID - BANK      ------------------\n" + Style.RESET_ALL)
+            print(Fore.BLUE + "-----------     Abubakar Hafeez    ------------------\n" + Style.RESET_ALL)
+            print("1: " + Fore.YELLOW + "Forget Pin" + Style.RESET_ALL)
+            keys = int(input("2: " + Fore.YELLOW + "Forget ID" + Style.RESET_ALL + ": "))
+            if keys == 1:
                 login.forgot_pin()
-            elif keys==2:
+            elif keys == 2:
                 login.forgot_id()
-    elif key==2:
+    elif key == 2:
         user_manager.create_user()
-    elif key==3:
+    elif key == 3:
         print("Have a Good Day. Allah Hafiz")
     else:
         print("Invalid Number.")
-    
 
-
+# Run the Bank Management System
 Bank_Management_System()
-
-
-# def forgot_id(self):
-#         print("1: Verify by Email")
-#         print("2: Verify by PIN")
-#         choice = int(input("Enter your choice: "))
-#         if choice == 1:
-#             email = input("Enter your registered Email: ")
-#             found = False
-#             for user_id, user_info in self.user_data.items():
-#                 if user_info["gmail"] == email:
-#                     self.send_verification_code(email)
-#                     verification_code = input("Enter the verification code sent to your email: ")
-#                     if verification_code == self.generated_code:
-#                         print(f"Your Account ID is: {user_id}")
-#                         found = True
-#                         break
-#             if not found:
-#                 print("Email not found in our records.")
-
-#         elif choice == 2:
-#             pin = int(input("Enter your 4-digit PIN: "))
-#             found = False
-#             for user_id, user_info in self.user_data.items():
-#                 if user_info["pin"] == pin:
-#                     print(f"Your Account ID is: {user_id}")
-#                     found = True
-#                     break
-#             if not found:
-#                 print("PIN not found in our records.")
-#         else:
-#             print("Invalid choice.")
-
-    
-    
