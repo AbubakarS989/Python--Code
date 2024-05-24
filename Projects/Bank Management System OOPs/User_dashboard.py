@@ -32,6 +32,7 @@ import random
 from Email_emplate import Send_Email
 from email_msg import Email_Msg
 from email_msg_send_money import Email_Msg_Send_MONey
+from Account_del_msg import Email_Msg_Delete_Account
 
 
 class UserDashboard:
@@ -325,22 +326,35 @@ class SecuritySettings(UserDashboard):
                         input("Enter the verification code sent to your email: "))
 
                     if entered_code == verification_code:
+                        money=self.data[user_id_str]["balance"]
+                        subject="Your Account is successfully deleted - Abubakar Bank"
+                        msg=Email_Msg_Delete_Account(receiver_name,user_id_str,self.gmail,money)
+                        Send_Email(self.gmail,msg,subject)
                         deleted_user_data = {
                             "Date": self.current_date,
                             "user_data": self.user_data[user_id_str],
                             "money_data": self.data.get(user_id_str, {}),
                             "transactions": self.transactions.get(user_id_str, [])
                         }
+                        
                         self.deleted_users[user_id_str] = deleted_user_data
 
                         del self.user_data[user_id_str]
-                        del self.data[user_id_str]
-                        del self.transactions[user_id_str]
+                        if user_id_str in self.transactions:
+                            del self.transactions[user_id_str]
+                        else:
+                            pass
+                        if user_id_str in self.data:
+                            del self.data[user_id_str]
+                        else:
+                            pass
+                            
 
                         self.write_data("Json/data.json", self.user_data)
                         self.write_data("Json/money.json", self.data)
                         self.write_data("Json/transactions.json", self.transactions)
                         self.write_data("Json/deleted_users.json", self.deleted_users)
+                    
                         print("Account deleted successfully.")
                     else:
                         print("Invalid Code.")
