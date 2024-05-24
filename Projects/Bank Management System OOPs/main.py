@@ -5,6 +5,7 @@ from User_dashboard import UserDashboard
 # Import required modules for colors and formatting
 from colorama import Fore, Style
 # 29,247  characters
+# send email when amount is send to user 
 # Create an instance of UserDashboard for login
 login = UserDashboard()
 
@@ -33,6 +34,8 @@ def Bank_Management_System():
                 login.forgot_pin()
             elif keys == 2:
                 login.forgot_id()
+        else:
+            print("Invalid Number.")
     elif key == 2:
         user_manager.create_user()
     elif key == 3:

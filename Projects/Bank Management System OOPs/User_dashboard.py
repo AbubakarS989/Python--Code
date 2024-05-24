@@ -31,6 +31,7 @@ import random
 # from Security_Settings_file import SecuritySettings
 from Email_emplate import Send_Email
 from email_msg import Email_Msg
+from email_msg_send_money import Email_Msg_Send_MONey
 
 
 class UserDashboard:
@@ -99,7 +100,7 @@ class UserDashboard:
     def withdraw(self):
         if self.authenticate_user():
             amount = int(input("Enter your Amount RS: "))
-            if amount <= self.money:
+            if amount <= self.money and amount!=0:
                 self.money -= amount
                 self.data[self.user_id]["balance"] = self.money
                 self.write_data("Json/money.json", self.data)
@@ -123,6 +124,7 @@ class UserDashboard:
                 self.user_loan += self.loan_amount
                 self.data[self.user_id]["loan"] += self.loan_amount
                 self.data[self.user_id]["balance"] += self.loan_amount
+                self.data[self.user_id]["Date"] = self.current_date
                 self.write_data("Json/money.json", self.data)
                 self.record_transaction(self.user_id, "Loan", self.loan_amount)
                 net_balance = self.money+self.user_loan
@@ -142,23 +144,29 @@ class UserDashboard:
                     input(f"Enter Amount to Send to {recipient_name}: "))
                 if amount <= self.money:
                     self.money -= amount
-                    recipient_balance = self.data.get(
-                        recipient_id, {}).get("balance", 0) + amount
+                    self.recipient_balance = self.data.get(recipient_id, {}).get("balance", 0) + amount
                     self.data[recipient_id] = {
-                        "balance": recipient_balance,
+                        "balance": self.recipient_balance,
                         "pin": self.user_data[recipient_id]["pin"],
                         "Date": self.current_date,
                         "loan": self.data.get(recipient_id, {}).get("loan", 0)
                     }
                     self.data[self.user_id]["balance"] = self.money
                     self.write_data("Json/money.json", self.data)
-                    self.record_transaction(
-                        self.user_id, "Send Money", amount, recipient_id)
+                    self.record_transaction(self.user_id, "Send Money", amount, recipient_id)
+                    receiver_gmail=self.user_data[recipient_id]["gmail"]
                     sender_name = self.user_data[self.user_id]["name"]
+                    subject="Amount Receive To your Bank Account"
+                    print("----------  Send Money   ----------")            
                     print(f"Recipient Name: {recipient_name}")
                     print(f"Recipient Account ID: {recipient_id}")
                     print(f"Sender Name: {sender_name}")
                     print(f"Sender Account ID: {self.user_id}")
+                    print(f"Send Amount:{amount}")
+                    print(f"Remain Balance:{self.money}")
+                    balance=self.recipient_balance
+                    msg=Email_Msg_Send_MONey(recipient_name,sender_name,receiver_gmail,amount,balance)
+                    Send_Email(receiver_gmail,msg,subject)    
                     print("Amount Sent Successfully")
                 else:
                     print("Insufficient Balance")
@@ -331,10 +339,8 @@ class SecuritySettings(UserDashboard):
 
                         self.write_data("Json/data.json", self.user_data)
                         self.write_data("Json/money.json", self.data)
-                        self.write_data(
-                            "Json/transactions.json", self.transactions)
-                        self.write_data(
-                            "Json/deleted_users.json", self.deleted_users)
+                        self.write_data("Json/transactions.json", self.transactions)
+                        self.write_data("Json/deleted_users.json", self.deleted_users)
                         print("Account deleted successfully.")
                     else:
                         print("Invalid Code.")

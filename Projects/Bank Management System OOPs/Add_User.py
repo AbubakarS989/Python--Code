@@ -102,7 +102,7 @@ class UserManager():
                 print("The 4-Digit Pin is send to your Email:")
                 while True:
                     get_pin = int(input("Enter your 4-Digit Pin: "))
-                    if get_pin == pin:
+                    if get_pin == pin:  
                         print("You are ready to go!..")
                         break
                     else:
