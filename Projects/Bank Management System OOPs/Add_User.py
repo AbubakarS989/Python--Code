@@ -20,8 +20,10 @@ class User:
         self.pin = pin
 
     def is_strong_password(self):
+        self.password = input("Enter password: ")
         # Check if password has at least 6 characters, contains both letters and numbers
-        return len(self.password) >= 6 and any(char.isdigit() for char in self.password) and any(char.isalpha() for char in self.password)
+        symbols = '[]!@#$%^&*(),.?"{:|<>'
+        return  (len(self.password) >= 6   and  any(char.isdigit() for char in   self.password) and  any(char.isalpha() for char in self.password) and  any(char.islower()  for char in self.password) and (char.isupper()  for char in self.password) and  any(char in symbols for char in self.password ))
 
     def is_valid_pin(self):
         # Check if PIN is a 4-digit integer
@@ -35,7 +37,7 @@ class User:
             "pin": self.pin
         }
 
-class UserManager():
+class UserManager(User):
     def __init__(self, filename):
         self.filename = filename
         self.user_data = self.read_data()
@@ -59,8 +61,7 @@ class UserManager():
 
         # Validate password strength
         while True:
-            self.password = input("Enter password: ")
-            if len(self.password) < 6 or not any(char.isdigit() for char in self.password) or not any(char.isalpha() for char in self.password):
+            if not self.is_strong_password():
                 print("Password is weak. It must have at least 6 characters and contain both letters and numbers.")
             else:
                 break

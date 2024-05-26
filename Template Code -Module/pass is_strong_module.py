@@ -2,7 +2,7 @@
 #! Module provide checking length and strengthens(weak,too weal,medium,strong) of given password
 
 
-
+# module-1-pass-day-1
 # ! Two type of checker:
 # 1. Lengthy
 # 2 . One liner

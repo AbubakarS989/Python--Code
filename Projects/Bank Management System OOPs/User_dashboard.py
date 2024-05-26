@@ -4,6 +4,8 @@
 # read_data
 # write_data
 # authenticate_user
+# assigning new id at the time of sign up 
+# email verification is used while adding new user as well as in all security options
 # money_dict
 # add_money
 # withdraw
@@ -36,7 +38,7 @@ from Account_del_msg import Email_Msg_Delete_Account
 
 
 class UserDashboard:
-    def __init__(self):
+    def __init__(self): 
         self.user_data = self.read_data("Json/data.json")
         self.data = self.read_data("Json/money.json")
         self.transactions = self.read_data("Json/transactions.json")
