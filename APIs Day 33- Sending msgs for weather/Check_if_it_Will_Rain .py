@@ -5,9 +5,9 @@ import requests
 
 
 # Set environment variables (for testing purposes only)
-os.environ['TWILIO_ACCOUNT_SID'] = 'AC3bec8567c443a97e6fd714945e9fec8a'
-os.environ['TWILIO_AUTH_TOKEN'] = 'ebf32485f7d16ac2c30b9e9943a4b9c7'
-API_KEY = "00c51655b4896fedab537cc560012f8a"
+# os.environ['TWILIO_ACCOUNT_SID'] = 'AC3bec8567c443a97e6fd714945e9fec8a'
+# os.environ['TWILIO_AUTH_TOKEN'] = 'ebf32485f7d16ac2c30b9e9943a4b9c7'
+# API_KEY = "00c51655b4896fedab537cc560012f8a"
 latitude = 28.310350
 longitude = 70.127403
 # cnt -> number of times we need data in each day
