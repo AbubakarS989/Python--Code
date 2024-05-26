@@ -54,8 +54,8 @@ print(ids_list)
 # 804	Clouds	overcast clouds: 85-100%	 
 
 # Msg setup
-account_sid = os.environ['TWILIO_ACCOUNT_SID']
-auth_token = os.environ['TWILIO_AUTH_TOKEN']
+# account_sid = os.environ['TWILIO_ACCOUNT_SID']
+# auth_token = os.environ['TWILIO_AUTH_TOKEN']
 # set TWILIO_ACCOUNT_SID='AC3bec8567c443a97e6fd714945e9fec8a'
 # set TWILIO_AUTH_TOKEN='ebf32485f7d16ac2c30b9e9943a4b9c7'
 if any(id >= 800 for id in ids_list):
