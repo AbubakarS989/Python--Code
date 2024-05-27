@@ -1,66 +1,71 @@
 
+# module Gmail is secure day 2
 
-# ! MY Code
-# import re
-# ''' It check the validation of gmail'''
+# !Function
+# My code
+#  Code With Try and Error Handling
+ 
+# TODO MY Code
+import re
+''' It check the validation of gmail'''
 
-# gmail="abcA8y@gmail.com".strip() #remove space from left and right
+gmail="abcA8y@gmail.com".strip() #remove space from left and right
 
-# def check_Gmail_module(Email):
+def check_Gmail_module(Email):
     
-#     '''Each email  must contain 1 @ symbol and 1 . dot'''
+    '''Each email  must contain 1 @ symbol and 1 . dot'''
     
-#     # set strengthens
-#     strength=0
-#     # check @
-#     if '@' in Email :
-#         strength+=1
-#         # check .
-#         if '.' in Email:
-#             strength+=1    
-#             # check .   digits and alphabets
-#             if re.search(r'[a-zA-Z0-9]',Email):
-#                 strength+=1
-#                 # check .   special symbols
-#                 if not  re.search(r'[!#$%^&*(),?":{}|<>]',Email):
-#                     strength+=1
-#                 else:
-#                     print("Invalid, Special Symbol are not allowed else '@' and '.'")
-#             else:
-#                 print("Invalid,Email Should Contain at least one number.")
-#         else:
-#             print("Invalid,Email Should contain '.' symbol")
-#     else:
-#         print("Invalid,Email Should contain '@' symbol ")
+    # set strengthens
+    strength=0
+    # check @
+    if '@' in Email :
+        strength+=1
+        # check .
+        if '.' in Email:
+            strength+=1    
+            # check .   digits and alphabets
+            if re.search(r'[a-zA-Z0-9]',Email):
+                strength+=1
+                # check .   special symbols
+                if not  re.search(r'[!#$%^&*(),?":{}|<>]',Email):
+                    strength+=1
+                else:
+                    print("Invalid, Special Symbol are not allowed else '@' and '.'")
+            else:
+                print("Invalid,Email Should Contain at least one number.")
+        else:
+            print("Invalid,Email Should contain '.' symbol")
+    else:
+        print("Invalid,Email Should contain '@' symbol ")
     
-#     # check length of an Email
-#     # Minimum -> 6 
-#     # Maximum -> 30
-#     # First we need to get the first characters until '@' this sign
-#     start_character= gmail.split('@')[0] 
+    # check length of an Email
+    # Minimum -> 6 
+    # Maximum -> 30
+    # First we need to get the first characters until '@' this sign
+    start_character= gmail.split('@')[0] 
         
-#     # start character Mean:
-#                     #The first part of gmail until '@'
+    # start character Mean:
+                    #The first part of gmail until '@'
 
-#     print(start_character)
+    print(start_character)
     
-#     # We get starting character:now check the length min:6,max,30
-#     if len(start_character)>=6 and len(start_character)<=30:
-#         strength+=1
-#     elif len(start_character)<6:
-#         strength-=1
+    # We get starting character:now check the length min:6,max,30
+    if len(start_character)>=6 and len(start_character)<=30:
+        strength+=1
+    elif len(start_character)<6:
+        strength-=1
         
     
-#     # Return State. acc. to strength
-#     if strength==5:
-#         print("Secure Email.")
-#     elif strength==4:
-#         print("Email should not less than 6 Character.Make it Secure")
-#     print(strength)
+    # Return State. acc. to strength
+    if strength==5:
+        print("Secure Email.")
+    elif strength==4:
+        print("Email should not less than 6 Character.Make it Secure")
+    print(strength)
 
-#     return strength
+    return strength
 
-# check_Gmail_module(gmail)    
+check_Gmail_module(gmail)    
 
 
 
