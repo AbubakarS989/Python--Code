@@ -101,10 +101,6 @@ print(links)
 # with open("links.txt","w") as r:
 #     r.write(link)
  
-
-
-
-
 # comment
 markup="<p><!-- This is a comment --></p>"
 
@@ -112,9 +108,6 @@ comment_soup=BeautifulSoup(markup)
 print(comment_soup)
 print(comment_soup.p)
 print(comment_soup.p.string)  # to get a text from comment
-
-
-
 
 # !Functions
 

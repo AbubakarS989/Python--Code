@@ -29,6 +29,7 @@ stock_params = {
 #! Our standard API rate limit is 25 requests per day
 response=requests.get(Stock_End_Point,params=stock_params)
 response.raise_for_status()
+print(response)
 
 # my method -> yesterday stock closing price
 # stock_data=response.json()["Time Series (Daily)"]
@@ -44,6 +45,9 @@ response.raise_for_status()
 
 # course method -> yesterday stock closing price
 
+data=response.json()
+print(data)
+exit()
 data=response.json()["Time Series (Daily)"]
 data_list=[value  for  (key,value) in data.items() ]
 yesterday_data=data_list[0]

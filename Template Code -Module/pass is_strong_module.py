@@ -6,6 +6,7 @@
 # ! Two type of checker:
 # 1. Lengthy
 # 2 . One liner
+# 3: Combine
 
 
 # TODO Define the Criteria for a Strong Password:
@@ -25,11 +26,12 @@
 # Accumulate a score or classify the password based on the number of criteria met.
 # from user
 print("------------Type 1: Lengthy -----------")
-import re
+import re  
+# re-> expression
 # password=input("Enter your password: ")
 
 # test
-password = "abfU]*89d98"
+password = "abU]*89Id98"
 
 # check strengthens
 
@@ -83,12 +85,17 @@ def check_password(password):
     elif strength_score == 1:
         print("Too Weak, Change it to not to be hacked")
 
+    check=re.search(r'[A-Z]', password) 
+    # return matching alphabet
+    # <re.Match object; span=(2, 3), match='U'>
+    print(check)
     # check=[item for item in bracket if item in password ]
     # if check:
     #     print("hi")
 
 
-check_password(password)
+# to run fun un commit the below line
+# check_password(password)
 
 print("------------Type 2: One liner -----------")
 
@@ -101,6 +108,20 @@ def one_liner_check(password):
         
     else:
         print("weak")
-        len(self.password) >= 6 and any(char.isdigit() for char in self.password) and any(char.isalpha() for char in self.password)
         
-one_liner_check(password)
+        
+# to run fun un commit the below line
+# one_liner_check(password)
+print("------------Type 3: Combine -----------")
+
+def combine(password):
+    '''This method is not secure as it return true if user input 1 character neither any symbol, or upper lower letter.'''
+    # if any of the character matches,  it return true.
+
+    if re.search(r'[1-9,a-z,A-Z,!@#$%^&*(),.?":{}|<>]', password) and len(password)>=8:
+        print("hi")
+    else:
+        print("false")
+        
+
+# combine(password)
