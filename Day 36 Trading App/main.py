@@ -29,7 +29,7 @@ stock_params = {
 #! Our standard API rate limit is 25 requests per day
 response=requests.get(Stock_End_Point,params=stock_params)
 response.raise_for_status()
-print(response)
+# print(response)
 
 # my method -> yesterday stock closing price
 # stock_data=response.json()["Time Series (Daily)"]
@@ -46,28 +46,48 @@ print(response)
 # course method -> yesterday stock closing price
 
 data=response.json()
-print(data)
-exit()
+# print(data)
+# exit()
 data=response.json()["Time Series (Daily)"]
 data_list=[value  for  (key,value) in data.items() ]
 yesterday_data=data_list[0]
 yesterday_closing_price=yesterday_data["4. close"]
+print("------------yesterday stock closing price--------------")
 print(yesterday_closing_price)
 close_list=[]
+# append into a list
 close_list.append(yesterday_closing_price)
 
-# one day before  yesterday closing stock price
+#TODO: get one day before  yesterday closing stock price
 before_yesterday_data=data_list[1]
 before_yesterday_closing_price=before_yesterday_data["4. close"]
+print("------------before yesterday stock closing price--------------")
 print(before_yesterday_closing_price)
+# append into a list
 close_list.append(before_yesterday_closing_price)
 
-
+print("------------list of before yesterday and yesterday stock closing price--------------")
 print(close_list)
+
+print("------------iterate the list of stock closing price--------------")
 for i in range(len(close_list)):
     print(close_list[i])
     
+# TODO: get the difference btw both princes 
+difference=abs(float(yesterday_closing_price)-float(before_yesterday_closing_price))
+# abs return +ev value
+
+print("------------difference of stock closing price--------------")
+print(difference)
+
+# TODO: get the percentage % of  difference  btw before and yesterday
+print("------------difference percentage  of stock closing price--------------")
+diff_percentage=(difference/float(yesterday_closing_price))*100
+print(diff_percentage)
 
 
+# TODO:  if percentage greater than 5  then print 'get news' from the NEWS API
+if diff_percentage>3.0:
+    print("Get News")
 
 

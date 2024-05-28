@@ -31,7 +31,7 @@ import re
 # password=input("Enter your password: ")
 
 # test
-password = "abU]*89Id98"
+password = "abU89Id98"
 
 # check strengthens
 
@@ -67,7 +67,7 @@ def check_password(password):
         strength_score -= 1
     # check symbol
     bracket = [']', '[']
-    ''' To check [] these brackets i use list comprehension'''
+    ''' To check [] these brackets is use list comprehension'''
 
     if re.search(r'[!@#$%^&*(),.?":{}|<>]', password) or [item for item in bracket if item in password]:
         strength_score += 1
@@ -103,11 +103,11 @@ print("------------Type 2: One liner -----------")
 #     print("8")
 def one_liner_check(password):
     symbols = '[]!@#$%^&*(),.?"{:|<>'
-    if (len(password) >= 6   and  any(char.isdigit() for char in   password) and  any(char.isalpha() for char in password) and  any(char.islower()  for char in password) and (char.isupper()  for char in password) and  any(char in symbols for char in password )):
+    if (len(password) >= 8   and  any(char.isdigit() for char in   password) and  any(char.isalpha() for char in password) and  any(char.islower()  for char in password) and (char.isupper()  for char in password) and  any(char in symbols for char in password )):
         print("strong Password")
         
     else:
-        print("weak")
+        print("Too weak, Change it to not to be hacked")
         
         
 # to run fun un commit the below line

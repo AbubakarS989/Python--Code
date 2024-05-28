@@ -7,7 +7,7 @@
  
 # TODO MY Code
 import re
-''' It check the validation of gmail'''
+
 
 gmail="abcA8y@gmail.com".strip() #remove space from left and right
 
