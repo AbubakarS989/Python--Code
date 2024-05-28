@@ -33,14 +33,12 @@ new_string = remove_from_letter_to_dot(original_string, letter_to_remove_from)
 # practice  
 
 from bakar_module import   check_password
+from bakar_module import   check_email_secure
 
-# check_email_secure()
-# check_password()
-from test import check_email_secure
-from test import check_password
-# print(check_email_secure())
-password = input("Enter your Password: ")
-if check_password(password):
-    print("password is store in database")
+gmail=input("Enter Gmail: ")
+if check_email_secure(gmail):
+    print("hi")
 else:
-    pass
+    print("bye")
+# check_password()
+

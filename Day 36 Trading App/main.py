@@ -1,13 +1,25 @@
 
 import requests
+from bakar_module import check_email_secure
+
+# Now users can use functions or classes from your module
+# For example:
+result = bakar_module.check_email_secure("example@gmail.com")
+print(result)
+# c:\users\intel computers\appdata\local\programs\python\python312\lib\site-packages (1)
+
+
 # News API
 # https://newsapi.org/account
+
 Stock_Name = "TSLA"
 Company_Name = "Tesla Inc"
-Stock_End_Point = "https://www.alphavantage.co/query"
-News_Endpoint = "https://newsapi.org/v2/everything"
 
-Stock_API = "H14ON4IV8JYG7VVN"
+
+Stock_End_Point = "https://www.alphavantage.co/query"
+Stock_KEy = "H14ON4IV8JYG7VVN"
+
+News_Endpoint = "https://newsapi.org/v2/everything"
 NEws_API_KEY = "39e0e4c3cc79457894600c735a544436"
 
 # Yesterday closing stoock price
@@ -23,7 +35,7 @@ stock_params = {
 
     "function": "TIME_SERIES_DAILY",
     "symbol":Stock_Name,
-    "apikey":Stock_API
+    "apikey":Stock_KEy
 
 }
 #! Our standard API rate limit is 25 requests per day
