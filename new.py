@@ -27,3 +27,4 @@ while True:
     choice = input("Do you want to continue (yes/no)? ").lower()
     if choice != 'yes':
         break
+    pip install wheel

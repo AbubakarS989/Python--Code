@@ -1,0 +1,7 @@
+README.md
+setup.py
+bakarSecure/__init__.py
+bakarSecure.egg-info/PKG-INFO
+bakarSecure.egg-info/SOURCES.txt
+bakarSecure.egg-info/dependency_links.txt
+bakarSecure.egg-info/top_level.txt

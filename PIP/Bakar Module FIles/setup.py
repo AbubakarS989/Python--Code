@@ -12,6 +12,7 @@ setup(
     name='bakar_module',
     version='1',
     description=DESCRIPTION,
+
     long_description=open('README.md').read(),
     long_description_content_type='text/markdown',
     author='Abubakar Hafeez',
