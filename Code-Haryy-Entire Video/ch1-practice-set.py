@@ -65,7 +65,8 @@ def print_directory_contents(path):
     # display error in case of any error
     except Exception as e:
         print(f"An error occurred: {e}")
-# Enter your directory whose content you want to list
+        
+# Enter your directory whose content(folder,files) you want to list
 directory_path = "/Python- Code"
 # print the list of all other stored directories in the given directory
 print_directory_contents(directory_path)
