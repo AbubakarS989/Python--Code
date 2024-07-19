@@ -6,6 +6,7 @@
 # 6: Strings are immutable-can't change
 # 7: 21 string function with practice 
 # 8: slicing in strings
+# 9: tuple methods and list operations
 
 
 

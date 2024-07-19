@@ -20,6 +20,7 @@ print(data)
 
 
 #TODO Sort the list into numeric order
+# it is not applicable on string data type list
 num_list=[23,2,456,45,90,1,12]
 num_list.sort()
 print(num_list)

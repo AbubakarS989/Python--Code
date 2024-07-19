@@ -18,7 +18,7 @@ print(type(tup4))
 # 3: Accessing elements 
 # 4: Slicing
 # 5: Concatenation
-# 6: Repetition *x
+# 6: Repetition *x -x could be number of time to multiply a tuple
 # 7: Membership:
 # 8: Unpacking
 
@@ -51,10 +51,11 @@ print(tup*2)
 # You can check if an item is in a tuple using the in operator.
 print(3 in tup)
 
-# 8: Unpacking
+# 8: Unpacking or assigning 
 # You can unpack the elements of a tuple into variables.
 
 tup3=(1,2,3)
 a,b,c=tup3 # a=1,b=2,c=3
 print(a,b,c)
 
+    
