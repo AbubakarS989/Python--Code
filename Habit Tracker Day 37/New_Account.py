@@ -6,12 +6,30 @@ class Account_Settings_HBT_CWA:
     def __init__(self):
         self.pixela_endpoint = "https://pixe.la/v1/users"
 
-    def get_essentials(self):
+    
+    
+    def sign_up(self):
+        print("------------- Welcome to Habit Tracker -------------------\n")
+        print("\t\t1: Log in")
+        print("\t\t2: Sign Up\n")
+        ask=int(input("Enter your Choice: "))
+        if ask==1:
+            self.Home_Screen()
+        elif ask==2:
+            account_settings = Account_Settings_HBT_CWA() 
+            account_settings.get_essentials()
+        else:
+            print("Invalid choice. Please try again.")
+            exit()
+        
+        
+    def sign_up(self):
 
         # Take Important values for registration a user
 
         print("--------------  Account Creation  Section --------------\n")
-        print("--------------    Code With Abubakar       -----------------\n")
+        print("--------------     Sign Up Screen         --------------\n")
+        print("--------------    Code With Abubakar      -----------------\n")
         
         
         self.User_Name = input("Enter your New  Username: ")

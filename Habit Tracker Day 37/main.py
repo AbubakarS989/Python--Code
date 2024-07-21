@@ -16,16 +16,18 @@ class HABIT_TRACKER_CWA:
         self.pixela_endpoint = "https://pixe.la/v1/users"
         self.header = {}
         self.current_date = datetime.now().strftime("%Y%m%d")
+        
     def log_sign(self):
         print("------------- Welcome to Habit Tracker -------------------\n")
         print("------------- Sign Up and Log in Screen -------------------\n")
-        print("\t\t1: Log in\m")
-        print("\t\t1: Sign Up\n")
+        print("\t\t1: Log in")
+        print("\t\t2: Sign Up\n")
         ask=int(input("Enter your Choice: "))
         if ask==1:
             self.Home_Screen()
         elif ask==2:
-            account_settings = Account_Settings_HBT_CWA()    
+            sign_up= Account_Settings_HBT_CWA() 
+            sign_up.sign_up()
         else:
             print("Invalid choice. Please try again.")
             exit()
@@ -70,7 +72,8 @@ class HABIT_TRACKER_CWA:
                 4: Get your particular Track Value
                 5: Get your Entire Track
                 6: Get your Graph Statistics
-                7:Exit
+                7: Account Management
+                8: Exit
                 """)
             choice = int(input("Enter your choice: "))
             if choice == 1:
@@ -88,13 +91,36 @@ class HABIT_TRACKER_CWA:
             elif choice == 6:
                     self.graph_statistics()
             elif choice == 7:
+                self.upd_del_user()
+                
+            elif choice == 8:
                 print("Closing the program.....")
                 exit()
             else:
                 print("Invalid choice. Please try again.")
+                exit()
                 
+    def upd_del_user(self):
+        print("-------------            Habit Tracker               -------------------\n")
+        print("-------------   Welcome to Account Settings Screen   -------------------\n")      
+                
+        print("-------------    Select one of following             -------------------\n")
+        print("""
+                1: Update your Account Token
+                2: Delete Your Account Permanently
+                3: Exit
+                """)
+        choice = int(input("Enter your choice: "))
+        if choice ==1:
+            update_user=Account_Settings_HBT_CWA()
+            update_user.update_user()
+        elif choice==2:
+            del_user=Account_Settings_HBT_CWA()
+            del_user.delete_user()
+        else:
+            print("Invalid choice. Please try again.")
+            exit()
         
-
     def add_track(self):
         '''Add new track to graph 
            Take number of hours as an input
