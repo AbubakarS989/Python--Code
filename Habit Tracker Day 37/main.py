@@ -4,7 +4,7 @@
 from datetime import datetime
 import requests
 import json , os
-
+from New_Account import Account_Settings_HBT_CWA
 
 class HABIT_TRACKER_CWA:
     def __init__(self):
@@ -16,7 +16,21 @@ class HABIT_TRACKER_CWA:
         self.pixela_endpoint = "https://pixe.la/v1/users"
         self.header = {}
         self.current_date = datetime.now().strftime("%Y%m%d")
-
+    def log_sign(self):
+        print("------------- Welcome to Habit Tracker -------------------\n")
+        print("------------- Sign Up and Log in Screen -------------------\n")
+        print("\t\t1: Log in\m")
+        print("\t\t1: Sign Up\n")
+        ask=int(input("Enter your Choice: "))
+        if ask==1:
+            self.Home_Screen()
+        elif ask==2:
+            account_settings = Account_Settings_HBT_CWA()    
+        else:
+            print("Invalid choice. Please try again.")
+            exit()
+        
+        
     def Home_Screen(self):
         '''
         Display Number of option.
@@ -25,7 +39,8 @@ class HABIT_TRACKER_CWA:
         Verify the user otherwise program exist 
         '''
         # ? Get Login Details, then display further options.
-        print("------------- Welcome to Habit Tracker -------------------\n")
+        print("-------------            Habit Tracker           ------------------\n")
+        print("------------- Welcome to Log In Screen Habit Tracker -------------------\n")
         self.USER_NAME = input("Enter your Username: \n")
         self.TOKEN = input("Enter your Token: \n")
         self.header = {
@@ -34,18 +49,21 @@ class HABIT_TRACKER_CWA:
         
         #! User Authentication: Check user exist or not 
         # Encounter the error
-        if self.USER_NAME and self.TOKEN :
-            try:
-                r=requests.get(url=f"https://pixe.la/@{self.USER_NAME}")
-                r.raise_for_status()
-            except requests.exceptions.HTTPError as e:
+        if not self.USER_NAME or not self.TOKEN :
+            print("Please Enter your details.")
+            exit()
+            
+        try:
+            r=requests.get(url=f"https://pixe.la/@{self.USER_NAME}")
+            r.raise_for_status()
+        except requests.exceptions.HTTPError as e:
                 print("-------------     User not found    -------------------",e)
                 
-            if r:
-                print("-------------     User Verified    -------------------\n")
+        if r:
+            print("-------------     User Verified    -------------------\n")
                 
-                print("------------- Select one of following -------------------\n")
-                print("""
+            print("------------- Select one of following -------------------\n")
+            print("""
                 1: Add your today Track.
                 2: Update your particular Track.
                 3: Delete your particular Track.
@@ -54,30 +72,28 @@ class HABIT_TRACKER_CWA:
                 6: Get your Graph Statistics
                 7:Exit
                 """)
-                choice = int(input("Enter your choice: "))
-                if choice == 1:
+            choice = int(input("Enter your choice: "))
+            if choice == 1:
                     self.add_track()
-                elif choice == 2:
-                    self.update_track()
-                    pass
-                elif choice == 3:
-                    self.delete_track()
-                    pass
-                elif choice == 4:
-                    self.track__particular_value()
-                elif choice == 5:
-                    self.get_entire_value()
-                elif choice == 6:
+            elif choice == 2:
+                self.update_track()
+                pass
+            elif choice == 3:
+                self.delete_track()
+                pass
+            elif choice == 4:
+                self.track__particular_value()
+            elif choice == 5:
+                self.get_entire_value()
+            elif choice == 6:
                     self.graph_statistics()
-                elif choice == 7:
-                    print("Closing the program.....")
-                    exit()
-                else:
-                    print("Invalid choice. Please try again.")
+            elif choice == 7:
+                print("Closing the program.....")
+                exit()
+            else:
+                print("Invalid choice. Please try again.")
                 
-        else:
-            print("Please Enter your details.")
-            exit()
+        
 
     def add_track(self):
         '''Add new track to graph 
@@ -348,4 +364,4 @@ class HABIT_TRACKER_CWA:
 
 #? Create instance from the Class
 screen = HABIT_TRACKER_CWA()
-screen.Home_Screen()
+screen.log_sign()
