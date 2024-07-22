@@ -160,8 +160,7 @@ class HABIT_TRACKER_CWA:
         }
 
         # Get manual date
-        manual_date = datetime(year=2024, month=months,
-                               day=days).strftime("%Y%m%d")
+        manual_date = datetime(year=2024, month=months,day=days).strftime("%Y%m%d")
 
         # ?  New endpoint for updating existing values
         update_endpoint = f"{self.pixela_endpoint}/{self.USER_NAME}/graphs/{self.graph_id}/{manual_date}"
@@ -394,3 +393,4 @@ class HABIT_TRACKER_CWA:
 #? Create instance from the Class
 screen = HABIT_TRACKER_CWA()
 screen.log_sign()
+input("Press Enter to close...")

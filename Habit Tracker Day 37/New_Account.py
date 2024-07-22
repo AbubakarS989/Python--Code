@@ -1,28 +1,11 @@
 
 import requests
 
-
+from Graph_Setup import Graphs_Setup
 class Account_Settings_HBT_CWA:
     def __init__(self):
         self.pixela_endpoint = "https://pixe.la/v1/users"
-
-    
-    
-    def sign_up(self):
-        print("------------- Welcome to Habit Tracker -------------------\n")
-        print("\t\t1: Log in")
-        print("\t\t2: Sign Up\n")
-        ask=int(input("Enter your Choice: "))
-        if ask==1:
-            self.Home_Screen()
-        elif ask==2:
-            account_settings = Account_Settings_HBT_CWA() 
-            account_settings.get_essentials()
-        else:
-            print("Invalid choice. Please try again.")
-            exit()
-        
-        
+        self.header=""
     def sign_up(self):
 
         # Take Important values for registration a user
@@ -73,6 +56,10 @@ class Account_Settings_HBT_CWA:
         except requests.exceptions.HTTPError as e:
             print(f"Failed to Create an account:{e} ")
             
+    def Graphs(self):   
+        screen=Graphs_Setup()
+        screen.New_Graph(self.User_Name,self.Token)
+        
     def update_user(self):
         print("--------------  Account Token Update Section --------------\n")
         print("--------------    Code With Abubakar       -----------------\n")
@@ -92,14 +79,14 @@ class Account_Settings_HBT_CWA:
                 """)
         # Update endpoint
         Update_endpoint=f"{self.pixela_endpoint}/{self.User_Name}"
-        header={
+        self.header={
             "X-USER-TOKEN":self.Token
         }
         Request_Body={
             "newToken":self.new_token
         }
         try:
-            r=requests.put(url=Update_endpoint,json=Request_Body,headers=header)
+            r=requests.put(url=Update_endpoint,json=Request_Body,headers=self.header)
             data=r.text
             plain_text=self.word_check(data)
             if plain_text=="Success":
@@ -113,7 +100,7 @@ class Account_Settings_HBT_CWA:
             
 
     
-    
+        
     def delete_user(self):
         print("--------------  Account Deletion Section -----------------\n")
         print("--------------  Code With Abubakar -----------------\n")
@@ -159,9 +146,10 @@ class Account_Settings_HBT_CWA:
             
 
 
-# screen = Account_Settings_HBT_CWA()
-# screen.get_essentials()
+screen = Account_Settings_HBT_CWA()
+screen.sign_up()
 # screen.delete_user()
 # screen.update_user()
-# 4.47
+
+screen.Graphs() 
 

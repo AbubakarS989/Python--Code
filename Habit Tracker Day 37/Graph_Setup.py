@@ -8,19 +8,83 @@ import json , os
 
 class Graphs_Setup:
     def __init__(self):
-        self.graph_endpoint=f"https://pixe.la/v1/users/"
+        self.pixela_endpoint=f"https://pixe.la/v1/users/"
+        
 
 
-    def New_Graph(self):
+    def New_Graph(self,user_name,token):
+        self.user_name=user_name
+        self.Token=token
         print("------------- Welcome to Habit Tracker -------------------\n")
         print("-------------  Create New Graph -------------------\n")
-        print("""Note:
+        print("""Note 1:
             \t[Required] You have to Create Graph to show track record in graphical way.
             \tOtherwise, no data will be accepted further.
               """)
-        Graph_name=input("Enter your graph name please:")
+        print("""Note 2:
+            \t[Saved] Make Sure you save your graph id.
+            \tIt will always required  as you perform any act.
+              """)
+        print("""Note 3:
+            \t[Validation Rule] Make Sure you follow the rules
+            \tAllowed: [a-z] [0-9] 
+            \tLength: [1-16]  
+            \tIf you exceed the length, y'll got an error.
+              """)
+        print("-------------  Enter All Required Values of Graph -------------------\n")
+        User_Graph_ID=input("Enter your Graph ID   please:")
+        Graph_name=input("Enter your Graph Name please:")
+        Graph_unit=input("""Enter type of unit that your quantity should be tracked,
+[Kilogram, Calory , Hours ] :""").lower()
+        Graph_type=input("Enter your type of quantity [ int [1,2..] or float [2.3,5.3]  ]: ").lower()
+        color_code=int(input("""Select your graph color
+1: Green
+2: Red
+3: Blue
+4: Yellow
+5: Purple
+6: Black
+Enter Value: """))
+        try:
+            if color_code==1:
+                color="shibafu"    
+            elif color_code==2:
+                color="momiji"    
+            elif color_code==3:
+                color="sora"    
+                
+            elif color_code==4:
+                color="ichou"    
+                
+            elif color_code==5:
+                color="ajisai"    
+                
+            elif color_code==6:
+                color="kuro"    
+                
+        except TypeError as e:
+            print("You Entered Wrong Type of Value.")
+            
+            
+        graph_params={
+                "id":User_Graph_ID,
+                "name":Graph_name,
+                "unit":Graph_unit,
+                "type":Graph_type,
+                "color":color,
+            }
+        self.header={
+            "X-USER-TOKEN":self.Token
+        }
+            
+        # New Graph Defination Endpoint 
+        new_graph_endpoint=f"{self.pixela_endpoint}/{self.user_name}/graphs"
+        r=requests.post(url=new_graph_endpoint,json=graph_params,headers=self.header)
+        print(r.json())
+            
+        
         
 
 # Create screen
-screen=Graphs_Setup()
-screen.New_Graph()
+# screen=Graphs_Setup()
+# screen.New_Graph()
