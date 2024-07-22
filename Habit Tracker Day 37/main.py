@@ -11,7 +11,7 @@ class HABIT_TRACKER_CWA:
         # ? Define General Variable used throughout the program.
         self.USER_NAME = ""
         self.TOKEN = ""
-        self.graph_id = "bkrgraph1"
+        self.graph_id = ""
         self.date = ""
         self.pixela_endpoint = "https://pixe.la/v1/users"
         self.header = {}
@@ -127,6 +127,7 @@ class HABIT_TRACKER_CWA:
            Input Type :  Float
         '''
         
+        self.graph_id = input("Enter your Graph id : ")
         quantity = input("How many hours did you work today? ")
         data_param = {
             "date": self.current_date,
@@ -180,6 +181,7 @@ class HABIT_TRACKER_CWA:
         print("------------ Delete your Track ----------")
         days = int(input("Enter your day  [1-31]:"))
         months = int(input("Enter month of that date [1-12]:"))
+        self.graph_id = input("Enter your Graph id : ")
 
         # Get manual date
         manual_date = datetime(year=2024, month=months,day=days).strftime("%Y%m%d")
@@ -227,6 +229,7 @@ class HABIT_TRACKER_CWA:
         print("------------ Show your Track ----------")
         days = int(input("Enter your day  [1-31]:"))
         months = int(input("Enter month of that date [1-12]:"))
+        self.graph_id = input("Enter your Graph id : ")
         # Get manual date
         manual_date = datetime(year=2024, month=months,day=days).strftime("%Y%m%d")
         # Get day
@@ -287,9 +290,9 @@ class HABIT_TRACKER_CWA:
              "withBody":True
          }
          '''
+        self.graph_id = input("Enter your Graph id : ")
         # ? Get the dictionary of dates
-        get_pixels = f"{
-            self.pixela_endpoint}/{self.USER_NAME}/graphs/{self.graph_id}/pixels"
+        get_pixels = f"{self.pixela_endpoint}/{self.USER_NAME}/graphs/{self.graph_id}/pixels"
         try:
             r = requests.get(url=get_pixels, headers=self.header)
             r.raise_for_status()
@@ -349,7 +352,7 @@ class HABIT_TRACKER_CWA:
         8:Max Date
         9:Mix Date
         '''
-        
+        self.graph_id = input("Enter your Graph id :")
         # /v1/users/<username>/graphs/<graphID>/stats
         stats_endpoint = f"{self.pixela_endpoint}/{self.USER_NAME}/graphs/{self.graph_id}/stats"
         stats_r = requests.get(url=stats_endpoint, headers=self.header)
