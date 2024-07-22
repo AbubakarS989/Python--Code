@@ -391,6 +391,11 @@ class HABIT_TRACKER_CWA:
 
 
 #? Create instance from the Class
-screen = HABIT_TRACKER_CWA()
-screen.log_sign()
+# screen = HABIT_TRACKER_CWA()
+screen = Account_Settings_HBT_CWA()
+screen.sign_up()
+# screen.delete_user()
+# screen.update_user()
+screen.Graphs() 
+# screen.log_sign()
 input("Press Enter to close...")

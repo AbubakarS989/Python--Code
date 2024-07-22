@@ -3,6 +3,8 @@
 from datetime import datetime
 import requests
 import json , os
+# from New_Account import Account_Settings_HBT_CWA
+
 
 
 
@@ -76,15 +78,30 @@ Enter Value: """))
         self.header={
             "X-USER-TOKEN":self.Token
         }
-            
         # New Graph Defination Endpoint 
-        new_graph_endpoint=f"{self.pixela_endpoint}/{self.user_name}/graphs"
+        new_graph_endpoint=f"{self.pixela_endpoint}{self.user_name}/graphs"
         r=requests.post(url=new_graph_endpoint,json=graph_params,headers=self.header)
+        # Create screen
+        data=r.text
         print(r.json())
-            
+        # screen=Account_Settings_HBT_CWA()
         
+        # print(screen.word_check(data))
+        print(self.word_check(data))
+            
+    def word_check(self,data):
+        self.data=data
+        # To check the response of request 
+        # Response Example:
+        # {"message":"Success. Let's visit https://pixe.la/@yourusername , it is your profile page!","isSuccess":true}
+        # so get the keyword [Success] from the text, i create this function to use multiple times
+        lst=[]    
+        for i in range(12,19):
+            lst.append(data[i])
+        # now join the list items to convert  into plain text
+        plain_text="".join(lst)
+        return plain_text    
         
 
-# Create screen
 # screen=Graphs_Setup()
 # screen.New_Graph()

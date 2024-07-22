@@ -1,8 +1,8 @@
 
 import requests
-
 from Graph_Setup import Graphs_Setup
 class Account_Settings_HBT_CWA:
+    
     def __init__(self):
         self.pixela_endpoint = "https://pixe.la/v1/users"
         self.header=""
@@ -148,8 +148,8 @@ class Account_Settings_HBT_CWA:
 
 screen = Account_Settings_HBT_CWA()
 screen.sign_up()
-# screen.delete_user()
-# screen.update_user()
+# # screen.delete_user()
+# # screen.update_user()
 
 screen.Graphs() 
 
