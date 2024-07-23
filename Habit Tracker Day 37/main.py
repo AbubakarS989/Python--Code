@@ -60,7 +60,8 @@ class HABIT_TRACKER_CWA:
             r=requests.get(url=f"https://pixe.la/@{self.USER_NAME}")
             r.raise_for_status()
         except requests.exceptions.HTTPError as e:
-                print("-------------     User not found    -------------------",e)
+            self.if_user_not_found()
+                
                 
         if r:
             print("-------------     User Verified    -------------------\n")
@@ -130,7 +131,31 @@ class HABIT_TRACKER_CWA:
             
             
             
-            
+    def if_user_not_found(self):
+        
+        
+        print("-----------------         User not found         ------------------\n")
+        print("-----------------         Habit Tracker           ------------------\n")
+        print("-------------     Select one of the following  ------------------")
+        print("""1: Create New Account.
+2: Back to login Screen.                      
+3: Exit""")
+        ask=int(input("Enter your Choice: "))
+        print(type(ask))
+        
+        try:
+            if ask==1:
+                sign_up= Account_Settings_HBT_CWA() 
+                sign_up.sign_up()
+            elif ask==2:
+                self.Home_Screen()
+            elif ask==3:
+                print("Closing the program.....")
+                exit()
+        except ValueError :
+            print("Invalid Input, Try Again")
+        
+        
     def Graph_Management(self):
         print("-------------            Habit Tracker               -------------------\n")
         print("-------------   Welcome to Graph Settings Screen   -------------------\n")      
@@ -150,7 +175,7 @@ class HABIT_TRACKER_CWA:
         elif choice==2:
             graph_settings.update_graph()
         elif choice==3:
-            graph_settings.view_graph()
+            graph_settings.view_graph(self.USER_NAME)
         elif choice==4:
             graph_settings.delete_graph(self.USER_NAME, self.TOKEN)
         elif choice==5:

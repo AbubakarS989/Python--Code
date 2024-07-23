@@ -2,6 +2,8 @@
 
 from datetime import datetime
 import requests
+from colorama import Fore, Back, Style, init # for colors
+init()
 import json , os
 # from New_Account import Account_Settings_HBT_CWA
 
@@ -89,6 +91,19 @@ Enter Value: """))
         # print(screen.word_check(data))
         print(self.word_check(data))
         
+    def view_graph(self,username):
+        self.user_name=username
+        self.graph_id = input("Enter your Graph id : ")
+        view_graph_Endpoint=f"{self.pixela_endpoint}{self.user_name}/graphs/{self.graph_id}"
+        urls=view_graph_Endpoint
+        try:
+            r=requests.get(url=view_graph_Endpoint)
+            print("------------               Code With Abubakar                -----------------\n")
+            print(f"Check out the [{Fore.RED}link{Style.RESET_ALL}] to view graph:\n")
+            print(f"\t\t :> {Fore.YELLOW}{urls}{Style.RESET_ALL}")
+            
+        except requests.exceptions.HTTPError as e:
+            print(f"Failed to Delete an account:{e} ")
         
     def delete_graph(self,username,token):
         self.user_name=username
@@ -117,7 +132,7 @@ Enter Value: """))
             print("The request has been canceled.")
 
         
-    # delete_graph
+    
     # view_graph
     # update_graph
         
