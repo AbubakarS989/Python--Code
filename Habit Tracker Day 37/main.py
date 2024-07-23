@@ -132,13 +132,12 @@ class HABIT_TRACKER_CWA:
             
             
     def if_user_not_found(self):
-        
-        
+    
         print("-----------------         User not found         ------------------\n")
         print("-----------------         Habit Tracker           ------------------\n")
         print("-------------     Select one of the following  ------------------")
         print("""1: Create New Account.
-2: Back to login Screen.                      
+2: Back to login Screen.                     
 3: Exit""")
         ask=int(input("Enter your Choice: "))
         print(type(ask))
@@ -152,8 +151,8 @@ class HABIT_TRACKER_CWA:
             elif ask==3:
                 print("Closing the program.....")
                 exit()
-        except ValueError :
-            print("Invalid Input, Try Again")
+        except ValueError:
+            print(" Invalid Input, Try Again ")
         
         
     def Graph_Management(self):
