@@ -4,7 +4,7 @@
 from datetime import datetime
 import requests
 import json , os
-from New_Account import Account_Settings_HBT_CWA
+# from New_Account import Account_Settings_HBT_CWA
 
 class HABIT_TRACKER_CWA:
     def __init__(self):
@@ -73,7 +73,8 @@ class HABIT_TRACKER_CWA:
                 5: Get your Entire Track
                 6: Get your Graph Statistics
                 7: Account Management
-                8: Exit
+                8: Graph Management
+                9: Exit
                 """)
             choice = int(input("Enter your choice: "))
             if choice == 1:
@@ -91,16 +92,17 @@ class HABIT_TRACKER_CWA:
             elif choice == 6:
                     self.graph_statistics()
             elif choice == 7:
-                self.upd_del_user()
-                
+                self.Account_Management()
             elif choice == 8:
+                self.Graph_Management()
+            elif choice == 9:
                 print("Closing the program.....")
                 exit()
             else:
                 print("Invalid choice. Please try again.")
                 exit()
                 
-    def upd_del_user(self):
+    def Account_Management(self):
         print("-------------            Habit Tracker               -------------------\n")
         print("-------------   Welcome to Account Settings Screen   -------------------\n")      
                 
@@ -120,7 +122,8 @@ class HABIT_TRACKER_CWA:
         else:
             print("Invalid choice. Please try again.")
             exit()
-        
+    def Graph_Management(self):
+        pass
     def add_track(self):
         '''Add new track to graph 
            Take number of hours as an input
@@ -133,8 +136,7 @@ class HABIT_TRACKER_CWA:
             "date": self.current_date,
             "quantity": quantity
         }
-        data_endpoint = f"{
-            self.pixela_endpoint}/{self.USER_NAME}/graphs/{self.graph_id}"
+        data_endpoint = f"{self.pixela_endpoint}/{self.USER_NAME}/graphs/{self.graph_id}"
         # data_endpoint=f"{pixela_endpoint}/{USER_NAME}/graphs/{graph_id}"
         try:
             r = requests.post(url=data_endpoint,json=data_param, headers=self.header)
@@ -153,6 +155,7 @@ class HABIT_TRACKER_CWA:
         days = int(input("Enter your desire day to update value [1-31]:"))
         months = int(input("Enter month of that date [1-12]:"))
         quantity = input("Enter your update value [hours]:")
+        self.graph_id = input("Enter your Graph id : ")
 
         # ? Data is updated through this format
         update_value = {
@@ -391,11 +394,12 @@ class HABIT_TRACKER_CWA:
 
 
 #? Create instance from the Class
-# screen = HABIT_TRACKER_CWA()
-screen = Account_Settings_HBT_CWA()
-screen.sign_up()
+screen = HABIT_TRACKER_CWA()
+screen.log_sign()
+# screen = Account_Settings_HBT_CWA()
+# screen.sign_up()
 # screen.delete_user()
 # screen.update_user()
-screen.Graphs() 
-# screen.log_sign()
+# screen.Graphs() 
 input("Press Enter to close...")
+# 1.15 min

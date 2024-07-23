@@ -14,3 +14,5 @@ if __name__ == "__main__":
     
     if word_count != -1:
         print(f"The number of words in the file is: {word_count}")
+
+input("Press Enter to close...")
