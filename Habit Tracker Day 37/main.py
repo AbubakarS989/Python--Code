@@ -4,7 +4,8 @@
 from datetime import datetime
 import requests
 import json , os
-# from New_Account import Account_Settings_HBT_CWA
+from New_Account import Account_Settings_HBT_CWA
+from Graph_Setup import Graphs_Setup
 
 class HABIT_TRACKER_CWA:
     def __init__(self):
@@ -119,11 +120,48 @@ class HABIT_TRACKER_CWA:
         elif choice==2:
             del_user=Account_Settings_HBT_CWA()
             del_user.delete_user()
+        elif choice==3:
+            print("Closing the program.....")
+            exit()
         else:
             print("Invalid choice. Please try again.")
             exit()
+            
+            
+            
+            
+            
     def Graph_Management(self):
-        pass
+        print("-------------            Habit Tracker               -------------------\n")
+        print("-------------   Welcome to Graph Settings Screen   -------------------\n")      
+                
+        print("-------------    Select one of following             -------------------\n")
+        print("""
+                1: Create New Graph
+                2: Update Graph Credentials
+                3: View Your Graph 
+                4: Delete Your Graph Permanently
+                5: Exit
+                """)
+        graph_settings=Graphs_Setup()
+        choice = int(input("Enter your choice: "))
+        if choice ==1:
+            graph_settings.New_Graph(self.TOKEN, self.USER_NAME)
+        elif choice==2:
+            graph_settings.update_graph()
+        elif choice==3:
+            graph_settings.view_graph()
+        elif choice==4:
+            graph_settings.delete_graph(self.USER_NAME, self.TOKEN)
+        elif choice==5:
+            print("Closing the program.....")
+            exit()
+        else:
+            print("Invalid choice. Please try again.")
+            exit()
+            
+            
+            
     def add_track(self):
         '''Add new track to graph 
            Take number of hours as an input

@@ -88,7 +88,39 @@ Enter Value: """))
         
         # print(screen.word_check(data))
         print(self.word_check(data))
-            
+        
+        
+    def delete_graph(self,username,token):
+        self.user_name=username
+        self.Token=token
+        self.header={
+            "X-USER-TOKEN":self.Token
+        }
+        self.graph_id = input("Enter your Graph id : ")
+        del_graph_endpoint=f"{self.pixela_endpoint}{self.user_name}/graphs/{self.graph_id}"
+        print(del_graph_endpoint)
+        ask = input("Are you Sure to delete your Account? [yes/no]").lower()
+        if ask == "yes":
+            try:
+                r=requests.delete(url=del_graph_endpoint,headers=self.header)
+                print(r.text)
+                data=r.text
+                plain_text=self.word_check(data)
+                if plain_text=="Success":
+                    print(f"--------------  Your Graph is Deleted {plain_text}fully. -------------------\n")
+                    print("------------               Code With Abubakar                -----------------\n")
+                else:
+                    print("Failed to Delete an account")
+            except requests.exceptions.HTTPError as e:
+                print(f"Failed to Delete an account:{e} ")
+        elif ask == "no":
+            print("The request has been canceled.")
+
+        
+    # delete_graph
+    # view_graph
+    # update_graph
+        
     def word_check(self,data):
         self.data=data
         # To check the response of request 

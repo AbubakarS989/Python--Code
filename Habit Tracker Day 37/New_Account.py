@@ -146,10 +146,9 @@ class Account_Settings_HBT_CWA:
             
 
 
-screen = Account_Settings_HBT_CWA()
-screen.sign_up()
+# screen = Account_Settings_HBT_CWA()
+
 # # screen.delete_user()
 # # screen.update_user()
 
-screen.Graphs() 
 
