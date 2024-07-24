@@ -140,7 +140,7 @@ class HABIT_TRACKER_CWA:
 2: Back to login Screen.                     
 3: Exit""")
         ask=int(input("Enter your Choice: "))
-        print(type(ask))
+        
         
         try:
             if ask==1:
