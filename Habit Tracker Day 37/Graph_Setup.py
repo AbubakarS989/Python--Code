@@ -21,6 +21,7 @@ class Graphs_Setup:
         self.Token=token
         print("------------- Welcome to Habit Tracker -------------------\n")
         print("-------------  Create New Graph -------------------\n")
+        print("-------------  Code With Abubakar -------------------\n")
         print("""Note 1:
             \t[Required] You have to Create Graph to show track record in graphical way.
             \tOtherwise, no data will be accepted further.
@@ -104,6 +105,21 @@ Enter Value: """))
             
         except requests.exceptions.HTTPError as e:
             print(f"Failed to Delete an account:{e} ")
+            
+            
+    # update_graph
+    def update_graph(self):
+        
+        
+        # PUT /v1/users/<username>/graphs/<graphID>
+        self.graph_id = input("Enter your Graph id : ")
+        print("------------- Update Graph Screen -------------------\n")
+        print("-------------  Code With Abubakar -------------------\n")
+        print("""1: Change Graph Name.
+2: Change Graph color.
+3: Change Graph Unit.
+4: Exit.""")
+        ask=int(input("Enter Your Choice: "))
         
     def delete_graph(self,username,token):
         self.user_name=username
@@ -111,6 +127,8 @@ Enter Value: """))
         self.header={
             "X-USER-TOKEN":self.Token
         }
+        print("------------- Delete Graph Screen -------------------\n")
+        print("-------------  Code With Abubakar -------------------\n")
         self.graph_id = input("Enter your Graph id : ")
         del_graph_endpoint=f"{self.pixela_endpoint}{self.user_name}/graphs/{self.graph_id}"
         print(del_graph_endpoint)
@@ -133,8 +151,9 @@ Enter Value: """))
 
         
     
-    # view_graph
-    # update_graph
+    
+        
+        
         
     def word_check(self,data):
         self.data=data
