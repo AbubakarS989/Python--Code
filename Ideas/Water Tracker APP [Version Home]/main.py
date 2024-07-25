@@ -155,7 +155,7 @@ class Water_Tracker_CWA:
         }
         Total_Entries=[[self.status],[quantity],[Price],[billing_info],[Bill_History]]
         self.combine_list[self.ID]=Total_Entries
-        print(self.combine_list)
+        # print(self.combine_list)
         
         try:
             with open("data.json","w") as f:
@@ -171,6 +171,7 @@ class Water_Tracker_CWA:
         
         
     def calculations(self):
+        lst_dates=[]
         # Individual bill of each day
         self.can_bill=self.cans*self.can_price
         self.cooler_bill=self.cooler*self.cooler_price
@@ -205,7 +206,7 @@ class Water_Tracker_CWA:
             if "Drum":
                 self.total_drum+= quantity["Drum"]
             if "Date" in quantity:
-                Extract_date=quantity["Date"]
+                lst_dates.append(quantity["Date"])
                 
             # Extract Data  Of Grand Values
             if "Grand_Total_Bill" in bill_history:
@@ -235,17 +236,25 @@ class Water_Tracker_CWA:
         self.grand_total_bill+=self.Total_Bill
         self.grand_total_paid+=self.paid_bill
         self.grand_total_dues+=self.Dues
-        
-    
-        
+        strip_date=[] 
+        for i in lst_dates:
+            # print(type(i)) #String
+            strip_date.append(datetime.strptime(i,"%d-%m-%Y").strftime("%d%m%Y"))
             
+        print(strip_date)
+        # Monthly Data
+        date_dict = []
+        for date in strip_date:
+            day = date[0:2]
+            month = f"{date[2:4]}"
+            year = f"{date[4:8]}"
+            date_dict.append([day,month, year])
+
+
+        print(date_dict)
         
-        
-        Sub_Total_Money=""
-        Sub_Total_Cans=""
-        Sub_Total_Cooler=""
-        Sub_Total_Drum=""
-        Grand_Total=""
+         
+
         
         
     def output_screen(self):
