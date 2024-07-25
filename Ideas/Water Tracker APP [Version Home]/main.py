@@ -39,6 +39,10 @@ class Water_Tracker_CWA:
         self.grand_total_bill=0
         self.grand_total_paid=0
         self.grand_total_dues=0
+        
+        self.extract_data=0
+        
+        
     def Home_Screen(self):
         #display header  
         head.header(heading=None)
@@ -188,20 +192,22 @@ class Water_Tracker_CWA:
         for entry in self.combine_list.values():
             
             
-            # Total cans, cooler. drums 
+            
             quantity = entry[1][0]  # Quantity is at index 1, and it's the first item in the list
             billing_info = entry[3][0]  # Billing info is at index 3, and it's the first item in the list
             bill_history = entry[4][0]  # Bill history is at index 4, and it's the first item in the list
-            if "Cans" in quantity:
-                
+            
+            # Extract quantity of data
+            if "Cans" in quantity:    
                 self.total_cans+= quantity["Cans"]
             if "Cooler":
                 self.total_cooler+= quantity["Cooler"]
             if "Drum":
                 self.total_drum+= quantity["Drum"]
+            if "Date" in quantity:
+                Extract_date=quantity["Date"]
                 
-                
-            # Grand totals
+            # Extract Data  Of Grand Values
             if "Grand_Total_Bill" in bill_history:
                 self.grand_total_bill += bill_history["Grand_Total_Bill"]
             if "Grand_Total_Paid":
@@ -209,16 +215,9 @@ class Water_Tracker_CWA:
             if "Grand_Total_Dues":
                 self.grand_total_dues += bill_history["Grand_Total_Dues"]
                 
-                
-            #  
-            # billing_info = entry[1]  # Index 1 is where quantity is stored
-            # if " Cans" in billing_info:
-            #     self.total_cans+= billing_info[0]["Cans"]
-            # if " Cooler":
-            #     self.total_cooler+= billing_info[0]["Cooler"]
-            # if " Drum":
-            #     self.total_drum+= billing_info[0]["Drum"] 
-            
+               
+             
+            # Extract Data  Of Current bills
             if "Total Bill" in billing_info:
                 self.Total_Bill += billing_info["Total Bill"]
             if "Paid Bill " in billing_info:
