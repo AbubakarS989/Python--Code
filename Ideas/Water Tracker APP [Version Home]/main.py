@@ -1,7 +1,7 @@
 
 
 import requests
-import json,os , random
+import json,os 
 from datetime import datetime
 from colorama import init, Fore, Back, Style
 from  history import History_WT_CWA
@@ -12,8 +12,14 @@ init()
 
 class Water_Tracker_CWA:
     def __init__(self):
-        self.Pixel_endpoint=""
-        self.Sheety_endpoint=""
+        if not os.path.exists("data.json"):
+            with open("data.json", 'w') as f:
+                json.dump({}, f)
+        
+        with open("data.json", "r") as f:
+            self.combine_list = json.load(f)
+        # self.Pixel_endpoint=""
+        # self.Sheety_endpoint=""
         self.current_date=datetime.now().strftime("%d-%m-%Y")
         
         # paid or not
@@ -34,6 +40,7 @@ class Water_Tracker_CWA:
         self.Total_Bill=0
         self.paid_bill=0
         self.Dues=0
+        self.previous_dues=0
         
         self.can_bill=0
         self.drum_bill=0
@@ -94,17 +101,13 @@ class Water_Tracker_CWA:
         # Number of Cans for [Drum] buy today? 
         # Did you paid the Bill? [yes / NO]
         #     How much you paid today?
-        if not os.path.exists("data.json") :
-            with open("data.json", 'w') as f:
-              self.combine_list= json.dump({},f)
-
-        with open("data.json", "r") as f:
-            self.combine_list=json.load(f)
+    
             
         
        
         self.ask=input(" Did you buy water today? [y/n]?")
         if self.ask=="y":
+            self.status="Present"
             self.cans=int(input(f"Enter Quantity of {Fore.BLUE}Can{Style.RESET_ALL} you buy today: ?"))
             self.cooler=int(input(f"Enter Quantity of {Fore.GREEN}Cooler{Style.RESET_ALL} you buy today?: "))
             self.drum=int(input(f"Enter Quantity of {Fore.CYAN}Drum Cans{Style.RESET_ALL} you buy today?: "))
@@ -113,14 +116,12 @@ class Water_Tracker_CWA:
             if self.get=="y":
                 self.paid_bill=int(input("How much you paid today? [Rupees]"))
             elif self.get=="n":
-                self.paid_bill=0
-
-            self.status="Present"
+               pass
         elif self.ask=="n":
-            # if the user didn't buy, then values are assigned zero automatically
-            self.cans=self.cooler=self.drum=0
+            
             self.status="Absent"
-
+        else:
+            print("Select Valid Option")
            
         # Assign the next increment id to each entry
         if self.combine_list:
@@ -194,18 +195,11 @@ class Water_Tracker_CWA:
         self.cooler_bill=self.cooler*self.cooler_price
         self.drum_bill=self.drum*self.Drum_can_price
         self.Total_Bill=self.can_bill+self.cooler_bill+self.drum_bill
-        print(self.Total_Bill)
+        # print(self.Total_Bill)
         
         
            
-        # Extracting data from the file for grand values and monthly values
-        if not os.path.exists("data.json"):
-            with open("data.json", 'w') as f:
-                json.dump({}, f)
-        
-        with open("data.json", "r") as f:
-            self.combine_list = json.load(f)
-            
+        # Extracting data from the files 
         for entry in self.combine_list.values():
             
             quantity = entry[1][0]  # Quantity is at index 1, and it's the first item in the list
@@ -223,30 +217,17 @@ class Water_Tracker_CWA:
                 if "Date" in quantity:
                     lst_dates.append(quantity["Date"])
                 
-            # Extract Data  Of Grand Values
-
-                if "Total Bill" in billing_info:
-                    self.Total_Bill += billing_info["Total Bill"]
-                    
                 if "Total Bill" in billing_info:
                     self.grand_total_bill += billing_info["Total Bill"]
-            # if user didn't buy a water then  calculations could perform
             
-            if self.ask=="n":        
-                if "Cans" in quantity:    
-                    self.total_cans= quantity["Cans"]c 8
-                if "Cooler":
-                    self.total_cooler= quantity["Cooler"]
-                if "Drum":
-                    self.total_drum= quantity["Drum"]
-                if "Date" in quantity:
-                    lst_dates.append(quantity["Date"])
-
-                if "Total Bill" in billing_info:
-                    self.Total_Bill = billing_info["Total Bill"]
-                    
-                if "Grand_Total_Bill" in bill_history:
-                    self.grand_total_bill = billing_info["Grand_Total_Bill"]
+                # When user pay the bill without purchasing , then check if he have any previous dues, if he have previous dues then subtract the previous dues from the paid bill
+                if self.get =="y":
+                    if  self.Total_Bill == 0 and "Dues" in billing_info:
+                        self.previous_dues+=abs(billing_info["Dues"]-self.paid_bill)
+                # if user didn't buy a water then  calculations could perform
+            elif self.ask=="n":        
+                pass
+                
                     
             # if user paid the bill then  calculations could perform
             if self.get=="y":
@@ -255,14 +236,15 @@ class Water_Tracker_CWA:
                 # Extract Data  Of Current bills
                 if "Paid Bill " in billing_info:
                     self.paid_bill += billing_info["Paid Bill "]
+                
+                self.Dues+=abs(self.Total_Bill-self.paid_bill - self.previous_dues)
                     
-            if self.get=="n":
-                if "Dues" in billing_info:
-                    self.Dues = billing_info["Dues"]
+            elif self.get=="n" :
+                self.Dues=billing_info["Dues"]
                     
-                if "Paid Bill " in billing_info:
-                    self.grand_total_bill += billing_info["Paid Bill "]
+            
                     
+        print(self.previous_dues)
         # Individual daily values
         self.total_cans+= self.cans
         self.total_cooler+=self.cooler
@@ -270,66 +252,25 @@ class Water_Tracker_CWA:
                 
                 
                 
-        self.Dues=self.Total_Bill-self.paid_bill
         self.grand_total_bill+=self.Total_Bill
         self.grand_total_paid+=self.paid_bill
         self.grand_total_dues+=self.Dues
         
         
-        # Grand Values
-        # strip_date=[] 
-        # for i in lst_dates:
-        #     # print(type(i)) #String
-        #     strip_date.append(datetime.strptime(i,"%d-%m-%Y").strftime("%d%m%Y"))
-            
-        # print(strip_date)
+    
+        # if not os.path.exists("data.json"):
+        #     with open("data.json", 'w') as f:
+        #         json.dump({}, f)
         
-        # Monthly Data
-        if not os.path.exists("data.json"):
-            with open("data.json", 'w') as f:
-                json.dump({}, f)
-        
-        with open("data.json", "r") as f:
-            self.combine_list = json.load(f)
-        # date_lst = []
-        # for date in strip_date:
-        #     day = date[0:2]
-        #     month = f"{date[2:4]}"
-        #     year = f"{date[4:8]}"
-        #     date_lst.append([day,month, year])
-        # Helper function to parse date strings
-            
-        # today = datetime.now()  # Today’s date
-        # start_of_current_month = today.replace(day=1)  # First day of this month
-        # start_of_last_month = (start_of_current_month - timedelta(days=1)).replace(day=1)  # First day of last month
-        # end_of_last_month = start_of_current_month - timedelta(days=1)  # Last day of last month
-       
-        
-        # for entry in combine_list.values():
-        #     date_str = entry[1][0]['Date']  # Date from the entry
-        #     quantity = entry[1][0]  # Quantity is at index 1, and it's the first item in the list
-        # entry_date = self.parse_date(date_str)  # Convert date string to date object
-
-        #     if start_of_last_month <= entry_date <= end_of_last_month:
-        #         # Add up the values if the date is within the last month
-        #         if "Cans" in quantity:    
-        #             self.Monthly_Cans += bill_history["Cans"]
-        #         if "Cooler":
-        #             self.Monthly_Coolers += bill_history["Monthly Cooler"]
-        #         if "Drum":
-        #             self.Monthly_Drum += bill_history["Drum"]
-
-
-
-        # print(date_dict)
-        
-         
-
-        
+        # with open("data.json", "r") as f:
+        #     self.combine_list = json.load(f)
+    
         
     def parse_date(date_str):
         
         return datetime.strptime(date_str, "%d%m%Y")
+    
+    
     def output_screen(self):
         
         head.header(heading="Output Screen")
@@ -347,10 +288,7 @@ class Water_Tracker_CWA:
         
         
         
-        
-# screen=Water_Tracker_CWA()        
-# screen.Home_Screen()
-# screen.input_screen()
+
 if __name__=="__main__":
     
     screen=Water_Tracker_CWA()        

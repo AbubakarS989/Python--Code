@@ -1,3 +1,5 @@
+from colorama import init, Fore, Back,Style
+
 class HEAD:
     def __init__(self):
         self.heading = ""
@@ -5,13 +7,13 @@ class HEAD:
     def header(self, heading=None):  
         if not heading:
             print("------------------------------------------------------")
-            print("-------------  Water Tracker [Home Version] ----------")
+            print(f"-------------  {Fore.LIGHTYELLOW_EX}Water Tracker [Home Version]{Style.RESET_ALL} ----------")
             print(f"------------------------------------------------------")
-            print("-------------    Code With Abubakar   ----------------")
+            print(f"-------------    {Fore.MAGENTA}Code With Abubakar{Style.RESET_ALL}   ----------------")
             print("-----------------------------------------------------\n")
         else:
             print("------------------------------------------------------")
-            print("-------------  Water Tracker [Home Version] ----------")
-            print(f"------------       {heading}         -------------")
-            print("-------------    Code With Abubakar   ----------------")
+            print(f"-------------  {Fore.LIGHTYELLOW_EX}Water Tracker [Home Version]{Style.RESET_ALL} ----------")
+            print(f"------------       {Fore.LIGHTCYAN_EX}{heading}{Style.RESET_ALL}         -------------")
+            print(f"-------------    {Fore.MAGENTA}Code With Abubakar{Style.RESET_ALL}   ----------------")
             print("------------------------------------------------------\n")

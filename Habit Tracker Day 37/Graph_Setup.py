@@ -12,9 +12,8 @@ import json , os
 
 class Graphs_Setup:
     def __init__(self):
-        self.pixela_endpoint=f"https://pixe.la/v1/users/"
         
-
+        self.pixela_endpoint=f"https://pixe.la/v1/users/"
 
     def New_Graph(self,user_name,token):
         self.user_name=user_name
@@ -22,21 +21,21 @@ class Graphs_Setup:
         print("------------- Welcome to Habit Tracker -------------------\n")
         print("-------------  Create New Graph -------------------\n")
         print("-------------  Code With Abubakar -------------------\n")
-        print("""Note 1:
+        print(f"""{Fore.RED}Note 1:{Style.RESET_ALL}
             \t[Required] You have to Create Graph to show track record in graphical way.
             \tOtherwise, no data will be accepted further.
               """)
-        print("""Note 2:
-            \t[Saved] Make Sure you save your graph id.
+        print(f"""{Fore.RED}Note 2:{Style.RESET_ALL}
+            \t[Saved] Make Sure you save your {Fore.GREEN}graph id{Style.RESET_ALL}.
             \tIt will always required  as you perform any act.
               """)
-        print("""Note 3:
+        print(f"""{Fore.RED}Note 3:{Style.RESET_ALL}
             \t[Validation Rule] Make Sure you follow the rules
             \tAllowed: [a-z] [0-9] 
             \tLength: [1-16]  
             \tIf you exceed the length, y'll got an error.
               """)
-        print("-------------  Enter All Required Values of Graph -------------------\n")
+        print(f"-------------  {Fore.YELLOW}Enter All Required Values of Graph{Style.RESET_ALL} -------------------\n")
         User_Graph_ID=input("Enter your Graph ID   please:")
         Graph_name=input("Enter your Graph Name please:")
         Graph_unit=input("""Enter type of unit that your quantity should be tracked,
@@ -110,7 +109,6 @@ Enter Value: """))
     # update_graph
     def update_graph(self):
         
-        
         # PUT /v1/users/<username>/graphs/<graphID>
         self.graph_id = input("Enter your Graph id : ")
         print("------------- Update Graph Screen -------------------\n")
@@ -169,5 +167,5 @@ Enter Value: """))
         return plain_text    
         
 
-# screen=Graphs_Setup()
-# screen.New_Graph()
+screen=Graphs_Setup()
+screen.New_Graph(user_name="codewithbakar",token="dfvibi34975nsdif3")

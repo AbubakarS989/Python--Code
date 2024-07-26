@@ -43,6 +43,47 @@
 #         print("yes")
 
 
+# MOnthly values
+    # Grand Values
+        # strip_date=[] 
+        # for i in lst_dates:
+        #     # print(type(i)) #String
+        #     strip_date.append(datetime.strptime(i,"%d-%m-%Y").strftime("%d%m%Y"))
+            
+        # print(strip_date)
+        
+        # Monthly Data
+  # date_lst = []
+        # for date in strip_date:
+        #     day = date[0:2]
+        #     month = f"{date[2:4]}"
+        #     year = f"{date[4:8]}"
+        #     date_lst.append([day,month, year])
+        # Helper function to parse date strings
+            
+        # today = datetime.now()  # Today’s date
+        # start_of_current_month = today.replace(day=1)  # First day of this month
+        # start_of_last_month = (start_of_current_month - timedelta(days=1)).replace(day=1)  # First day of last month
+        # end_of_last_month = start_of_current_month - timedelta(days=1)  # Last day of last month
+       
+        
+        # for entry in combine_list.values():
+        #     date_str = entry[1][0]['Date']  # Date from the entry
+        #     quantity = entry[1][0]  # Quantity is at index 1, and it's the first item in the list
+        # entry_date = self.parse_date(date_str)  # Convert date string to date object
+
+        #     if start_of_last_month <= entry_date <= end_of_last_month:
+        #         # Add up the values if the date is within the last month
+        #         if "Cans" in quantity:    
+        #             self.Monthly_Cans += bill_history["Cans"]
+        #         if "Cooler":
+        #             self.Monthly_Coolers += bill_history["Monthly Cooler"]
+        #         if "Drum":
+        #             self.Monthly_Drum += bill_history["Drum"]
+
+
+
+        # print(date_dict)
 
 
 

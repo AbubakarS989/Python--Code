@@ -14,9 +14,9 @@ class Account_Settings_HBT_CWA:
 
         # Take Important values for registration a user
 
-        print("--------------  Account Creation  Section --------------\n")
-        print("--------------     Sign Up Screen         --------------\n")
-        print("--------------    Code With Abubakar      -----------------\n")
+        print(f"--------------  Account Creation  Section{Style.RESET_ALL} --------------\n")
+        print(f"--------------     Sign Up Screen{Style.RESET_ALL}         --------------\n")
+        print(f"--------------    {Fore.MAGENTA}Code With Abubakar{Style.RESET_ALL}      -----------------\n")
 
         self.User_Name = input("Enter your New  Username: ")
         self.Token = input("Enter your New Token: ")
@@ -26,8 +26,8 @@ class Account_Settings_HBT_CWA:
             print("Please Enter your details.")
             exit()
 
-        print("""Important Note: 
-                Store Your [Username] and [Token] at safe Place.
+        print(f"""{Fore.RED}Important Note{Style.RESET_ALL}: 
+                Store Your {Fore.YELLOW}[Username]{Style.RESET_ALL} and {Fore.YELLOW}[Token]{Style.RESET_ALL} at safe Place.
                 It will always be asked whenever you add your track. 
                 like add value, delete, update....
                 """)
@@ -66,7 +66,7 @@ class Account_Settings_HBT_CWA:
 
         except requests.exceptions.HTTPError as e:
             print(f"Failed to Create an account:{e} ")
-
+    # After creating an account the Graph section is display to new user
     def Graphs(self):
         screen = Graphs_Setup()
         screen.New_Graph(self.User_Name, self.Token)
@@ -83,8 +83,8 @@ class Account_Settings_HBT_CWA:
             print("Please Enter your details.")
             exit()
 
-        print("""Important Note: 
-                Store Your New  [Token] at safe Place.
+        print(f"""{Fore.RED}Important Note{Style.RESET_ALL}: 
+                Store Your New  {Fore.YELLOW}[Token]{Style.RESET_ALL} at secure Place.
                 It will always be asked whenever you add your track. 
                 like add value, delete, update....
                 """)
