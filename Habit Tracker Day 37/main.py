@@ -6,6 +6,8 @@ import requests
 import json , os
 from New_Account import Account_Settings_HBT_CWA
 from Graph_Setup import Graphs_Setup
+from colorama import init, Fore, back,Style
+init()
 
 class HABIT_TRACKER_CWA:
     def __init__(self):
@@ -406,7 +408,8 @@ class HABIT_TRACKER_CWA:
 
     def graph_statistics(self):
         '''
-        Display comprehensive details about your graph
+        [Input]: Graph ID
+        Display comprehensive details about your graph.
         1:Total Pixels Count 
         2:Max Quantity
         3:Min Quantity
@@ -417,15 +420,22 @@ class HABIT_TRACKER_CWA:
         8:Max Date
         9:Mix Date
         '''
+        
+        # Get ID, for getting stats of the specific graph
         self.graph_id = input("Enter your Graph id :")
+        
+        # Statistics Endpoint
         # /v1/users/<username>/graphs/<graphID>/stats
+        
         stats_endpoint = f"{self.pixela_endpoint}/{self.USER_NAME}/graphs/{self.graph_id}/stats"
         stats_r = requests.get(url=stats_endpoint, headers=self.header)
         graph_stats = stats_r.json()
-        #? Example Output from APi
+        
+        #? Example:
+        # ? This is an example of output of graph Statistics
         # totalPixelsCount":4,"maxQuantity":5,"minQuantity":-5,"maxDate":"2017-12-31","minDate":"2018-01-01","totalQuantity":5,"avgQuantity":1.25,"todaysQuantity":3,"yesterdayQuantity":2}
         
-        #? store each value as separated VAr to get the desire formate
+        #? Extract the values from the Output and Store each value as separated Variable,for printing them
         total_pixel=graph_stats["totalPixelsCount"]
         max_quantity=graph_stats["maxQuantity"]
         min_quantity=graph_stats["minQuantity"]
@@ -433,25 +443,28 @@ class HABIT_TRACKER_CWA:
         avg_quantity=graph_stats["avgQuantity"]
         today_qty=graph_stats["todaysQuantity"]
         yesterday_qty=graph_stats["yesterdayQuantity"]
-        # MAX 
+        
+        # Maximum Values with respect date and day
         max_date=graph_stats["maxDate"]
         max_date=datetime.strptime(max_date,"%Y-%m-%d").strftime("%d-%m-%Y")
         max_day=datetime.strptime(max_date,"%d-%m-%Y").strftime("%A")
-        # MIN
+        
+        # Minimum Values with respect date and day
         min_date=graph_stats["minDate"]
         min_date=datetime.strptime(min_date,"%Y-%m-%d").strftime("%d-%m-%Y")
         min_day=datetime.strptime(min_date,"%d-%m-%Y").strftime("%A")
-        # Output in decent Format 
-        print("---------------  Graph Statistics -----------------\n")
-        print(f"Total Days you posted  : {total_pixel} Days")
-        print(f"Maximum Hours you work : {max_quantity} hours")
-        print(f"Minimum Hours you work : {min_quantity} hours")
-        print(f"Total Working Hours    : {total_quantity} hours")
-        print(f"Your Average Hours     : {avg_quantity} hours")
-        print(f"Today Work hours       : {today_qty} hours")
-        print(f"Yesterday Work hours   : {yesterday_qty} hours")
-        print(f"Date on which you work less:{min_day} {min_date} ")
-        print(f"Date on which you work more: {max_day} {max_date}")
+        
+        # Output All stats in Decent Format 
+        print(f"--------------- {Fore.GREEN}Graph Statistics{Style.RESET_ALL} -----------------\n")
+        print(f"Total Days you posted       : {total_pixel} Days")
+        print(f"Maximum Hours you work      : {max_quantity} hours")
+        print(f"Minimum Hours you work      : {min_quantity} hours")
+        print(f"Total Working Hours         : {total_quantity} hours")
+        print(f"Your Average Hours          : {avg_quantity} hours")
+        print(f"Today Work hours            : {today_qty} hours")
+        print(f"Yesterday Work hours        : {yesterday_qty} hours")
+        print(f"Date on which you work less : {min_day} {min_date} ")
+        print(f"Date on which you work more : {max_day} {max_date}")
         
         
 
@@ -464,5 +477,5 @@ screen.log_sign()
 # screen.delete_user()
 # screen.update_user()
 # screen.Graphs() 
+# If user run python.exe file, it will hold the cmd.
 input("Press Enter to close...")
-# 1.15 min
