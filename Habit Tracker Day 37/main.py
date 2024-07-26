@@ -172,7 +172,7 @@ class HABIT_TRACKER_CWA:
         if choice ==1:
             graph_settings.New_Graph(self.TOKEN, self.USER_NAME)
         elif choice==2:
-            graph_settings.update_graph()
+            graph_settings.update_graph(self.USER_NAME, self.TOKEN)
         elif choice==3:
             graph_settings.view_graph(self.USER_NAME)
         elif choice==4:

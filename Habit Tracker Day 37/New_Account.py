@@ -128,10 +128,8 @@ class Account_Settings_HBT_CWA:
                 plain_text = self.word_check(data)
 
                 if plain_text == "Success":
-                    print(
-                        f"--------------  Your Account is Deleted {plain_text}fully. -----------------\n")
-                    print(
-                        "------------      Code With Abubakar                -----------------\n")
+                    print(f"--------------  Your Account is Deleted {plain_text}fully. -----------------\n")
+                    print("------------      Code With Abubakar                -----------------\n")
                 else:
                     print("Failed to Delete an account")
 
