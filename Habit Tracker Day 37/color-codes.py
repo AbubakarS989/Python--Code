@@ -5,6 +5,7 @@ init()
 
 # Print colored text
 print(Fore.RED + 'This is red text')
+print(Fore.YELLOW + 'This is yelo text')
 print(Fore.GREEN + 'This is green text')
 print(Fore.LIGHTBLUE_EX + 'This is light blue text')
 print(Fore.LIGHTCYAN_EX + 'This is light cyan text')

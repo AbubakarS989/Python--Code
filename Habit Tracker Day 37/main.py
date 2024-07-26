@@ -6,7 +6,7 @@ import requests
 import json , os
 from New_Account import Account_Settings_HBT_CWA
 from Graph_Setup import Graphs_Setup
-from colorama import init, Fore, back,Style
+from colorama import init, Fore,Style
 init()
 
 class HABIT_TRACKER_CWA:
@@ -21,8 +21,9 @@ class HABIT_TRACKER_CWA:
         self.current_date = datetime.now().strftime("%Y%m%d")
         
     def log_sign(self):
-        print("------------- Welcome to Habit Tracker -------------------\n")
-        print("------------- Sign Up and Log in Screen -------------------\n")
+        print(f"-------------   {Fore.GREEN}Welcome to Habit Tracker{Style.RESET_ALL}   -------------------\n")
+        print(f"-----------     {Fore.LIGHTMAGENTA_EX}Sign Up and Log in Screen{Style.RESET_ALL}     ----------------\n")
+        print(f"---------         {Fore.LIGHTYELLOW_EX}Code With Abubakar{Style.RESET_ALL}            --------------\n")
         print("\t\t1: Log in")
         print("\t\t2: Sign Up\n")
         ask=int(input("Enter your Choice: "))
@@ -44,16 +45,19 @@ class HABIT_TRACKER_CWA:
         Verify the user otherwise program exist 
         '''
         # ? Get Login Details, then display further options.
-        print("-------------            Habit Tracker           ------------------\n")
-        print("------------- Welcome to Log In Screen Habit Tracker -------------------\n")
+        print(f"----------------            {Fore.GREEN}Habit Tracker{Style.RESET_ALL}        -------------------\n")
+        print(f"-------------          {Fore.LIGHTMAGENTA_EX}Welcome to Log In Screen{Style.RESET_ALL}    -----------------\n")
+        print(f"-----------              {Fore.LIGHTYELLOW_EX}Code With Abubakar{Style.RESET_ALL}          ---------------\n")
         self.USER_NAME = input("Enter your Username: \n")
         self.TOKEN = input("Enter your Token: \n")
+        
         self.header = {
             "X-USER-TOKEN": self.TOKEN
         }
         
         #! User Authentication: Check user exist or not 
-        # Encounter the error
+        
+        # Encounter the error, if user enter none of them
         if not self.USER_NAME or not self.TOKEN :
             print("Please Enter your details.")
             exit()
@@ -66,10 +70,11 @@ class HABIT_TRACKER_CWA:
                 
                 
         if r:
-            print("-------------     User Verified    -------------------\n")
-                
-            print("------------- Select one of following -------------------\n")
-            print("""
+            
+            print(f"------------------      {Fore.LIGHTGREEN_EX}User Verified{Style.RESET_ALL}    -------------------\n")
+            print(f"-----------       Select one of following{Style.RESET_ALL}     -------------\n")
+
+            print(f"""{Fore.LIGHTYELLOW_EX}
                 1: Add your today Track.
                 2: Update your particular Track.
                 3: Delete your particular Track.
@@ -79,7 +84,7 @@ class HABIT_TRACKER_CWA:
                 7: Account Management
                 8: Graph Management
                 9: Exit
-                """)
+                {Style.RESET_ALL}""")
             choice = int(input("Enter your choice: "))
             if choice == 1:
                     self.add_track()
@@ -107,15 +112,17 @@ class HABIT_TRACKER_CWA:
                 exit()
                 
     def Account_Management(self):
-        print("-------------            Habit Tracker               -------------------\n")
-        print("-------------   Welcome to Account Settings Screen   -------------------\n")      
-                
-        print("-------------    Select one of following             -------------------\n")
-        print("""
+
+
+        print(f"-------------------     {Fore.GREEN}Habit Tracker{Style.RESET_ALL}             ---------------\n")
+        print(f"----------------  {Fore.LIGHTMAGENTA_EX}Welcome to Account Management{Style.RESET_ALL}      ------------\n")      
+        print(f"-------------          {Fore.LIGHTYELLOW_EX}Code With Abubakar{Style.RESET_ALL}             -----------\n")
+        print(f"-----------        {Fore.LIGHTBLUE_EX}Select one of following{Style.RESET_ALL}              ----------\n")
+        print(f"""{Fore.LIGHTYELLOW_EX}
                 1: Update your Account Token
                 2: Delete Your Account Permanently
                 3: Exit
-                """)
+                {Style.RESET_ALL}""")
         choice = int(input("Enter your choice: "))
         if choice ==1:
             update_user=Account_Settings_HBT_CWA()
@@ -135,12 +142,13 @@ class HABIT_TRACKER_CWA:
             
     def if_user_not_found(self):
     
-        print("-----------------         User not found         ------------------\n")
-        print("-----------------         Habit Tracker           ------------------\n")
-        print("-------------     Select one of the following  ------------------")
-        print("""1: Create New Account.
+        print(f"---------------------      {Fore.RED}User not found{Style.RESET_ALL}    ----------------------\n")
+        print(f"--------------------       {Fore.GREEN}Habit Tracker{Style.RESET_ALL}         -------------------\n")
+        print(f"----------------      {Fore.LIGHTBLUE_EX}Select one of the following{Style.RESET_ALL}     -------------------")
+
+        print(f"""{Fore.LIGHTYELLOW_EX}1: Create New Account.
 2: Back to login Screen.                     
-3: Exit""")
+3: Exit{Style.RESET_ALL}""")
         ask=int(input("Enter your Choice: "))
         
         
@@ -158,17 +166,17 @@ class HABIT_TRACKER_CWA:
         
         
     def Graph_Management(self):
-        print("-------------            Habit Tracker               -------------------\n")
-        print("-------------   Welcome to Graph Settings Screen   -------------------\n")      
-                
-        print("-------------    Select one of following             -------------------\n")
-        print("""
+        print(f"-------------            {Fore.GREEN}Habit Tracker{Style.RESET_ALL}               -------------------\n")
+        print(f"-------------   {Fore.LIGHTMAGENTA_EX}Welcome to Graph Settings Screen{Style.RESET_ALL}     -------------------\n")      
+        print(f"------------         {Fore.LIGHTYELLOW_EX}Code With Abubakar{Style.RESET_ALL}             -------------------\n")
+        print(f"-------------    {Fore.LIGHTBLUE_EX}Select one of following{Style.RESET_ALL}             -------------------\n")
+        print(f"""{Fore.YELLOW}
                 1: Create New Graph
                 2: Update Graph Credentials
                 3: View Your Graph 
                 4: Delete Your Graph Permanently
                 5: Exit
-                """)
+                {Style.RESET_ALL}""")
         graph_settings=Graphs_Setup()
         choice = int(input("Enter your choice: "))
         if choice ==1:
@@ -189,12 +197,16 @@ class HABIT_TRACKER_CWA:
             
             
     def add_track(self):
-        '''Add new track to graph 
-           Take number of hours as an input
-           Input Type :  Float
+        '''
+        Add new track to graph 
+        Take value set by the user [hours, miles, kilogram..]
+        Input Type :  Set by the user at the of graph creation [int or float ]
+        Input 1: Graph ID
         '''
         
-        self.graph_id = input("Enter your Graph id : ")
+        print(f"----------------- {Fore.GREEN}Add your Track{Style.RESET_ALL} ------------------")
+        print(f"------------     {Fore.LIGHTYELLOW_EX}Code With Abubakar{Style.RESET_ALL}   -----------------")
+        self.graph_id = input("Enter your Graph ID : ")
         quantity = input("How many hours did you work today? ")
         data_param = {
             "date": self.current_date,
@@ -205,24 +217,28 @@ class HABIT_TRACKER_CWA:
         try:
             r = requests.post(url=data_endpoint,json=data_param, headers=self.header)
             # r.raise_for_status()
-            print("Today Record is added successfully!")    
+            print(f"{Fore.LIGHTGREEN_EX}Today Record is added successfully!{Style.RESET_ALL}")    
         except requests.exceptions.RequestException as e:
-            print("Failed to add track:", e)
+            print(f"{Fore.CYAN}Failed to add track:{Style.RESET_ALL}", e)
+
+
 
     def update_track(self):
         """
         Update your desire track.
         input 1: Day [int]
         input 2: Month [int]
-        input 3: Your Track value in [float]
+        input 3: Your Track value [float or int]
+        input 4: Graph ID
         """
-        print("------------ Update your Track ----------")
+        print(f"----------------- {Fore.GREEN}Update your Track{Style.RESET_ALL} ------------------")
+        print(f"------------     {Fore.LIGHTYELLOW_EX}Code With Abubakar{Style.RESET_ALL}   -----------------")
         days = int(input("Enter your desire day to update value [1-31]:"))
         months = int(input("Enter month of that date [1-12]:"))
         quantity = input("Enter your update value [hours]:")
         self.graph_id = input("Enter your Graph id : ")
 
-        # ? Data is updated through this format
+        # ? Setup json format for updating values
         update_value = {
             "quantity": quantity
         }
@@ -234,21 +250,24 @@ class HABIT_TRACKER_CWA:
         update_endpoint = f"{self.pixela_endpoint}/{self.USER_NAME}/graphs/{self.graph_id}/{manual_date}"
         try:
             r = requests.put(url=update_endpoint,json=update_value, headers=self.header)
-            print("Your data is updated successfully")
+            print(f"{Fore.LIGHTGREEN_EX}Your data is updated successfully.{Style.RESET_ALL}")
         except requests.exceptions.RequestException as e:
-            print(f"Failed to update value for {self.date}:", e)
+            print(f"{Fore.LIGHTCYAN_EX}Failed to update value for{Style.RESET_ALL} {self.date}:", e)
+
 
     def delete_track(self):
         '''
-        Delete Particular Track
+        Delete Particular Track Permanently
         Input 1: Day [int]
         Input 2: month [int]
-        It ask [yes/no] before permanently deleting the value
+        Input 3: Graph ID
         '''
-        print("------------ Delete your Track ----------")
+        print(f"----------------  {Fore.LIGHTRED_EX}Delete your Track{Style.RESET_ALL}  --------------")
+        print(f"-------------     {Fore.LIGHTYELLOW_EX}Code With Abubakar{Style.RESET_ALL}   ------------\n")
+        
         days = int(input("Enter your day  [1-31]:"))
         months = int(input("Enter month of that date [1-12]:"))
-        self.graph_id = input("Enter your Graph id : ")
+        self.graph_id = input("Enter your Graph Id : ")
 
         # Get manual date
         manual_date = datetime(year=2024, month=months,day=days).strftime("%Y%m%d")
@@ -257,7 +276,7 @@ class HABIT_TRACKER_CWA:
         del_endpoint = f"{self.pixela_endpoint}/{self.USER_NAME}/graphs/{self.graph_id}/{manual_date}"
 
         # ? Endpoint for getting the required value
-        ''' I used this because, the user verify the data that he want to delete before the program permanently deleted it '''
+        ''' I used this because, the user can verify the data that he is going to delete before the program permanently deleted it '''
         display_endpoint = f"{self.pixela_endpoint}/{self.USER_NAME}/graphs/{self.graph_id}/{manual_date}"
         try:
             r = requests.get(url=display_endpoint, headers=self.header)
@@ -268,8 +287,8 @@ class HABIT_TRACKER_CWA:
             get_date = datetime.strptime(manual_date, "%Y%m%d").strftime("%d-%m-%Y")
             
             # get the user value to display for user authentication
-            print("Are you sure to delete your following track?: ")
-            print(f''' Track Record:
+            print(f"{Fore.LIGHTRED_EX}Are you sure to delete your following track?{Style.RESET_ALL}: ")
+            print(f''' {Fore.LIGHTGREEN_EX}Track Record{Style.RESET_ALL}:
             Date: {get_date}
             Quantity: {qty["quantity"]}''')
             # If user say [yes] the value will deleted permanently
@@ -277,33 +296,44 @@ class HABIT_TRACKER_CWA:
             if ask == "yes":
                 try:
                     r = requests.delete(url=del_endpoint, headers=self.header)
-                    print("The value has been deleted successfully.")
+                    print(f"{Fore.LIGHTRED_EX}The value has been deleted successfully.{Style.RESET_ALL}")
                 except requests.exceptions.RequestException as e:
-                    print(f"Failed to delete value for {manual_date}:", e)
+                    print(f"{Fore.LIGHTBLUE_EX}Failed to delete value for{Style.RESET_ALL} {manual_date}:", e)
             elif ask == "no":
-                print("The request has been canceled.")
+                print(f"{Fore.LIGHTGREEN_EX}The request has been canceled.{Style.RESET_ALL}")
         except requests.exceptions.RequestException as e:
-            print(f"Failed to get value for {manual_date}:", e)
+            print(f"{Fore.RED}Failed to get value for {Style.RESET_ALL} {manual_date}:", e)
 
 
     def track__particular_value(self):
         '''
-        Easily track your day
+        Easily get Particular Track Value 
         input 1: Day [int]
         input 2: Month [int]
-        It display the value corresponding to the entered date by user
+        input 3: Graph ID
+        Output 1: Date
+        Output 2: Day
+        Output 3: Track Value
         '''
-        print("------------ Show your Track ----------")
+        
+        # Screen
+        print(f"----------------------   {Fore.LIGHTGREEN_EX}Your Particular Track Record{Style.RESET_ALL}     --------------------")
+        print(f"------------------          {Fore.LIGHTYELLOW_EX}Code With Abubakar{Style.RESET_ALL}               ----------------\n")
+        
+        #? Inputs
         days = int(input("Enter your day  [1-31]:"))
         months = int(input("Enter month of that date [1-12]:"))
         self.graph_id = input("Enter your Graph id : ")
+        
         # Get manual date
         manual_date = datetime(year=2024, month=months,day=days).strftime("%Y%m%d")
+        
         # Get day
         manual_day = datetime.strptime(manual_date,"%Y%m%d").strftime("%A")
-
+        
         # Format the date in decent way for display
         get_date = datetime.strptime(manual_date, "%Y%m%d").strftime("%d-%m-%Y")
+
 
         # ? Endpoint to get value from the graph
         get_endpoint = f"{self.pixela_endpoint}/{self.USER_NAME}/graphs/{self.graph_id}/{manual_date}"
@@ -313,16 +343,16 @@ class HABIT_TRACKER_CWA:
             # print(r.json())
             # print(qty["quantity"])
             qty = r.json()
-            print("\nTrack Record:\n")
+            print(f"\n{Fore.LIGHTMAGENTA_EX}Track Record{Style.RESET_ALL}:\n")
             print(f"\tDay: {manual_day}\n\tDate: {get_date}\n\tTime: {qty["quantity"]} Hours\n")
         except requests.exceptions.RequestException as e:
-            print(f"Failed to retrieve value for {manual_date}:", e)
+            print(f"{Fore.LIGHTRED_EX}Failed to retrieve value for{Style.RESET_ALL} {manual_date}:", e)
 
     def get_entire_value(self):
         '''
-        Get History, store in json file
-        It display the list of days you posted the value  
-        No inputs
+        [Input]: Graph ID
+        Fetch History of Entire Track Record and store into json
+        It display the list of Day, Date and Track Value you posted the value  
         '''
         # Define list to get the particular format that can easily store in json file
         dic = {}
@@ -336,43 +366,32 @@ class HABIT_TRACKER_CWA:
                     dic2 = json.load(f)
             except json.JSONDecodeError:
                 dic2 = {}
-        """
-        stats_endpoint=f"{self.pixela_endpoint}/{self.USER_NAME}/graphs/{self.graph_id}/stats"
-        stats_r=requests.get(url=stats_endpoint,headers=self.header)
-        max_date=stats_r.json()
-        max_date=max_date["maxDate"]
-        lst=[]
-        print(lst.append(str(max_date).split("-")))
-        print(lst)
-        # stats_month=lst[0][1]
-        stats_day=lst[0][2]
-        """
-
-        # change date format to input date
-        """ max_date=datetime.strptime(max_date,"%Y-%m-%d").strftime("%Y%m%d") """
-
-        ''' pixels_paras={
+        '''
+        We can get the particular track from one date to other.
+        pixels_paras={
              "from":max_date,
              "to":self.current_date,
              "withBody":True
          }
          '''
+         
         self.graph_id = input("Enter your Graph id : ")
-        # ? Get the dictionary of dates
+        
+        # ? Get the dictionary of dates from the Apis and store each respective date corresponding value
         get_pixels = f"{self.pixela_endpoint}/{self.USER_NAME}/graphs/{self.graph_id}/pixels"
         try:
             r = requests.get(url=get_pixels, headers=self.header)
             r.raise_for_status()
             qty = r.json()
 
-            # Store dates into list
+            # Store  all dates into list , that we can get the data of respective date.
             list_of_dates = qty["pixels"]
 
             for i in list_of_dates:
-                # ? Input each date one by one to get the corresponding value
+                # ? Input each date one by one to get the corresponding user track quantity
                 # print(i)
                 manual_date = int(i)
-                # Endpoint for extracting values of desire date
+                # Endpoint for extracting user track values of desire date
                 get_endpoint = f"{self.pixela_endpoint}/{self.USER_NAME}/graphs/{self.graph_id}/{manual_date}"
                 try:
                     r = requests.get(url=get_endpoint, headers=self.header)
@@ -381,9 +400,8 @@ class HABIT_TRACKER_CWA:
                     qty = r.json()
                     # print(qty)
 
-                    # ? Store value of corresponding date into a dictionary
+                    # ? Store value of user track  of corresponding date into a dictionary
                     dic[format_change] = qty["quantity"]
-
                 except requests.exceptions.RequestException as e:
                     print(f"Failed to retrieve value from {i} to {self.current_date}:", e)
 
@@ -395,14 +413,18 @@ class HABIT_TRACKER_CWA:
         # print(dic1)
         # check in to protect from error
         if len(dic) != 0:
-            print("---------------  Your Entire Track Values -----------------\n",)
+            # Screen
+            print(f"----------------------     {Fore.LIGHTRED_EX}Your Entire Track {Style.RESET_ALL}    -----------------\n",)
+            print(f"--------------------          {Fore.LIGHTYELLOW_EX}Code With Abubakar{Style.RESET_ALL}          -----------------\n")
+            
             for date, quantity in dic.items():
-                print(f"Date: {date} Time:{quantity} Hour")
-
+                Day=datetime.strptime(date,"%d-%m-%Y").strftime("%A")
+                print(f"Day: {Day}",f"                  Date: {date}    ",f"                    Time:{quantity} Hour   ")
+                
             # ? Update data to json file with key date
             dic2["Your Track Record"] = dic1
 
-            # ? Put the updated data into json file
+            # ? Dump the updated data into json file
             with open("Entire Date.json", "w") as f:
                 json.dump(dic2, f, indent=4)
 
@@ -455,7 +477,9 @@ class HABIT_TRACKER_CWA:
         min_day=datetime.strptime(min_date,"%d-%m-%Y").strftime("%A")
         
         # Output All stats in Decent Format 
-        print(f"--------------- {Fore.GREEN}Graph Statistics{Style.RESET_ALL} -----------------\n")
+        
+        print(f"--------------------      {Fore.GREEN}Graph Statistics{Style.RESET_ALL}       -------------------\n")
+        print(f"----------------          {Fore.LIGHTYELLOW_EX}Code With Abubakar{Style.RESET_ALL}        -----------------\n")
         print(f"Total Days you posted       : {total_pixel} Days")
         print(f"Maximum Hours you work      : {max_quantity} hours")
         print(f"Minimum Hours you work      : {min_quantity} hours")
