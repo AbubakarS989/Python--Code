@@ -199,9 +199,10 @@ class HABIT_TRACKER_CWA:
             "quantity": quantity
         }
         data_endpoint = f"{self.pixela_endpoint}/{self.USER_NAME}/graphs/{self.graph_id}"
-        # data_endpoint=f"{pixela_endpoint}/{USER_NAME}/graphs/{graph_id}"
+        # print(data_endpoint)
         try:
             r = requests.post(url=data_endpoint,json=data_param, headers=self.header)
+            # r.raise_for_status()
             print("Today Record is added successfully!")    
         except requests.exceptions.RequestException as e:
             print("Failed to add track:", e)

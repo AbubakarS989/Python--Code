@@ -15,14 +15,21 @@ class Water_Tracker_CWA:
         self.Pixel_endpoint=""
         self.Sheety_endpoint=""
         self.current_date=datetime.now().strftime("%d-%m-%Y")
+        
+        # paid or not
+        self.get=0
+        # buy ot not
+        self.ask=0
+        
         self.can_price=20
         self.cooler_price=10
         self.Drum_can_price=20
+        
         self.cans = 0
         self.cooler = 0
         self.drum = 0
-        self.status = ""
         self.ID = 0
+        self.status = ""
         
         self.Total_Bill=0
         self.paid_bill=0
@@ -41,6 +48,14 @@ class Water_Tracker_CWA:
         self.grand_total_dues=0
         
         self.extract_data=0
+        
+        self.Monthly_Cans=0
+        self.Monthly_Coolers=0
+        self.Monthly_Drum=0
+        
+        self.Monthly_Bill=0
+        self.Monthly_Paid=0
+        self.Monthly_Dues=0
         
         
     def Home_Screen(self):
@@ -88,20 +103,21 @@ class Water_Tracker_CWA:
             
         
        
-        ask=input(" Did you buy water today? [y/n]?")
-        if ask=="y":
+        self.ask=input(" Did you buy water today? [y/n]?")
+        if self.ask=="y":
             self.cans=int(input(f"Enter Quantity of {Fore.BLUE}Can{Style.RESET_ALL} you buy today: ?"))
             self.cooler=int(input(f"Enter Quantity of {Fore.GREEN}Cooler{Style.RESET_ALL} you buy today?: "))
             self.drum=int(input(f"Enter Quantity of {Fore.CYAN}Drum Cans{Style.RESET_ALL} you buy today?: "))
-            ask=input("Did you Paid the Bill? [y/n]").lower()
-            if ask=="y":
+            self.get=input("Did you Paid the Bill? [y/n]").lower()
+            
+            if self.get=="y":
                 self.paid_bill=int(input("How much you paid today? [Rupees]"))
-            elif ask=="n":
+            elif self.get=="n":
                 self.paid_bill=0
-            # Storing data into list
+
             self.status="Present"
-        elif ask=="n":
-            # if the user didn't buy, then values are zero automatically
+        elif self.ask=="n":
+            # if the user didn't buy, then values are assigned zero automatically
             self.cans=self.cooler=self.drum=0
             self.status="Absent"
 
@@ -119,6 +135,7 @@ class Water_Tracker_CWA:
         
         
         # Store each quantity into dic
+        
         self.calculations()
         quantity={
             "Date":self.current_date,
@@ -138,18 +155,18 @@ class Water_Tracker_CWA:
         }
      
         Bill_History={
-        "Monthly Cans":False,
+        "Monthly Cans":self.Monthly_Cans,
         "Total Cans":self.total_cans,
-        "Monthly Coolers":False,
+        "Monthly Coolers":self.Monthly_Coolers,
         "Total Coolers":self.total_cooler,
-        "Monthly Drum":False,
+        "Monthly Drum":self.Monthly_Drum,
         "Total Drum":self.total_drum,
-        "Monthly Bill":False,
-        "Monthly Paid":False,
-        "Monthly Dues":False,
+        "Monthly Bill":self.Monthly_Bill,
+        "Monthly Paid":self.Monthly_Paid,
+        "Monthly Dues":self.Monthly_Dues,
         "Grand_Total_Bill":self.grand_total_bill,
-        "Grand_Total_Paid":self.grand_total_paid,
-        "Grand_Total_Dues":self.grand_total_dues
+        "Grand_Total_Paid":self.grand_total_paid
+        
             
             
         }
@@ -177,9 +194,7 @@ class Water_Tracker_CWA:
         self.cooler_bill=self.cooler*self.cooler_price
         self.drum_bill=self.drum*self.Drum_can_price
         self.Total_Bill=self.can_bill+self.cooler_bill+self.drum_bill
-        print(self.can_bill)
-        print(self.cooler_bill)
-        print(self.drum_bill)
+        print(self.Total_Bill)
         
         
            
@@ -190,73 +205,131 @@ class Water_Tracker_CWA:
         
         with open("data.json", "r") as f:
             self.combine_list = json.load(f)
+            
         for entry in self.combine_list.values():
-            
-            
             
             quantity = entry[1][0]  # Quantity is at index 1, and it's the first item in the list
             billing_info = entry[3][0]  # Billing info is at index 3, and it's the first item in the list
             bill_history = entry[4][0]  # Bill history is at index 4, and it's the first item in the list
-            
+            # if user buy a water then  calculations could perform
+            if self.ask=="y":
             # Extract quantity of data
-            if "Cans" in quantity:    
-                self.total_cans+= quantity["Cans"]
-            if "Cooler":
-                self.total_cooler+= quantity["Cooler"]
-            if "Drum":
-                self.total_drum+= quantity["Drum"]
-            if "Date" in quantity:
-                lst_dates.append(quantity["Date"])
+                if "Cans" in quantity:    
+                    self.total_cans+= quantity["Cans"]
+                if "Cooler":
+                    self.total_cooler+= quantity["Cooler"]
+                if "Drum":
+                    self.total_drum+= quantity["Drum"]
+                if "Date" in quantity:
+                    lst_dates.append(quantity["Date"])
                 
             # Extract Data  Of Grand Values
-            if "Grand_Total_Bill" in bill_history:
-                self.grand_total_bill += bill_history["Grand_Total_Bill"]
-            if "Grand_Total_Paid":
-                self.grand_total_paid += bill_history["Grand_Total_Paid"]
-            if "Grand_Total_Dues":
-                self.grand_total_dues += bill_history["Grand_Total_Dues"]
-                
-               
-             
-            # Extract Data  Of Current bills
-            if "Total Bill" in billing_info:
-                self.Total_Bill += billing_info["Total Bill"]
-            if "Paid Bill " in billing_info:
-                self.paid_bill += billing_info["Paid Bill "]
-            if "Dues" in billing_info:
-                self.Dues += billing_info["Dues"]
-                
+
+                if "Total Bill" in billing_info:
+                    self.Total_Bill += billing_info["Total Bill"]
+                    
+                if "Total Bill" in billing_info:
+                    self.grand_total_bill += billing_info["Total Bill"]
+            # if user didn't buy a water then  calculations could perform
+            
+            if self.ask=="n":        
+                if "Cans" in quantity:    
+                    self.total_cans= quantity["Cans"]c 8
+                if "Cooler":
+                    self.total_cooler= quantity["Cooler"]
+                if "Drum":
+                    self.total_drum= quantity["Drum"]
+                if "Date" in quantity:
+                    lst_dates.append(quantity["Date"])
+
+                if "Total Bill" in billing_info:
+                    self.Total_Bill = billing_info["Total Bill"]
+                    
+                if "Grand_Total_Bill" in bill_history:
+                    self.grand_total_bill = billing_info["Grand_Total_Bill"]
+                    
+            # if user paid the bill then  calculations could perform
+            if self.get=="y":
+                if "Paid Bill " in billing_info:
+                    self.grand_total_bill += billing_info["Paid Bill "]
+                # Extract Data  Of Current bills
+                if "Paid Bill " in billing_info:
+                    self.paid_bill += billing_info["Paid Bill "]
+                    
+            if self.get=="n":
+                if "Dues" in billing_info:
+                    self.Dues = billing_info["Dues"]
+                    
+                if "Paid Bill " in billing_info:
+                    self.grand_total_bill += billing_info["Paid Bill "]
+                    
         # Individual daily values
         self.total_cans+= self.cans
         self.total_cooler+=self.cooler
         self.total_drum+=self.drum
-        
-        # Grand Values
+                
+                
+                
         self.Dues=self.Total_Bill-self.paid_bill
         self.grand_total_bill+=self.Total_Bill
         self.grand_total_paid+=self.paid_bill
         self.grand_total_dues+=self.Dues
-        strip_date=[] 
-        for i in lst_dates:
-            # print(type(i)) #String
-            strip_date.append(datetime.strptime(i,"%d-%m-%Y").strftime("%d%m%Y"))
+        
+        
+        # Grand Values
+        # strip_date=[] 
+        # for i in lst_dates:
+        #     # print(type(i)) #String
+        #     strip_date.append(datetime.strptime(i,"%d-%m-%Y").strftime("%d%m%Y"))
             
-        print(strip_date)
+        # print(strip_date)
+        
         # Monthly Data
-        date_dict = []
-        for date in strip_date:
-            day = date[0:2]
-            month = f"{date[2:4]}"
-            year = f"{date[4:8]}"
-            date_dict.append([day,month, year])
+        if not os.path.exists("data.json"):
+            with open("data.json", 'w') as f:
+                json.dump({}, f)
+        
+        with open("data.json", "r") as f:
+            self.combine_list = json.load(f)
+        # date_lst = []
+        # for date in strip_date:
+        #     day = date[0:2]
+        #     month = f"{date[2:4]}"
+        #     year = f"{date[4:8]}"
+        #     date_lst.append([day,month, year])
+        # Helper function to parse date strings
+            
+        # today = datetime.now()  # Today’s date
+        # start_of_current_month = today.replace(day=1)  # First day of this month
+        # start_of_last_month = (start_of_current_month - timedelta(days=1)).replace(day=1)  # First day of last month
+        # end_of_last_month = start_of_current_month - timedelta(days=1)  # Last day of last month
+       
+        
+        # for entry in combine_list.values():
+        #     date_str = entry[1][0]['Date']  # Date from the entry
+        #     quantity = entry[1][0]  # Quantity is at index 1, and it's the first item in the list
+        # entry_date = self.parse_date(date_str)  # Convert date string to date object
+
+        #     if start_of_last_month <= entry_date <= end_of_last_month:
+        #         # Add up the values if the date is within the last month
+        #         if "Cans" in quantity:    
+        #             self.Monthly_Cans += bill_history["Cans"]
+        #         if "Cooler":
+        #             self.Monthly_Coolers += bill_history["Monthly Cooler"]
+        #         if "Drum":
+        #             self.Monthly_Drum += bill_history["Drum"]
 
 
-        print(date_dict)
+
+        # print(date_dict)
         
          
 
         
         
+    def parse_date(date_str):
+        
+        return datetime.strptime(date_str, "%d%m%Y")
     def output_screen(self):
         
         head.header(heading="Output Screen")
