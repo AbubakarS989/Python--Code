@@ -21,6 +21,7 @@ init()
 # 9:  track__particular_value()
 # 10: get_entire_value()
 # 11: graph_statistics()
+# 12: word_check()
 
 
 
@@ -649,8 +650,8 @@ class HABIT_TRACKER_CWA:
 
 
 #? Create instance from the Class
-# screen = HABIT_TRACKER_CWA()
-# screen.log_sign()
+screen = HABIT_TRACKER_CWA()
+screen.log_sign()
 # screen = Account_Settings_HBT_CWA()
 # screen.sign_up()
 # screen.delete_user()

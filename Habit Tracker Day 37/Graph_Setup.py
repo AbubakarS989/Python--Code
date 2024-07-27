@@ -9,9 +9,18 @@ from colorama import Fore, Back, Style, init  # For Colors
 init()
 
 
+#? List of functions Created in this file:
+# 1:  graph_id_note() 
+# 2:  New_Graph()
+# 3:  view_graph()
+# 4:  update_graph()
+# 6:  delete_graph()
+# 7: word_check()
+
+
+
 class Graphs_Setup:
-    
-    
+     
     
     def __init__(self):
         
@@ -310,4 +319,4 @@ Enter Value: """)
 
 
 # screen=Graphs_Setup()
-# screen.New_Graph(user_name="codewithbakar",token="dfvibi34975nsdif3")
+# screen.New_Graph()

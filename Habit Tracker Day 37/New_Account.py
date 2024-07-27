@@ -4,6 +4,14 @@ from Graph_Setup import Graphs_Setup
 from colorama import Fore, Back, Style, init #For Colors
 init()
 
+
+
+#? List of functions Created in this file:
+# 1:  sign_up() 
+# 2:  Graphs()
+# 3:  update_user()
+# 4:  delete_user()
+# 5: word_check()
 class Account_Settings_HBT_CWA:
 
     def __init__(self):
@@ -211,7 +219,6 @@ class Account_Settings_HBT_CWA:
         return plain_text
 
 
-screen = Account_Settings_HBT_CWA()
-
-screen.sign_up()
+# screen = Account_Settings_HBT_CWA()
+# screen.sign_up()
 # # screen.update_user()
