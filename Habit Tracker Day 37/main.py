@@ -422,7 +422,7 @@ class HABIT_TRACKER_CWA:
         '''
         [Input]: Graph ID
         Fetch History of Entire Track Record and store into json
-        It display the list Day, Date and Track Value you posted the value  
+        It display the list -> Day - Date - Track Value
         '''
         # Define list to get the particular format that can easily store in json file
         dic = {}
