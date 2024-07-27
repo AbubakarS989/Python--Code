@@ -21,6 +21,7 @@ class Account_Settings_HBT_CWA:
     def sign_up(self):
         """
         For New Account:
+        Input not as parameter, it ask after run the function
         Input 1: New Username
         Input 1: New Token - make it complex
         """
@@ -97,6 +98,7 @@ class Account_Settings_HBT_CWA:
     def update_user(self):
         """
         Update User Token
+        Input not as parameter, it ask after run the function
         Input 1: Username
         Input 2: Old Token
         Input 3: New Token
@@ -154,6 +156,7 @@ class Account_Settings_HBT_CWA:
     def delete_user(self):
         """
         Delete User Permanently.
+        Input not as parameter, it ask after run the function
         Input 1: Username
         Input 2: Token
         Input 3: Before delete it ask [yes/no] 
