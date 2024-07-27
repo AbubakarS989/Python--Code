@@ -9,6 +9,21 @@ from Graph_Setup import Graphs_Setup
 from colorama import init, Fore,Style
 init()
 
+#? List of functions Created in this file:
+# 1:  log_sign() 
+# 2:  Home_Screen()
+# 3:  Account_Management()
+# 4:  if_user_not_found()
+# 6:  Graph_Management()
+# 5:  add_track()
+# 7:  update_track()
+# 8:  delete_track()
+# 9:  track__particular_value()
+# 10: get_entire_value()
+# 11: graph_statistics()
+
+
+
 class HABIT_TRACKER_CWA:
     def __init__(self):
         # ? Define General Variable used throughout the program.
@@ -21,6 +36,10 @@ class HABIT_TRACKER_CWA:
         self.current_date = datetime.now().strftime("%Y%m%d")
         
     def log_sign(self):
+        """
+        First screen When user run program
+        Show options -> login -signup - Exit 
+        """
         print(f"-------------   {Fore.GREEN}Welcome to Habit Tracker{Style.RESET_ALL}   -------------------\n")
         print(f"-----------     {Fore.LIGHTMAGENTA_EX}Sign Up and Log in Screen{Style.RESET_ALL}     ----------------\n")
         print(f"---------         {Fore.LIGHTYELLOW_EX}Code With Abubakar{Style.RESET_ALL}            --------------\n")
@@ -39,10 +58,20 @@ class HABIT_TRACKER_CWA:
         
     def Home_Screen(self):
         '''
-        Display Number of option.
+        Login Screen
         Input 1: User Name
         Input 2: Token
-        Verify the user otherwise program exist 
+        Display Options to the user after authentication.
+            1: Add your today Track.
+            2: Update your particular Track.
+            3: Delete your particular Track.
+            4: Get your particular Track Value
+            5: Get your Entire Track
+            6: Get your Graph Statistics
+            7: Account Management
+            8: Graph Management
+            9: Exit
+        In case of invalid user, display login-signup screen
         '''
         # ? Get Login Details, then display further options.
         print(f"----------------            {Fore.GREEN}Habit Tracker{Style.RESET_ALL}        -------------------\n")
@@ -112,7 +141,12 @@ class HABIT_TRACKER_CWA:
                 exit()
                 
     def Account_Management(self):
-
+        """
+        Display Options:
+        1: Update Account Credentials
+        2: Delete Account permanently
+        3: Exit
+        """
 
         print(f"-------------------     {Fore.GREEN}Habit Tracker{Style.RESET_ALL}             ---------------\n")
         print(f"----------------  {Fore.LIGHTMAGENTA_EX}Welcome to Account Management{Style.RESET_ALL}      ------------\n")      
@@ -141,6 +175,12 @@ class HABIT_TRACKER_CWA:
             
             
     def if_user_not_found(self):
+        """
+        Display Options:
+        1: Create New Account
+        2: Back to login screen
+        3: Exit
+        """
     
         print(f"---------------------      {Fore.RED}User not found{Style.RESET_ALL}    ----------------------\n")
         print(f"--------------------       {Fore.GREEN}Habit Tracker{Style.RESET_ALL}         -------------------\n")
@@ -166,6 +206,15 @@ class HABIT_TRACKER_CWA:
         
         
     def Graph_Management(self):
+        """
+        Display Options for graph Customization
+        1: Create New Graph
+        2: Update Graph Credentials
+        3: View Your Graph 
+        4: Delete Your Graph Permanently
+        5: Exit
+        """
+        
         print(f"-------------            {Fore.GREEN}Habit Tracker{Style.RESET_ALL}               -------------------\n")
         print(f"-------------   {Fore.LIGHTMAGENTA_EX}Welcome to Graph Settings Screen{Style.RESET_ALL}     -------------------\n")      
         print(f"------------         {Fore.LIGHTYELLOW_EX}Code With Abubakar{Style.RESET_ALL}             -------------------\n")
@@ -198,10 +247,10 @@ class HABIT_TRACKER_CWA:
             
     def add_track(self):
         '''
-        Add new track to graph 
-        Take value set by the user [hours, miles, kilogram..]
-        Input Type :  Set by the user at the of graph creation [int or float ]
         Input 1: Graph ID
+        Input 2: Track Record Value
+        Input Type :  Set by the user at the of graph creation [int or float ]
+        Take value set by the user [hours, miles, kilogram..]
         '''
         
         print(f"----------------- {Fore.GREEN}Add your Track{Style.RESET_ALL} ------------------")
@@ -218,33 +267,54 @@ class HABIT_TRACKER_CWA:
             r = requests.post(url=data_endpoint,json=data_param, headers=self.header)
             # r.raise_for_status()
             print(f"{Fore.LIGHTGREEN_EX}Today Record is added successfully!{Style.RESET_ALL}")    
-        except requests.exceptions.RequestException as e:
+        except requests.exceptions. RequestException as e:
             print(f"{Fore.CYAN}Failed to add track:{Style.RESET_ALL}", e)
 
 
 
     def update_track(self):
         """
-        Update your desire track.
-        input 1: Day [int]
-        input 2: Month [int]
-        input 3: Your Track value [float or int]
-        input 4: Graph ID
+        Update your Track Value.
+        Option 1 -> Today Track; 
+                    input 1: Your Track value [float or int]
+                    input 2: Graph ID
+        Option 2 -> Desire Track;
+                    input 1: Day [int]
+                    input 2: Month [int
+                    input 3: Year [int]
+                    input 4: Your Track value [float or int]
+                    input 5: Graph ID
         """
         print(f"----------------- {Fore.GREEN}Update your Track{Style.RESET_ALL} ------------------")
         print(f"------------     {Fore.LIGHTYELLOW_EX}Code With Abubakar{Style.RESET_ALL}   -----------------")
-        days = int(input("Enter your desire day to update value [1-31]:"))
-        months = int(input("Enter month of that date [1-12]:"))
-        quantity = input("Enter your update value [hours]:")
-        self.graph_id = input("Enter your Graph id : ")
+        print(f"-------------    {Fore.LIGHTBLUE_EX}Select one of following{Style.RESET_ALL}   -------------\n")
+        print(f"""{Fore.YELLOW}1:Update Current Day Track Record 
+2: Update Custom Track Record
+3: Exit{Style.RESET_ALL}""")
+        ask=input("Enter your Choice: ")
 
+        try:
+            ask=int(ask)
+            if ask==1:
+                manual_date = datetime.now().strftime("%Y%m%d")
+                quantity = input("Enter your update value :")
+                self.graph_id = input("Enter your Graph id : ")
+            elif ask==2:
+                days = int(input("Enter your desire day to update value [1-31]:"))
+                months = int(input("Enter month of that date [1-12] :"))
+                year = input("Enter year of that  value [ 2024..]:")
+                quantity = input("Enter your update value :")
+                self.graph_id = input("Enter your Graph id : ")
+                manual_date = datetime(year=year, month=months,day=days).strftime("%Y%m%d")
+        except ValueError as e:
+            print(f"{Fore.Red}Invalid Input{Style.RESET_ALL}")
+            
         # ? Setup json format for updating values
         update_value = {
             "quantity": quantity
         }
 
         # Get manual date
-        manual_date = datetime(year=2024, month=months,day=days).strftime("%Y%m%d")
 
         # ?  New endpoint for updating existing values
         update_endpoint = f"{self.pixela_endpoint}/{self.USER_NAME}/graphs/{self.graph_id}/{manual_date}"
@@ -308,12 +378,12 @@ class HABIT_TRACKER_CWA:
     def track__particular_value(self):
         '''
         Easily get Particular Track Value 
-        input 1: Day [int]
-        input 2: Month [int]
-        input 3: Graph ID
-        Output 1: Date
-        Output 2: Day
-        Output 3: Track Value
+        inputs ->   Day [int]
+                    Month [int]
+                    Graph ID
+        Outputs ->  Date
+                    Day
+                    Track Value
         '''
         
         # Screen
@@ -352,7 +422,7 @@ class HABIT_TRACKER_CWA:
         '''
         [Input]: Graph ID
         Fetch History of Entire Track Record and store into json
-        It display the list of Day, Date and Track Value you posted the value  
+        It display the list Day, Date and Track Value you posted the value  
         '''
         # Define list to get the particular format that can easily store in json file
         dic = {}
