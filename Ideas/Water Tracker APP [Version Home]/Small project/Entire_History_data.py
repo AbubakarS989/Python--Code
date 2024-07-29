@@ -29,8 +29,8 @@ class Store_History:
 
     def reading_monthly_json(self):
         try:
-            if os.path.exists("Monthly.json"):
-                with open("Monthly.json", "r") as f:
+            if os.path.exists("Entire_data.json"):
+                with open("Entire_data.json", "r") as f:
                     self.Monthly_json = json.load(f)
             else:
                 self.Monthly_json = {}
@@ -41,7 +41,7 @@ class Store_History:
         return self.Monthly_json
 
     def storing(self, data):
-        with open("Monthly.json", "w") as f:
+        with open("Entire_data.json", "w") as f:
             json.dump(data, f, indent=4)
 
     def get_next_id(self):
@@ -56,25 +56,14 @@ class Store_History:
         json_data = self.reading_json()
         Monthly_data = self.reading_monthly_json()
         for entry in json_data.values():
-            entry_date = datetime.strptime(entry[0]["Date"], "%d-%m-%Y").strftime("%Y-%m")
-            if entry_date != self.current_month:
-                    continue
-                
             # At index 1 quantities are stored
             quantity = entry[1]
-
             if "Cans" in quantity:
                 self.monthly_cans += quantity["Cans"]
             if "Cooler" in quantity:
                 self.monthly_coolers += quantity["Cooler"]
             if "Drum" in quantity:
                 self.monthly_drums += quantity["Drum"]
-
-        for entry in json_data.values():
-            entry_date = datetime.strptime(entry[0]["Date"], "%d-%m-%Y").strftime("%Y-%m")
-            if entry_date != self.current_month:
-                    continue
-                
             # At index 2 bills are stored
             bill_data = entry[3]
             print(bill_data)
