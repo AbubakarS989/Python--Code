@@ -1,0 +1,128 @@
+{
+    "1": [
+        [
+            "Present"
+        ],
+        [
+            {
+                "Date": "27-07-2024",
+                "Cans": 18,
+                "Cooler": 3,
+                "Drum": 10
+            }
+        ],
+        [
+            {
+                "Cans Bill": 360,
+                "Coolers Bill": 30,
+                "Drum Bill": 200
+            }
+        ],
+        [
+            {
+                "Total Bill": 590,
+                "Paid Bill ": 0,
+                "Dues": 0
+            }
+        ],
+        [
+            {
+                "Monthly Cans": 0,
+                "Total Cans": 18,
+                "Monthly Coolers": 0,
+                "Total Coolers": 3,
+                "Monthly Drum": 0,
+                "Total Drum": 10,
+                "Monthly Bill": 0,
+                "Monthly Paid": 0,
+                "Monthly Dues": 0,
+                "Grand_Total_Bill": 590,
+                "Grand_Total_Paid": 0
+            }
+        ]
+    ],
+    "2": [
+        [
+            "Present"
+        ],
+        [
+            {
+                "Date": "27-07-2024",
+                "Cans": 1,
+                "Cooler": 0,
+                "Drum": 0
+            }
+        ],
+        [
+            {
+                "Cans Bill": 20,
+                "Coolers Bill": 0,
+                "Drum Bill": 0
+            }
+        ],
+        [
+            {
+                "Total Bill": 20,
+                "Paid Bill ": 0,
+                "Dues": 0
+            }
+        ],
+        [
+            {
+                "Monthly Cans": 0,
+                "Total Cans": 19,
+                "Monthly Coolers": 0,
+                "Total Coolers": 3,
+                "Monthly Drum": 0,
+                "Total Drum": 10,
+                "Monthly Bill": 0,
+                "Monthly Paid": 0,
+                "Monthly Dues": 0,
+                "Grand_Total_Bill": 610,
+                "Grand_Total_Paid": 0
+            }
+        ]
+    ],
+    "3": [
+        [
+            "Present"
+        ],
+        [
+            {
+                "Date": "28-07-2024",
+                "Cans": 1,
+                "Cooler": 0,
+                "Drum": 0
+            }
+        ],
+        [
+            {
+                "Cans Bill": 20,
+                "Coolers Bill": 0,
+                "Drum Bill": 0
+            }
+        ],
+        [
+            {
+                "Total Bill": 20,
+                "Paid Bill ": 0,
+                "Dues": 20
+            }
+        ],
+        [
+            {
+                "Monthly Cans": 0,
+                "Total Cans": 20,
+                "Monthly Coolers": 0,
+                "Total Coolers": 3,
+                "Monthly Drum": 0,
+                "Total Drum": 10,
+                "Monthly Bill": 0,
+                "Monthly Paid": 0,
+                "Monthly Dues": 0,
+                "Grand_Total_Bill": 630,
+                "Grand_Total_Paid": 0
+            }
+        ]
+    ]
+}

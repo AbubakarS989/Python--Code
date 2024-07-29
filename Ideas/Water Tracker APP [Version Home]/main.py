@@ -50,6 +50,7 @@ class Water_Tracker_CWA:
         self.total_cooler=0
         self.total_drum=0
         
+        self.bill_paid=0
         self.grand_total_bill=0
         self.grand_total_paid=0
         self.grand_total_dues=0
@@ -118,7 +119,6 @@ class Water_Tracker_CWA:
             elif self.get=="n":
                pass
         elif self.ask=="n":
-            
             self.status="Absent"
         else:
             print("Select Valid Option")
@@ -166,7 +166,8 @@ class Water_Tracker_CWA:
         "Monthly Paid":self.Monthly_Paid,
         "Monthly Dues":self.Monthly_Dues,
         "Grand_Total_Bill":self.grand_total_bill,
-        "Grand_Total_Paid":self.grand_total_paid
+        "Grand_Total_Paid":self.grand_total_paid,
+        "Grand_Total_Dues":self.grand_total_dues
         
             
             
@@ -189,13 +190,21 @@ class Water_Tracker_CWA:
         
         
     def calculations(self):
+        
+        
         lst_dates=[]
+        
         # Individual bill of each day
         self.can_bill=self.cans*self.can_price
         self.cooler_bill=self.cooler*self.cooler_price
         self.drum_bill=self.drum*self.Drum_can_price
         self.Total_Bill=self.can_bill+self.cooler_bill+self.drum_bill
-        # print(self.Total_Bill)
+        # Current_bill_Dues
+        if self.Total_Bill ==0:
+            self.Dues=0
+        elif self.Total_Bill !=0:
+            self.Dues=abs(self.Total_Bill-self.paid_bill)
+        print(self.Dues)
         
         
            
@@ -217,44 +226,62 @@ class Water_Tracker_CWA:
                 if "Date" in quantity:
                     lst_dates.append(quantity["Date"])
                 
-                if "Total Bill" in billing_info:
-                    self.grand_total_bill += billing_info["Total Bill"]
-            
-                # When user pay the bill without purchasing , then check if he have any previous dues, if he have previous dues then subtract the previous dues from the paid bill
-                if self.get =="y":
-                    if  self.Total_Bill == 0 and "Dues" in billing_info:
-                        self.previous_dues+=abs(billing_info["Dues"]-self.paid_bill)
-                # if user didn't buy a water then  calculations could perform
+                # if "Total Bill" in billing_info:
+                #     self.grand_total_bill += billing_info["Total Bill"]
+                    
+                if "Monthly Cans" in bill_history:
+                    self.Monthly_Cans+=quantity["Cans"]
+                    
+                if "Monthly Coolers" in bill_history:
+                    self.Monthly_Coolers+=quantity["Cooler"]
+                    
+                if "Monthly Drum" in bill_history:
+                    self.Monthly_Cans+=quantity["Drum"]
+                                        
             elif self.ask=="n":        
                 pass
                 
-                    
-            # if user paid the bill then  calculations could perform
+            # Bill Section
+            # if user paid the bill then calculations could perform
             if self.get=="y":
                 if "Paid Bill " in billing_info:
                     self.grand_total_bill += billing_info["Paid Bill "]
                 # Extract Data  Of Current bills
-                if "Paid Bill " in billing_info:
-                    self.paid_bill += billing_info["Paid Bill "]
-                
-                self.Dues+=abs(self.Total_Bill-self.paid_bill - self.previous_dues)
-                    
+                    self.bill_paid += billing_info["Paid Bill "]
+                    self.Monthly_Bill+= billing_info["Total Bill"]
+                    self.Monthly_Paid += billing_info["Paid Bill "]
             elif self.get=="n" :
-                self.Dues=billing_info["Dues"]
+                if "Grand_Total_Dues" in billing_info:
+                    self.grand_total_dues=billing_info["Grand_Total_Dues"] 
+                    self.Monthly_Dues=billing_info["Monthly Dues"]
                     
-            
-                    
-        print(self.previous_dues)
+
+        
+        
         # Individual daily values
         self.total_cans+= self.cans
         self.total_cooler+=self.cooler
         self.total_drum+=self.drum
                 
+        # Grand Bill
+        # self.grand_total_bill+=self.Total_Bill
+        # self.grand_total_paid+=self.bill_paid+self.paid_bill
+        # self.grand_total_dues+=abs(self.grand_total_bill-self.grand_total_paid)
                 
-                
+        # Monthly values
+        self.Monthly_Cans += self.cans
+        self.Monthly_Coolers += self.cooler
+        self.Monthly_Drum += self.drum
+        # Monthly Bill
+        self.Monthly_Bill += self.Total_Bill
+        self.Monthly_Paid += self.paid_bill
+        self.Monthly_Dues+=abs(self.Monthly_Bill-self.Monthly_Paid)
+        # self.Monthly_Dues += self.Dues
         self.grand_total_bill+=self.Total_Bill
-        self.grand_total_paid+=self.paid_bill
-        self.grand_total_dues+=self.Dues
+        self.grand_total_paid+=self.bill_paid
+        self.grand_total_dues+=abs(self.Monthly_Bill-self.Monthly_Paid)
+                
+        
         
         
     

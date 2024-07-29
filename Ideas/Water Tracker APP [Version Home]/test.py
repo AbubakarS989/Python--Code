@@ -52,8 +52,9 @@
             
         # print(strip_date)
         
-        # Monthly Data
-  # date_lst = []
+        
+# Monthly Data
+# date_lst = []
         # for date in strip_date:
         #     day = date[0:2]
         #     month = f"{date[2:4]}"
@@ -84,6 +85,28 @@
 
 
         # print(date_dict)
+import os,json
+if not os.path.exists("data.json"):
+            with open("data.json", 'w') as f:
+                json.dump({}, f)
+        
+with open("data.json", "r") as f:
+    combine_list = json.load(f)
+    
+
+billing_info=[]
+for entry in combine_list.values():
+    # print(entry)
+    data=entry[3][0]
+    if "Dues" in data:
+        billing_info.append(data["Dues"])
+        print(billing_info)
+        
+    # billing_info[]=
+
+
+print(billing_info)
+
 
 
 

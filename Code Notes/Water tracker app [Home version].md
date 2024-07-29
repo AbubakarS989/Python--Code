@@ -67,32 +67,46 @@ Show the history
             ]
     }
 
-
-
     {
 
-        1:[["Absent"],{
-            "Date":"24-07-2024",
-            "Cans":1,
-            "Cooler":3,
-            "Drum":5,
-        },
-
-        {
-        "Total Bill":900
-        "Paid Bill":450
-        "Dues":450
-        "Grand_Total_Bill":5450
-        "Grand_Total_Paid":5000
-        "Grand_Total_Dues":450
-        },
-        {
-            "Monthly Cans":45,
-            "Total Cans":45,
-            "Monthly Coolers":45,
-            "Total Coolers":45,
-            "Monthly Drum":45,
-            "Total Drum":45,
-        }        
+        1:[
+            ["Absent"],
+            [{
+                "Date":"[curren date]",
+                "Cans":1,
+                "Cooler":3,
+                "Drum":5,
+            }],
+            [
+                {
+                    "Cans Bill":[quantity],
+                    "Cooler Bill":[quantity],
+                    "Drum Bill":[quantity],
+                }
+            ]
+            [{
+            "Today Total Bill":[quantity],
+            "Today Paid Bill":[quantity],
+            "Today Dues":[quantity],
+            }],
+            
+            [{
+                "Monthly Cans":[quantity],
+                "Total Cans":[quantity],
+                "Monthly Coolers"[quantity],
+                "Total Coolers":[quantity],
+                "Monthly Drum":[quantity],
+                "Total Drum":[quantity],
+                "Grand_Total_Paid":[quantity],
+                "Grand_Total_Dues":[quantity],
+            } ]       
         ]
     }
+
+
+
+
+10 -
+17 can 
+3 cooler
+10 drum

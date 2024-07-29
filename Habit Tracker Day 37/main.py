@@ -126,9 +126,9 @@ class HABIT_TRACKER_CWA:
                 4: Get your particular Track Value
                 5: Get your Entire Track
                 6: Get your Graph Statistics
-                7: Account Management
-                8: Graph Management
-                9: Exit
+                {Fore.LIGHTRED_EX}7: Account Management
+                {Fore.LIGHTRED_EX}8: Graph Management
+                {Fore.GREEN}9: Exit
                 {Style.RESET_ALL}""")
             choice = int(input("Enter your choice: "))
             
@@ -344,7 +344,7 @@ class HABIT_TRACKER_CWA:
             elif ask==2:
                 days = int(input("Enter your desire day to update value [1-31]:"))
                 months = int(input("Enter month of that date [1-12] :"))
-                year = input("Enter year of that  value [ 2024..]:")
+                year = int(input("Enter year of that  value [ 2024..]:"))
                 quantity = input("Enter your update value :")
                 self.graph_id = input("Enter your Graph id : ")
                 manual_date = datetime(year=year, month=months,day=days).strftime("%Y%m%d")
