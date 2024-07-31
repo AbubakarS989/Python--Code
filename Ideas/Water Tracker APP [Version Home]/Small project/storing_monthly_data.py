@@ -2,7 +2,7 @@ from datetime import datetime
 import os, json
 
 
-class Store_History:
+class Monthly_History:
     def __init__(self):
         self.current_date = datetime.now().strftime("%d-%m-%Y")
         self.current_month = datetime.now().strftime("%Y-%m")
@@ -17,8 +17,8 @@ class Store_History:
 
     def reading_json(self):
         try:
-            if os.path.exists("Testing.json"):
-                with open("Testing.json", "r") as f:
+            if os.path.exists("Daily_data_WT.json"):
+                with open("Daily_data_WT.json", "r") as f:
                     self.data = json.load(f)
             else:
                 self.data = {}
@@ -29,8 +29,8 @@ class Store_History:
 
     def reading_monthly_json(self):
         try:
-            if os.path.exists("Monthly.json"):
-                with open("Monthly.json", "r") as f:
+            if os.path.exists("Monthly_WT.json"):
+                with open("Monthly_WT.json", "r") as f:
                     self.Monthly_json = json.load(f)
             else:
                 self.Monthly_json = {}
@@ -41,7 +41,7 @@ class Store_History:
         return self.Monthly_json
 
     def storing(self, data):
-        with open("Monthly.json", "w") as f:
+        with open("Monthly_WT.json", "w") as f:
             json.dump(data, f, indent=4)
 
     def get_next_id(self):
@@ -128,7 +128,7 @@ class Store_History:
             # Print a message if no data is available for the specified month
             print(f"No data available for {month}")
 
-
-screen = Store_History()
-screen.monthly_values()
+if __name__ == "__main__":
+    screen = Monthly_History()
+    screen.monthly_values()
 # screen.show_monthly_history_jsonfm(screen.current_month)

@@ -1,24 +1,26 @@
 from datetime import datetime
 import os, json
 
-
 class Store_History:
     def __init__(self):
         self.current_date = datetime.now().strftime("%d-%m-%Y")
         self.current_month = datetime.now().strftime("%Y-%m")
-        # Monthly Quantity
-        self.monthly_cans = 0
-        self.monthly_coolers = 0
-        self.monthly_drums = 0
+        
+        # Yearly Quantity
+        self.yearly_cans = 0
+        self.yearly_coolers = 0
+        self.yearly_drums = 0
 
-        self.monthly_bill = 0
-        self.monthly_paid = 0
-        self.monthly_dues = 0
+        self.yearly_bill = 0
+        self.yearly_paid = 0
+        self.yearly_dues = 0
+        self.yearly_json = {}
+        self.yearly_data = {}
 
     def reading_json(self):
         try:
-            if os.path.exists("Testing.json"):
-                with open("Testing.json", "r") as f:
+            if os.path.exists("Daily_data_WT.json"):
+                with open("Daily_data_WT.json", "r") as f:
                     self.data = json.load(f)
             else:
                 self.data = {}
@@ -27,97 +29,95 @@ class Store_History:
             print("Failed to load file:", e)
         return {}
 
-    def reading_monthly_json(self):
+    def reading_yearly_json(self):
         try:
-            if os.path.exists("Entire_data.json"):
-                with open("Entire_data.json", "r") as f:
-                    self.Monthly_json = json.load(f)
+            if os.path.exists("Entire_data_WT.json"):
+                with open("Entire_data_WT.json", "r") as f:
+                    self.yearly_json = json.load(f)
             else:
-                self.Monthly_json = {}
-            return self.Monthly_json
+                self.yearly_json = {}
+            return self.yearly_json
         except (IOError, json.JSONDecodeError) as e:
             print("Failed to load file:", e)
-            self.Monthly_json = {}
-        return self.Monthly_json
+            self.yearly_json = {}
+        return self.yearly_json
 
     def storing(self, data):
-        with open("Entire_data.json", "w") as f:
+        with open("Entire_data_WT.json", "w") as f:
             json.dump(data, f, indent=4)
 
     def get_next_id(self):
-        if self.Monthly_json:
-            last_id = max(self.Monthly_json.keys(), key=int)
+        if self.yearly_json:
+            last_id = max(self.yearly_json.keys(), key=int)
             return int(last_id) + 1
         else:
             return 1
 
-    def monthly_values(self):
-        # Extracting Quantities to calculate monthly calculations
+    def yearly_values(self):
+        # Extracting Quantities to calculate yearly calculations
         json_data = self.reading_json()
-        Monthly_data = self.reading_monthly_json()
+        
         for entry in json_data.values():
             # At index 1 quantities are stored
             quantity = entry[1]
             if "Cans" in quantity:
-                self.monthly_cans += quantity["Cans"]
+                self.yearly_cans += quantity["Cans"]
             if "Cooler" in quantity:
-                self.monthly_coolers += quantity["Cooler"]
+                self.yearly_coolers += quantity["Cooler"]
             if "Drum" in quantity:
-                self.monthly_drums += quantity["Drum"]
+                self.yearly_drums += quantity["Drum"]
             # At index 2 bills are stored
             bill_data = entry[3]
             print(bill_data)
             if "Today Bill" in bill_data:
-                self.monthly_bill += bill_data["Today Bill"]
+                self.yearly_bill += bill_data["Today Bill"]
             if "Today Paid" in bill_data:
-                self.monthly_paid += bill_data["Today Paid"]
+                self.yearly_paid += bill_data["Today Paid"]
             if "Today Dues" in bill_data:
-                self.monthly_dues += bill_data["Today Dues"]
+                self.yearly_dues += bill_data["Today Dues"]
             
-            self.monthly_dues=abs(self.monthly_bill-self.monthly_paid)
-            
+            self.yearly_dues = abs(self.yearly_bill - self.yearly_paid)
         
-        monthly_quantity = {
-            "Monthly Cans": self.monthly_cans,
-            "Monthly Cooler": self.monthly_coolers,
-            "Monthly Drum": self.monthly_drums
+        yearly_quantity = {
+            "Yearly Cans": self.yearly_cans,
+            "Yearly Coolers": self.yearly_coolers,
+            "Yearly Drums": self.yearly_drums
         }
         
-        
-        monthly_bill = {
-            "Monthly Bill": self.monthly_bill,
-            "Monthly Paid": self.monthly_paid,
-            "Monthly Dues": self.monthly_dues
+        yearly_bill = {
+            "Yearly Bill": self.yearly_bill,
+            "Yearly Paid": self.yearly_paid,
+            "Yearly Dues": self.yearly_dues
         }
         
+        print(f"Yearly Cans: {self.yearly_cans}")
+        print(f"Yearly Coolers: {self.yearly_coolers}")
+        print(f"Yearly Drums: {self.yearly_drums}")
+        print(f"Yearly Bill: {self.yearly_bill}")
+        print(f"Yearly Paid: {self.yearly_paid}")
+        print(f"Yearly Dues: {self.yearly_dues}")
+
         id = self.get_next_id()
-        Monthly_data[id] = [self.current_date,monthly_quantity, monthly_bill]
-        self.storing(Monthly_data)
-        
-        print(f"Monthly Cans: {self.monthly_cans}")
-        print(f"Monthly Coolers: {self.monthly_coolers}")
-        print(f"Monthly Drums: {self.monthly_drums}")
-        print(f"Monthly Bill: {self.monthly_bill}")
-        print(f"Monthly Paid: {self.monthly_paid}")
-        print(f"Monthly Dues: {self.monthly_dues}")
+        print(id)
+        self.yearly_data[id] = [self.current_date, yearly_quantity, yearly_bill]
+        self.storing(self.yearly_data)
     
     # to display specific month history in a json format
-    def show_monthly_history_jsonfm(self, month):
+    def show_yearly_history_json_format(self, year):
     
         json_data = self.reading_json()
-        monthly_entries = {k: v for k, v in json_data.items() if datetime.strptime(v[0]["Date"], "%d-%m-%Y").strftime("%Y-%m") == month}
+        yearly_entries = {k: v for k, v in json_data.items() if datetime.strptime(v[0]["Date"], "%d-%m-%Y").strftime("%Y") == year}
 
-        # Check if the specified month exists in the monthly data
-        if monthly_entries:
-            # Print the history for the specified month
-            print(f"History for {month}:")
-            # Convert the monthly data to a formatted JSON string and print it
-            print(json.dumps(monthly_entries, indent=4))
+        # Check if the specified year exists in the data
+        if yearly_entries:
+            # Print the history for the specified year
+            print(f"History for {year}:")
+            # Convert the yearly data to a formatted JSON string and print it
+            print(json.dumps(yearly_entries, indent=4))
         else:
-            # Print a message if no data is available for the specified month
-            print(f"No data available for {month}")
+            print(f"No data available for {year}")
 
-
-screen = Store_History()
-screen.monthly_values()
-# screen.show_monthly_history_jsonfm(screen.current_month)
+if __name__=="__main__":
+    screen = Store_History()
+    screen.yearly_values()
+    # screen.show_yearly_history_json_format(year="2024")

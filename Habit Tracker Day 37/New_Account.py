@@ -156,7 +156,7 @@ class Account_Settings_HBT_CWA:
     def delete_user(self):
         """
         Delete User Permanently.
-        Input not as parameter, it ask after run the function
+        Input not as parameter, it ask after run the function yp
         Input 1: Username
         Input 2: Token
         Input 3: Before delete it ask [yes/no] 

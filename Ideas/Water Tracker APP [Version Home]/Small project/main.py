@@ -1,6 +1,7 @@
 from datetime import datetime
 import os, json, random
-
+from storing_monthly_data import Monthly_History
+from Entire_History_data import Store_History
 
 class Testing:
     
@@ -15,6 +16,59 @@ class Testing:
         self.dues = 0
         self.M_previous_dues=0
     
+    def Main_Screen(self):
+        
+        print(f"--------------- Water Tracker [Home Version]  -------------------")
+        print(f"---------------         Main Screen           -------------------")
+        print(f"---------------    Code With Abubakar         -------------------\n")
+        
+        
+        print(f"""Select one of the following:
+1: Enter your Water Tracker
+2: Show History of Your Water Track
+3: Exit""")
+        ask=input(f"Enter your Choice")
+        try:
+            ask=int(ask)
+            if ask==1:
+                self.home_screen()
+            elif ask==2:
+                self.history_option()
+            elif ask==3:
+                print(f"closing the program......")
+                exit()
+        except ValueError as e:
+            print(f"Invalid Option :{e}")
+        
+    def history_option(self):
+        
+        print(f"--------------- Water Tracker [Home Version] --------------------")
+        print(f"---------------       History Screen         --------------------")
+        print(f"---------------   Code With Abubakar         --------------------\n")
+        
+        
+        print(f"""Select one of the following:
+1: Show Monthly History
+2: Show Yearly History
+3: Exit""")
+        ask=input("Enter your Option: ")
+        try:
+            ask=int(ask)
+            if ask==1:
+                history=Monthly_History()
+                history.monthly_values()
+                
+            elif ask==2:
+                Entire_History=Store_History()
+                Entire_History.yearly_values()
+            elif ask==3:
+                print(f"closing the program......")
+                exit()
+        except ValueError as e:
+            print(f"Please Enter Valid Option.")      
+            
+        
+        
     def home_screen(self):
         ask = input("Did you buy [y/n]? ").lower()
         if ask == "y":
@@ -31,8 +85,8 @@ class Testing:
     
     def reading(self):
         try:
-            if os.path.exists("Testing.json"):
-                with open("Testing.json", "r") as f:
+            if os.path.exists("Daily_data_WT.json"):
+                with open("Daily_data_WT.json", "r") as f:
                     self.data = json.load(f)
             else:
                 self.data = {}
@@ -48,12 +102,12 @@ class Testing:
         return 1  
     
     def storing(self, data):
-        with open("Testing.json", "w") as f:
+        with open("Daily_data_WT.json", "w") as f:
             json.dump(data, f, indent=4)
             
     # Display their total dues 
     def monthly_dues(self):
-        with open("Monthly.json") as f:
+        with open("Monthly_WT.json") as f:
             monthly_dues_json=json.load(f)
         
         # Extract just [Monthly Dues]
@@ -117,4 +171,7 @@ class Testing:
         self.storing(data)
 
 screen = Testing()
-screen.home_screen()
+screen.Main_Screen()
+
+# history_screen=Store_History()
+# history_screen.monthly_values()
