@@ -1,0 +1,13 @@
+
+h1{
+    background-color: rgb(191, 191, 202);
+    /* width: 30px;
+    height: 30px; */
+}
+
+button{
+    height: 20px;
+    width: auto;
+    color: yellow;
+    background-color: black;
+}
