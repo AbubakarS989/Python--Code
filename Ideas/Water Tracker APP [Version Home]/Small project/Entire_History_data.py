@@ -90,15 +90,16 @@ class Store_History:
             "Yearly Dues": self.yearly_dues
         }
         
-        print(f"Yearly Cans: {self.yearly_cans}")
-        print(f"Yearly Coolers: {self.yearly_coolers}")
-        print(f"Yearly Drums: {self.yearly_drums}")
-        print(f"Yearly Bill: {self.yearly_bill}")
-        print(f"Yearly Paid: {self.yearly_paid}")
-        print(f"Yearly Dues: {self.yearly_dues}")
+        # uncomment to check
+        # print(f"Yearly Cans: {self.yearly_cans}")
+        # print(f"Yearly Coolers: {self.yearly_coolers}")
+        # print(f"Yearly Drums: {self.yearly_drums}")
+        # print(f"Yearly Bill: {self.yearly_bill}")
+        # print(f"Yearly Paid: {self.yearly_paid}")
+        # print(f"Yearly Dues: {self.yearly_dues}")
 
         id = self.get_next_id()
-        print(id)
+        # print(id)
         self.yearly_data[id] = [self.current_date, yearly_quantity, yearly_bill]
         self.storing(self.yearly_data)
     

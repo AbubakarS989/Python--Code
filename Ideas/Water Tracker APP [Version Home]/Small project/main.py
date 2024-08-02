@@ -2,7 +2,7 @@ from datetime import datetime
 import os, json, random
 from storing_monthly_data import Monthly_History
 from Entire_History_data import Store_History
-
+from Online_WT import Upload_Daily_sheet_WT
 class Testing:
     
     def __init__(self):
@@ -15,6 +15,9 @@ class Testing:
         self.paid = 0
         self.dues = 0
         self.M_previous_dues=0
+    
+
+ 
     
     def Main_Screen(self):
         
@@ -70,6 +73,10 @@ class Testing:
         
         
     def home_screen(self):
+        
+        # Run Monthly file to get the past dues of the month 
+        history=Monthly_History()
+        history.monthly_values()
         ask = input("Did you buy [y/n]? ").lower()
         if ask == "y":
             print("Welcome to tracker testing\n")
@@ -80,8 +87,9 @@ class Testing:
             self.calculations(can, cooler, drum)
             self.status = "Present"
         elif ask == "n":
+            
             self.status = "Absent"
-            self.calculations(cans=0, cooler=0, drum=0)
+            self.calculations(cans=0,cooler=0,drum=0)
     
     def reading(self):
         try:
@@ -167,8 +175,14 @@ class Testing:
         while id in data:
             id = random.randint(1, 999)
         
-        print(data)
-        self.storing(data)
+        # print(data)
+        self.storing(data)   
+        print(self.paid)
+        # Send Data to API
+        send=Upload_Daily_sheet_WT()
+        send.send_daily_data(self.current_date,self.status,cans,cooler,drum,self.can_price,self.cooler_price,self.drum_price,self.bill,self.paid,self.dues)
+        
+        
 
 screen = Testing()
 screen.Main_Screen()

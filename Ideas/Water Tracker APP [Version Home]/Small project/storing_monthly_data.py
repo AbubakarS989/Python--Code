@@ -77,7 +77,7 @@ class Monthly_History:
                 
             # At index 2 bills are stored
             bill_data = entry[3]
-            print(bill_data)
+            # print(bill_data)
             if "Today Bill" in bill_data:
                 self.monthly_bill += bill_data["Today Bill"]
             if "Today Paid" in bill_data:
@@ -105,12 +105,12 @@ class Monthly_History:
         Monthly_data[id] = [self.current_date,monthly_quantity, monthly_bill]
         self.storing(Monthly_data)
         
-        print(f"Monthly Cans: {self.monthly_cans}")
-        print(f"Monthly Coolers: {self.monthly_coolers}")
-        print(f"Monthly Drums: {self.monthly_drums}")
-        print(f"Monthly Bill: {self.monthly_bill}")
-        print(f"Monthly Paid: {self.monthly_paid}")
-        print(f"Monthly Dues: {self.monthly_dues}")
+        # print(f"Monthly Cans: {self.monthly_cans}")
+        # print(f"Monthly Coolers: {self.monthly_coolers}")
+        # print(f"Monthly Drums: {self.monthly_drums}")
+        # print(f"Monthly Bill: {self.monthly_bill}")
+        # print(f"Monthly Paid: {self.monthly_paid}")
+        # print(f"Monthly Dues: {self.monthly_dues}")
     
     # to display specific month history in a json format
     def show_monthly_history_jsonfm(self, month):
