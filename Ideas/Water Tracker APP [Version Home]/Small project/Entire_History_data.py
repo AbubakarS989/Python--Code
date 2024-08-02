@@ -1,6 +1,7 @@
 from datetime import datetime
 import os, json
 
+from Online_WT import Upload_yearly_sheet_WT
 class Store_History:
     def __init__(self):
         self.current_date = datetime.now().strftime("%d-%m-%Y")
@@ -16,6 +17,7 @@ class Store_History:
         self.yearly_dues = 0
         self.yearly_json = {}
         self.yearly_data = {}
+        self.send=Upload_yearly_sheet_WT()
 
     def reading_json(self):
         try:
@@ -79,15 +81,15 @@ class Store_History:
             self.yearly_dues = abs(self.yearly_bill - self.yearly_paid)
         
         yearly_quantity = {
-            "Yearly Cans": self.yearly_cans,
-            "Yearly Coolers": self.yearly_coolers,
-            "Yearly Drums": self.yearly_drums
+            "yearly Cans": self.yearly_cans,
+            "yearly Coolers": self.yearly_coolers,
+            "yearly Drums": self.yearly_drums
         }
         
         yearly_bill = {
-            "Yearly Bill": self.yearly_bill,
-            "Yearly Paid": self.yearly_paid,
-            "Yearly Dues": self.yearly_dues
+            "yearly Bill": self.yearly_bill,
+            "yearly Paid": self.yearly_paid,
+            "yearly Dues": self.yearly_dues
         }
         
         # uncomment to check
@@ -103,6 +105,45 @@ class Store_History:
         self.yearly_data[id] = [self.current_date, yearly_quantity, yearly_bill]
         self.storing(self.yearly_data)
     
+    def send_yearly_data(self):
+        yearly_can=0
+        yearly_cooler=0
+        yearly_drum=0
+        yearly_bill=0
+        yearly_paid=0
+        yearly_dues=0
+        
+        
+        
+        yearly_data = self.reading_yearly_json()
+        
+        for entry in yearly_data.values():        
+            # At index 1 quantities are stored
+            quantity = entry[1]
+            
+            if "yearly Cans" in quantity:
+                yearly_can = quantity["yearly Cans"]
+                print(yearly_can)
+            if "yearly Coolers" in quantity:
+                yearly_cooler = quantity["yearly Coolers"]
+            if "yearly Drums" in quantity:
+                yearly_drum = quantity["yearly Drums"]
+                
+            # At index 2 bills are stored
+            bill_data = entry[2]
+            # print(bill_data)
+            if "yearly Bill" in bill_data:
+                yearly_bill = bill_data["yearly Bill"]
+            if "yearly Paid" in bill_data:
+                yearly_paid = bill_data["yearly Paid"]
+            if "yearly Dues" in bill_data:
+                yearly_dues = bill_data["yearly Dues"]
+                
+        # print(yearly_bill,yearly_drum,yearly_cooler)
+        # call func to send yearly values
+        self.send.send_yearly_data(self.current_date,yearly_can,yearly_cooler,yearly_drum,yearly_bill,yearly_paid,yearly_dues)
+             
+                
     # to display specific month history in a json format
     def show_yearly_history_json_format(self, year):
     
@@ -120,5 +161,7 @@ class Store_History:
 
 if __name__=="__main__":
     screen = Store_History()
-    screen.yearly_values()
+    # screen.yearly_values()
+    screen.send_yearly_data()
+    
     # screen.show_yearly_history_json_format(year="2024")

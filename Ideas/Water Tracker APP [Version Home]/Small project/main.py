@@ -2,7 +2,8 @@ from datetime import datetime
 import os, json, random
 from storing_monthly_data import Monthly_History
 from Entire_History_data import Store_History
-from Online_WT import Upload_Daily_sheet_WT
+from Online_WT import Upload_Daily_sheet_WT 
+
 class Testing:
     
     def __init__(self):
@@ -15,7 +16,7 @@ class Testing:
         self.paid = 0
         self.dues = 0
         self.M_previous_dues=0
-    
+        self.ask=""
 
  
     
@@ -58,6 +59,7 @@ class Testing:
         try:
             ask=int(ask)
             if ask==1:
+                pass
                 history=Monthly_History()
                 history.monthly_values()
                 
@@ -74,11 +76,10 @@ class Testing:
         
     def home_screen(self):
         
-        # Run Monthly file to get the past dues of the month 
-        history=Monthly_History()
-        history.monthly_values()
-        ask = input("Did you buy [y/n]? ").lower()
-        if ask == "y":
+        
+        
+        self.ask_h = input("Did you buy [y/n]? ").lower()
+        if self.ask_h == "y":
             print("Welcome to tracker testing\n")
             can = int(input("Enter cans: "))
             cooler = int(input("Enter cooler: "))
@@ -86,10 +87,12 @@ class Testing:
             print(f"your Previous Dues :{self.monthly_dues()}")
             self.calculations(can, cooler, drum)
             self.status = "Present"
-        elif ask == "n":
+        elif self.ask_h == "n":
             
             self.status = "Absent"
             self.calculations(cans=0,cooler=0,drum=0)
+            
+            
     
     def reading(self):
         try:
@@ -113,7 +116,7 @@ class Testing:
         with open("Daily_data_WT.json", "w") as f:
             json.dump(data, f, indent=4)
             
-    # Display their total dues 
+    # Display their total dues of current month
     def monthly_dues(self):
         with open("Monthly_WT.json") as f:
             monthly_dues_json=json.load(f)
@@ -125,8 +128,6 @@ class Testing:
             if "Monthly Dues" in due_data:
                 self.M_previous_dues=due_data["Monthly Dues"]
         
-        # print(due_data)
-        # print(self.M_previous_dues)
         return self.M_previous_dues 
             
     def payment(self):
@@ -170,17 +171,36 @@ class Testing:
             "Drum Bill": self.drum_price
         }
         
+        # prepared dic to store in nice format
         id =self.get_next_id()
         data[id] = [self.info, self.quantity, self.price, payment_details]
         while id in data:
             id = random.randint(1, 999)
+        # save into json
+        self.storing(data)  
         
-        # print(data)
-        self.storing(data)   
-        print(self.paid)
         # Send Data to API
         send=Upload_Daily_sheet_WT()
         send.send_daily_data(self.current_date,self.status,cans,cooler,drum,self.can_price,self.cooler_price,self.drum_price,self.bill,self.paid,self.dues)
+        
+        # Store monthly,yearly
+        
+        send=Monthly_History()
+        yearly=Store_History()
+        # When water vendor is present only then the data is stored in month adn yearly as well as data upload
+        if self.ask_h=="y":
+            send.monthly_values()
+            # store yearly
+            yearly.yearly_values()
+
+            # call monthly data function to upload data after executing daily values
+            send.send_monthly_data()
+
+            # call yearly data function to upload data after executing monthly values
+            yearly.send_yearly_data()
+        
+        
+        
         
         
 
