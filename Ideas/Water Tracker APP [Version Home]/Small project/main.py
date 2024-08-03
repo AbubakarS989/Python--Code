@@ -4,7 +4,7 @@ from storing_monthly_data import Monthly_History
 from Entire_History_data import Store_History
 from Online_WT import Upload_Daily_sheet_WT 
 
-class Testing:
+class Water_Tracker_APP:
     
     def __init__(self):
         self.current_date = datetime.now().strftime("%d-%m-%Y")
@@ -61,11 +61,11 @@ class Testing:
             if ask==1:
                 pass
                 history=Monthly_History()
-                history.monthly_values()
+                history.display_monthly_values()
                 
             elif ask==2:
                 Entire_History=Store_History()
-                Entire_History.yearly_values()
+                Entire_History.display_yearly_values()
             elif ask==3:
                 print(f"closing the program......")
                 exit()
@@ -75,8 +75,6 @@ class Testing:
         
         
     def home_screen(self):
-        
-        
         
         self.ask_h = input("Did you buy [y/n]? ").lower()
         if self.ask_h == "y":
@@ -112,9 +110,11 @@ class Testing:
             return int(last_id) + 1
         return 1  
     
+    
     def storing(self, data):
         with open("Daily_data_WT.json", "w") as f:
             json.dump(data, f, indent=4)
+            
             
     # Display their total dues of current month
     def monthly_dues(self):
@@ -130,6 +130,8 @@ class Testing:
         
         return self.M_previous_dues 
             
+            
+            
     def payment(self):
         if self.status == "Absent":
             self.bill = 0
@@ -140,15 +142,17 @@ class Testing:
             self.bill = self.can_price + self.cooler_price + self.drum_price
             self.paid = int(input("How much did you pay today? "))
             if not self.bill==0:
-                self.dues = self.bill - self.paid
+                self.dues = abs(self.bill - self.paid)
             else:                
                 self.dues = 0
         
         return {
             "Today Bill": self.bill,
             "Today Paid": self.paid,
-            "Today Dues": abs(self.dues)
+            "Today Dues": self.dues
         }
+        
+        
         
     def calculations(self, cans, cooler, drum):
         data = self.reading()
@@ -171,23 +175,30 @@ class Testing:
             "Drum Bill": self.drum_price
         }
         
+        
+        
         # prepared dic to store in nice format
         id =self.get_next_id()
         data[id] = [self.info, self.quantity, self.price, payment_details]
         while id in data:
             id = random.randint(1, 999)
+            
         # save into json
         self.storing(data)  
         
-        # Send Data to API
+        
+        # display user bill
+        self.print_today_bill()
+        
+        
+        # ? Sending Data to online
         send=Upload_Daily_sheet_WT()
+        print("\n------------  Value are Being Store in Drive ----------------")
         send.send_daily_data(self.current_date,self.status,cans,cooler,drum,self.can_price,self.cooler_price,self.drum_price,self.bill,self.paid,self.dues)
-        
         # Store monthly,yearly
-        
         send=Monthly_History()
         yearly=Store_History()
-        # When water vendor is present only then the data is stored in month adn yearly as well as data upload
+        # When water vendor is present only then the data is stored in month and yearly as well as data upload
         if self.ask_h=="y":
             send.monthly_values()
             # store yearly
@@ -198,13 +209,29 @@ class Testing:
 
             # call yearly data function to upload data after executing monthly values
             yearly.send_yearly_data()
+            
+    def print_today_bill(self):
+        #  after enter purchase values , display their today bill
+        if self.paid > self.bill:
+            self.dues=0
+        
+        print(f"\n--------------------  Water Tracker  --------------------")
+        print(f"-----------------    Your Recept      -------------------")
+        print(f"--------------     Code With ABubakar   -----------------\n")
+        
+        print(f"Today Bill : {self.bill}\n")
+        print(f"Today Paid : {self.paid}\n")
+        print(f"Today Dues : {self.dues}\n")
+        
+        print("------------------    Have a good day  ---------------------")
+        
         
         
         
         
         
 
-screen = Testing()
+screen = Water_Tracker_APP()
 screen.Main_Screen()
 
 # history_screen=Store_History()

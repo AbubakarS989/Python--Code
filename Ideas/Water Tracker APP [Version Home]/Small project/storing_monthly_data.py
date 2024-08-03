@@ -148,11 +148,60 @@ class Monthly_History:
         
         self.send_data.send_monthly_data(self.current_date,monthly_can,monthly_cooler,monthly_drum,monthly_bill,monthly_paid,monthly_dues)
         
+    def display_monthly_values(self):
+        #? Reuse this code bcz, i wanna display  each month history separated  to the user without send data to api as i did above
+                
+        
+        Monthly_data = self.reading_monthly_json()
+        separated_month_history={}
+        
+        for entry in Monthly_data.values():
+            entry_date=datetime.strptime(entry[0],"%d-%m-%Y").strftime("%Y-%m")
+            
+            Monthly_quantity=entry[1]
+            Monthly_bills=entry[2]
+            
+            # initialize all values zero if data is not found
+            if entry_date not in separated_month_history:
+                separated_month_history[entry_date]={
+                    "Cans":0,
+                    "Cooler":0,
+                    "Drum":0,
+                    "Bill":0,
+                    "Paid":0,
+                    "Dues":0
+                }
+
+            # store entire month history of each month separately into dic 
+            separated_month_history[entry_date]["Cans"]=Monthly_quantity["Monthly Cans"]
+            separated_month_history[entry_date]["Cooler"]=Monthly_quantity["Monthly Cooler"]
+            separated_month_history[entry_date]["Drum"]=Monthly_quantity["Monthly Drum"]
+            separated_month_history[entry_date]["Bill"]=Monthly_bills["Monthly Bill"]
+            separated_month_history[entry_date]["Paid"]=Monthly_bills["Monthly Paid"]
+            separated_month_history[entry_date]["Dues"]=Monthly_bills["Monthly Dues"]
+         
+                
+        
+        print(f"\n---------------  Water Tracker [Home Version]   -------------------")
+        print(f"---------------         Monthly History             ---------------")
+        print(f"--------------       Code With Abubakar              --------------\n")
         
         
+        # now loop through the dic and print all months values
+        
+        for month, data in separated_month_history.items():
+            print(f"Month: {month}")
+            print(f"  Cans: {data['Cans']}")
+            print(f"  Cooler: {data['Cooler']}")
+            print(f"  Drum: {data['Drum']}")
+            print(f"  Bill: {data['Bill']}")
+            print(f"  Paid: {data['Paid']}")
+            print(f"  Dues: {data['Dues']}")
+            
+
     # to display specific month history in a json format
     def show_monthly_history_json_format(self, month):
-    
+        
         json_data = self.reading_json()
         monthly_entries = {k: v for k, v in json_data.items() if datetime.strptime(v[0]["Date"], "%d-%m-%Y").strftime("%Y-%m") == month}
 
@@ -166,7 +215,8 @@ class Monthly_History:
             # Print a message if no data is available for the specified month
             print(f"No data available for {month}")
 
-# if __name__ == "__main__":
-#     screen = Monthly_History()
-#     screen.monthly_values()
-# screen.show_monthly_history_json_format(screen.current_month)
+if __name__ == "__main__":
+    screen = Monthly_History()
+    # screen.monthly_values()
+    screen.display_monthly_values()
+    # screen.show_monthly_history_json_format(screen.current_month)
