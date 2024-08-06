@@ -36,7 +36,7 @@ class Graphs_Setup:
     
     
         
-    def graph_id_note(self):
+    def graph_id_note(self)-> str:
         """
         Important Notes that will display where is needed
         """
@@ -56,7 +56,7 @@ class Graphs_Setup:
         
         
         
-    def New_Graph(self, user_name, token):
+    def New_Graph(self, user_name, token)-> str:
         """
         [Input 1] : username
         [Input 2] : Token
@@ -127,10 +127,10 @@ Enter Value: """))
             "unit": Graph_unit,
             "type": Graph_type,
             "color": color,
-            "timezone":time_zone
+            "timezone":time_zone,
         }
         
-        
+        print(graph_params)
         self.header = {
             "X-USER-TOKEN": self.Token
         }
@@ -142,14 +142,20 @@ Enter Value: """))
         
         r = requests.post(url=new_graph_endpoint,json=graph_params, headers=self.header)
         data = r.text
-        print(r.json())
-
+        if not r:        
+            print(r.json())
+        
         # print(screen.word_check(data))
-        print(self.word_check(data))
+        plain_text=self.word_check(data)
+        if plain_text == "Success":
+            print(f"\n--------------  {Fore.GREEN}Your graph is created {plain_text}fully.{Style.RESET_ALL} -----------------\n")
+            print(f"-------------------         {Fore.LIGHTYELLOW_EX}Code With Abubakar{Style.RESET_ALL}        ----------------------\n")
+        else:
+            print(f"{Fore.GREEN}Failed to create your graph{Style.RESET_ALL}")
 
 
 
-    def view_graph(self, username):
+    def view_graph(self, username)-> str:
         """
         [Input]: Username
         Provide the link of graph pic
@@ -177,10 +183,10 @@ Enter Value: """))
 
         except requests.exceptions.HTTPError as e:
             print(f"Failed to Delete an account:{e} ")
+ 
 
 
-
-    def update_graph(self,username,token):
+    def update_graph(self,username,token)-> str:
         """
         [Input] 1: Username
         [Input] 2: Token
@@ -190,7 +196,7 @@ Enter Value: """))
         self.user_name = username
         self.Token = token
         
-        # PUT /v1/users/<username>/graphs/<graphID>
+        
         self.graph_id = input("Enter your Graph id : ")
         print(f"------------- {Fore.LIGHTMAGENTA_EX}Update your Graph{Style.RESET_ALL}  -------------------\n")
         print(f"-------------  {Fore.LIGHTYELLOW_EX}Code With Abubakar{Style.RESET_ALL} -------------------\n")
@@ -279,7 +285,7 @@ Enter Value: """)
     
     
     
-    def delete_graph(self, username, token):
+    def delete_graph(self, username, token)-> str:
         """
         [Input] 1: Username
         [Input] 2: Token
@@ -322,7 +328,7 @@ Enter Value: """)
 
 
 
-    def word_check(self, data):
+    def word_check(self, data)-> str:
         """
         It Slice the sentence and store into list
         Then return [Success] word 
@@ -342,5 +348,5 @@ Enter Value: """)
         return plain_text
 
 
-# screen=Graphs_Setup()
-# screen.New_Graph()
+
+

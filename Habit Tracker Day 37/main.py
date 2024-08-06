@@ -28,8 +28,8 @@ init()
 class HABIT_TRACKER_CWA:
     
     
-    
     def __init__(self):
+        
         # ? Define General Variable used throughout the program.
         self.USER_NAME = ""
         self.TOKEN = ""
@@ -41,7 +41,7 @@ class HABIT_TRACKER_CWA:
     
     
         
-    def log_sign(self):
+    def log_sign(self) -> str:
         """
         First screen When user run program
         Show options -> login -signup - Exit 
@@ -71,7 +71,7 @@ class HABIT_TRACKER_CWA:
         
         
         
-    def Home_Screen(self):
+    def Home_Screen(self)-> str:
         '''
         Input not as parameter, it ask after run the function
         Login Screen
@@ -164,7 +164,7 @@ class HABIT_TRACKER_CWA:
             
             
                 
-    def Account_Management(self):
+    def Account_Management(self)-> str:
         """
         Display Options:
         1: Update Account Credentials
@@ -201,7 +201,7 @@ class HABIT_TRACKER_CWA:
             
             
             
-    def if_user_not_found(self):
+    def if_user_not_found(self)-> str:
         """
         Display Options:
         1: Create New Account
@@ -233,7 +233,7 @@ class HABIT_TRACKER_CWA:
         
         
         
-    def Graph_Management(self):
+    def Graph_Management(self)-> str:
         """
         Display Options for graph Customization
         1: Create New Graph
@@ -263,7 +263,7 @@ class HABIT_TRACKER_CWA:
         
         choice = int(input("Enter your choice: "))
         if choice ==1:
-            graph_settings.New_Graph(self.TOKEN, self.USER_NAME)
+            graph_settings.New_Graph(self.USER_NAME, self.TOKEN)
         elif choice==2:
             graph_settings.update_graph(self.USER_NAME, self.TOKEN)
         elif choice==3:
@@ -279,7 +279,7 @@ class HABIT_TRACKER_CWA:
             
             
             
-    def add_track(self):
+    def add_track(self)-> str:
         '''
         Input not as parameter, it ask after run the function
         Input 1: Graph ID
@@ -314,7 +314,7 @@ class HABIT_TRACKER_CWA:
 
 
 
-    def update_track(self):
+    def update_track(self)-> str:
         """
         Input not as parameter, it ask after run the function
         Update your Track Value.
@@ -348,7 +348,7 @@ class HABIT_TRACKER_CWA:
             elif ask==2:
                 days = int(input("Enter your desire day to update value [1-31]:"))
                 months = int(input("Enter month of that date [1-12] :"))
-                year = int(input("Enter year of that  value [ 2024..]:"))
+                year = int(input("Enter year of that  day [ 2024..]:"))
                 quantity = input("Enter your update value :")
                 self.graph_id = input("Enter your Graph id : ")
                 manual_date = datetime(year=year, month=months,day=days).strftime("%Y%m%d")
@@ -372,7 +372,7 @@ class HABIT_TRACKER_CWA:
 
 
 
-    def delete_track(self):
+    def delete_track(self)-> str:
         """
         Delete Particular Track Permanently
         Input not as parameter, it ask after run the function
@@ -401,7 +401,7 @@ class HABIT_TRACKER_CWA:
 
 
         # ? Endpoint for getting the required value
-        ''' I used this because, the user can verify the data that he is going to delete before the program permanently deleted it '''
+        ''' I display  this because, the user can verify the data that he is going to delete before the program permanently deleted it '''
         display_endpoint = f"{self.pixela_endpoint}/{self.USER_NAME}/graphs/{self.graph_id}/{manual_date}"
         
         
@@ -433,7 +433,7 @@ class HABIT_TRACKER_CWA:
 
 
 
-    def track__particular_value(self):
+    def track__particular_value(self)-> str:
         '''
         Input not as parameter, it ask after run the function
         Easily get Particular Track Value 
@@ -484,7 +484,7 @@ class HABIT_TRACKER_CWA:
 
 
 
-    def get_entire_value(self):
+    def get_entire_value(self)-> str:
         '''
         Input not as parameter, it ask after run the function
         [Input]: Graph ID
@@ -580,7 +580,7 @@ class HABIT_TRACKER_CWA:
 
 
 
-    def graph_statistics(self):
+    def graph_statistics(self)-> str:
         '''
         Input not as parameter, it ask after run the function
         [Input]: Graph ID

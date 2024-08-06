@@ -18,7 +18,7 @@ class Account_Settings_HBT_CWA:
         self.pixela_endpoint = "https://pixe.la/v1/users"
         self.header = ""
 
-    def sign_up(self):
+    def sign_up(self)-> str:
         """
         For New Account:
         Input not as parameter, it ask after run the function
@@ -86,7 +86,7 @@ class Account_Settings_HBT_CWA:
 
 
     #? After Signup, Graph section is display to Each New User
-    def Graphs(self):
+    def Graphs(self)-> str:
         """
         Execute the Graph Setup File
         """
@@ -95,7 +95,7 @@ class Account_Settings_HBT_CWA:
 
 
 
-    def update_user(self):
+    def update_user(self)-> str:
         """
         Update User Token
         Input not as parameter, it ask after run the function
@@ -153,7 +153,7 @@ class Account_Settings_HBT_CWA:
             
             
             
-    def delete_user(self):
+    def delete_user(self)-> str:
         """
         Delete User Permanently.
         Input not as parameter, it ask after run the function yp
@@ -202,7 +202,7 @@ class Account_Settings_HBT_CWA:
 
 
 
-    def word_check(self, data):
+    def word_check(self, data)-> str:
         """
         It Slice the sentence and store into list
         Then return [Success] word 
@@ -222,6 +222,3 @@ class Account_Settings_HBT_CWA:
         return plain_text
 
 
-# screen = Account_Settings_HBT_CWA()
-# screen.sign_up()
-# # screen.update_user()
