@@ -28,6 +28,10 @@ class Graphs_Setup:
         self.Graph_name_update=""
         self.Graph_unit=""
         self.pixela_endpoint = f"https://pixe.la/v1/users/"
+        self.color=""
+        self.time_zone=""
+        self.Graph_unit=""
+        self.Graph_name_update=""
     
     
     
@@ -54,10 +58,13 @@ class Graphs_Setup:
         
     def New_Graph(self, user_name, token):
         """
-        Input 1
-        Input 2
-        Input 3
-        Input 4
+        [Input 1] : username
+        [Input 2] : Token
+        Input 1:  Graph ID
+        Input 2:  unit type
+        Input 3:  quantity type [int,float] 
+        Input 4:  Graph color
+        Input 5:  Time Zone
         """
         
         self.user_name = user_name
@@ -73,7 +80,7 @@ class Graphs_Setup:
         self.graph_id_note()
         
         print(f"-------------  {Fore.YELLOW}Enter All Required Values of Graph{Style.RESET_ALL} -------------------\n")
-        User_Graph_ID = input("Enter  New your Graph ID   please [ID can't Change after submit]:")
+        User_Graph_ID = input("Enter  New Graph ID  please. [ID can't Change after submit]:")
         Graph_name = input("Enter New  Graph Name please:")
         Graph_unit = input("""Enter type of unit that your quantity should be tracked,[Kilogram, Calory , Hours ] :""").lower()
         Graph_type = input("Enter  type of quantity [ int [1,2..] or float [2.3,5.3]  ]: ").lower()
@@ -105,8 +112,14 @@ Enter Value: """))
                 color = "kuro"
 
         except TypeError as e:
-            print("You Entered Wrong Type of Value.")
-            
+            print(f"{Fore.RED}You Entered Wrong Type of Value.{Style.RESET_ALL}")
+        print(f"{Fore.LIGHTGREEN_EX}Visit the given link and find your time zone\naccording to your country.{Style.RESET_ALL}")
+        print(f"{"https://en.wikipedia.org/wiki/List_of_tz_database_time_zones"}")
+        print(f"""{Fore.BLACK}For Example:
+         Pakistan : Asia/Karachi
+         Turkey   : Turkey
+        {Style.RESET_ALL}""")
+        time_zone=input("Enter your time zone : ")
             
         graph_params = {
             "id": User_Graph_ID,
@@ -114,6 +127,7 @@ Enter Value: """))
             "unit": Graph_unit,
             "type": Graph_type,
             "color": color,
+            "timezone":time_zone
         }
         
         
@@ -183,7 +197,8 @@ Enter Value: """))
         print(f"""1: Change Graph Name.
 2: Change Graph color.
 3: Change Graph Unit.
-4: Exit.""")
+4: Change Time Zone.
+5: Exit.""")
         
         ask = input("Enter Your Choice: ")
         try:
@@ -203,29 +218,38 @@ Enter Value: """)
                 try:
                     color_code = int(color_code)
                     if color_code == 1:
-                        color = "shibafu"
+                        self.color = "shibafu"
                     elif color_code == 2:
-                        color = "momiji"
+                        self.color = "momiji"
                     elif color_code == 3:
-                        color = "sora"
+                        self.color = "sora"
                     elif color_code == 4:
-                        color = "ichou"
+                        self.color = "ichou"
                     elif color_code == 5:
-                        color = "ajisai"
+                        self.color = "ajisai"
                     elif color_code == 6:
-                        color = "kuro"
+                        self.color = "kuro"
                 except TypeError as e:
                     print("Enter Valid Option.")
             elif ask == 3 :
                 self.Graph_unit = input("""Enter type of unit that your quantity should be tracked,[Kilogram, Calory , Hours ] :""").lower()
+            elif ask==4:
+                print(f"{Fore.LIGHTGREEN_EX}Visit the given link and find your time zone\naccording to your country.{Style.RESET_ALL}")
+                print(f"{"https://en.wikipedia.org/wiki/List_of_tz_database_time_zones"}")
+                print(f"""{Fore.BLACK}For Example:
+                Pakistan : Asia/Karachi
+                Turkey   : Turkey
+                {Style.RESET_ALL}""")
+                self.time_zone=input("Enter your time zone : ")    
+                
         except TypeError as e:
             print("Enter Valid Option.")
         
-            
         graph_params = {
             "name": self.Graph_name_update,
             "unit": self.Graph_unit,
-            "color": color,
+            "color": self.color,
+            "timezone":self.time_zone
         }
         
         
@@ -234,7 +258,7 @@ Enter Value: """)
         }
         
         
-        # To make my code general, I take graph id for each time the user perform any action 
+        # Make it general , I take graph id for each time the user perform any action 
         self.graph_id = input("Enter your Graph id : ")
         
         

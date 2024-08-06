@@ -52,7 +52,8 @@ class HABIT_TRACKER_CWA:
         print(f"-----------     {Fore.LIGHTMAGENTA_EX}Sign Up and Log in Screen{Style.RESET_ALL}     ----------------\n")
         print(f"---------         {Fore.LIGHTYELLOW_EX}Code With Abubakar{Style.RESET_ALL}            --------------\n")
         print("\t\t1: Log in")
-        print("\t\t2: Sign Up\n")
+        print("\t\t2: Sign Up")
+        print("\t\t3: Exit\n")
         
         
         ask=int(input("Enter your Choice: "))
@@ -61,6 +62,9 @@ class HABIT_TRACKER_CWA:
         elif ask==2:
             sign_up= Account_Settings_HBT_CWA() 
             sign_up.sign_up()
+        elif ask==3:
+            print("Closing the program.....")
+            exit()
         else:
             print("Invalid choice. Please try again.")
             exit()
