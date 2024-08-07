@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Font-Sizing in HTML</title>
+</head>
+<style>
+#font-info{
+    font-size: 20px;
+}
+#pract-font{
+    color: green;
+}
+#pixel{
+    font-size: 20px;
+}
+#point{
+    font-size: 20pt;
+}
+/* footer{
+    font-size: 10px;
+} */
+#em{
+    font-size:1em;
+}
+#rem{
+    font-size:1rem;
+}
+html{
+    font-size: 50px;
+}
+</style>
+
+<body>
+    <div id="font-info">
+        <h1>Pixel</h1>
+        <ol>
+            <li>Static</li>
+            <ul>
+                <li>Pixel : px</li>
+                <li>Point : pt</li>
+            </ul>
+            <li>Relative</li>
+            <ul>
+                <li>REM:: Root</li>
+                <li>EM :: Parent</li>
+            </ul>
+        </ol>
+        <ol>
+            <li>1Px = 1/96 inch ~~ 0.26mm</li>
+            <li>1Pt = 1/72nd inch ~~ 0.35mm</li>
+            <li>1em = 100% of parent element ~~ 20px *1em =20px </li>
+            <ul>
+                <li>parent element =40px , em=2 ->40*2=80px </li>
+                <li>em change its size according to the multiple of parent element</li>
+            </ul>
+            <li>1rem = 100% of root </li>
+            <ul>
+                <li>root element =40px , rem=2 ->40*2=80px </li>
+                <li>REM change its size according to the multiple of root element</li>
+                <li>Root :: html Tag</li>
+            </ul>
+            <li>Font Weight</li>
+            <li>Font Family</li>
+        </ol>
+    </div>
+    <div id="pract-font">
+
+        <h2> Practical Visualization of each font type</h2>
+        <p id="pixel"> 20 pixel </p>
+        <p id="point"> 20 point</p>
+        <footer>
+            <p id="em"> 5 EM</p>
+            <p id="rem">20 rem</p>
+        </footer>
+    </div>
+
+
+</body>
+
+</html>
