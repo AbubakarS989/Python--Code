@@ -38,7 +38,8 @@ class HABIT_TRACKER_CWA:
         self.pixela_endpoint = "https://pixe.la/v1/users"
         self.header = {}
         self.current_date = datetime.now().strftime("%Y%m%d")
-    
+        # Initialize the Graph Modules
+        self.graph_settings=Graphs_Setup()
     
         
     def log_sign(self) -> str:
@@ -257,19 +258,18 @@ class HABIT_TRACKER_CWA:
                 {Style.RESET_ALL}""")
         
         
-        # Initialize the Graph Modules
-        graph_settings=Graphs_Setup()
+    
         
         
         choice = int(input("Enter your choice: "))
         if choice ==1:
-            graph_settings.New_Graph(self.USER_NAME, self.TOKEN)
+            self.graph_settings.New_Graph(self.USER_NAME, self.TOKEN)
         elif choice==2:
-            graph_settings.update_graph(self.USER_NAME, self.TOKEN)
+            self.graph_settings.update_graph(self.USER_NAME, self.TOKEN)
         elif choice==3:
-            graph_settings.view_graph(self.USER_NAME)
+            self.graph_settings.view_graph(self.USER_NAME)
         elif choice==4:
-            graph_settings.delete_graph(self.USER_NAME, self.TOKEN)
+            self.graph_settings.delete_graph(self.USER_NAME, self.TOKEN)
         elif choice==5:
             print("Closing the program.....")
             exit()
@@ -361,12 +361,18 @@ class HABIT_TRACKER_CWA:
             "quantity": quantity
         }
 
-
+        # {'message': 'Specified graphID not exist.', 'isSuccess': False}
+        # {'message': 'Success.', 'isSuccess': True}
         # ?  New endpoint for updating existing values
         update_endpoint = f"{self.pixela_endpoint}/{self.USER_NAME}/graphs/{self.graph_id}/{manual_date}"
         try:
             r = requests.put(url=update_endpoint,json=update_value, headers=self.header)
-            print(f"{Fore.LIGHTGREEN_EX}Your data is updated successfully.{Style.RESET_ALL}")
+            data=r.text
+            plain_text=self.graph_settings.word_check(data)
+            if plain_text=="Success":
+                print(f"{Fore.LIGHTGREEN_EX}Your data is updated successfully.{Style.RESET_ALL}")
+            else:
+                print(f"{Fore.RED}Failed to update your value:{Style.RESET_ALL}:>{data} ")
         except requests.exceptions.RequestException as e:
             print(f"{Fore.LIGHTCYAN_EX}Failed to update value for{Style.RESET_ALL} {self.date}:", e)
 
