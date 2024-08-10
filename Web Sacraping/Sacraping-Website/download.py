@@ -1,9 +1,9 @@
 import yt_dlp
 
-video_url = 'https://www.youtube.com/watch?v=JR9NX2y7Ow8&t'  # Example video
+video_url = 'https://www.youtube.com/watch?v=3vsC05rxZ8c&list=PLzMcBGfZo4-l5kVSNVKGO60V6RkXAVtp-'  # Example video
 
 ydl_opts = {
-    'outtmpl': 'Sacraping-Website/end-to-end portfolio.mp4',  # Path and filename
+    'outtmpl': 'Python-MySQL-Tutorial.mp4',  # Path and filename
     'format': 'bestaudio/best',  # Get the best quality audio and video
  
 }
