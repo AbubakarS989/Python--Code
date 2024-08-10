@@ -1,5 +1,5 @@
 
-import requests
+import requests ,json
 from bs4 import BeautifulSoup
 # website 
 link="https://appbrewery.github.io/news.ycombinator.com/"
@@ -61,6 +61,13 @@ for i,rank in enumerate(sort):
     ran_dict[i+1]={"Name":name,"Upvote":sort[i],"Links":all_links[indexs]}
 
 print(ran_dict)
+    
+# with open("Scraped_data.json","r") as f:
+#     json.load(f)
+    
+with open("Scraped_data.json","w",encoding="utf-8") as f:
+    json.dump(ran_dict,f,indent=4)
+    
 print("========================================")
 
 
