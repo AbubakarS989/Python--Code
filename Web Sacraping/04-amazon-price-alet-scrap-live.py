@@ -7,7 +7,7 @@
     # Email MSG: The product is now 99$, below the target price, Buy now!
     
     
-    
+    # ! Unable to fetch data bez of restrictions
 #? imports
 
 import json,requests
@@ -20,11 +20,12 @@ data=requests.get(url=link)
 # Make a soup
 soup=BeautifulSoup(data.text,"html.parser")
 
-# print(soup.prettify())
+print(soup.prettify())
 
-#TODO: get product title
+# #TODO: get product title
 # refine then paragraph and get the title
 description_list=soup.find_all(name="span", id="productTitle")
+print(description_list)
 description_text=description_list[0].string
 text_list=description_text.strip().split(' ')
 
@@ -44,16 +45,17 @@ print(Title)
 #TODO: get price
 
 price=soup.find_all(name="span", class_="a-price-whole")
-get_price=[float((item.getText()).split("$")[1]) for item in price]
+get_price=[float((item.getText()).split("$")[1]) for item in price ]
 
 
 static_price=get_price[0]
 
-# The product is now 99$, below the target price, Buy now!
-    
+# send email with context when condition match
 BUY_PRICE=100
 if static_price<BUY_PRICE:
     content=f"The {Title} is now {static_price} RS, below the target price, Buy now!"
     Subject="Price Alert 📢"
     print(Send_Email(content=content,Subject=Subject))
-    
+    print("yes")
+else:
+    print("No")      

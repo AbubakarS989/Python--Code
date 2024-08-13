@@ -1,6 +1,6 @@
 
 
-# Get the product data from amazon
+# Get the product data from the static amazon website
 # get the current price [float]
 # if the price drop from the current price
     # : send email to the user of [price day drop]
