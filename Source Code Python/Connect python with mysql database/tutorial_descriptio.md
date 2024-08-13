@@ -37,7 +37,19 @@ try:
 except EOFError as e:
     print(e)
 ```
-
+## If you don't wanna use EVN module
+Change your credentials with respective variables. 
+```
+try:
+    db=mysql.connector.connect(
+        host= "localhost",
+        user= "your Username", 
+        passwd= "Your Mysql Password",
+        database= "Database Name" #enter your database name after created
+    )
+except :
+    print("Error Occurred ")
+```
 ## 4. Create a Cursor Object
 After establishing a connection, create a cursor object. This cursor allows you to execute SQL queries
 ```
