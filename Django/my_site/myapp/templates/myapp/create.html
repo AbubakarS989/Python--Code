@@ -1,0 +1,21 @@
+{% extends 'myapp/base.html'%}
+
+{% comment %} title block {% endcomment %}
+{% block title%}
+Create New Forms
+{%endblock%}
+
+
+{% block content%}
+<h1>Create Page</h1>
+    <form method="post", action="/create/">
+    {% comment %} {{form.as_table}} {% endcomment %}
+    {% csrf_token %}
+    {{form.as_p}}
+    {% comment %} {{form.as_ul}} {% endcomment %}
+    <button type="submit", name="save">Create List</button>
+    </form>
+    
+ 
+{% endblock%}
+ 

@@ -19,7 +19,7 @@ from django.urls import path, include
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    # if empty then its open in the main page
-    # include the url file of myapp to the this project
+    #? if empty then its open in the main page
+    #? include the url file of myapp to the this project
     path('', include("myapp.urls")), 
 ]

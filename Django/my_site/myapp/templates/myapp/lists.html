@@ -1,0 +1,30 @@
+{% extends 'myapp/base.html'%}
+
+{% comment %} title block {% endcomment %}
+{% block title%}
+View list
+{%endblock%}
+
+
+{% block content%}
+    <h1>List page</h1><br>
+    <p>Here we see our all list with their tiems</p>
+    <br>
+    <h2>{{list.name}}</h2>
+    <ul>
+        {% for item in list.item_set.all %}
+            {% if item.complete == False %}
+                
+                <li>{{ item.text }} :Task is not completed</li>
+                <br>
+            {% elif item.complete == True %}    
+                <li>{{ item.text }} :Task is completed</li>
+                <br>
+            {% else %}
+                <p>Task status is unknown</p>
+            {% endif %}
+        {% endfor %}
+            
+        
+    </ul>
+{% endblock%}
